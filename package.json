@@ -2,7 +2,10 @@
   "name": "fluxbox",
   "version": "0.0.1",
   "description": "Flux architecture tools for React",
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BinaryMuse/fluxbox.git"
+  },
   "main": "index.js",
   "scripts": {
     "test": "npm test"
