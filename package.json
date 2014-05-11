@@ -1,0 +1,16 @@
+{
+  "name": "fluxbox",
+  "version": "0.0.0",
+  "description": "Flux architecture tools for React",
+  "repository": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "keywords": [
+    "flux",
+    "react"
+  ],
+  "author": "Brandon Tilley <brandon@brandontilley.com>",
+  "license": "MIT"
+}
