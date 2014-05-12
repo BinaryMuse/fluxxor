@@ -9,7 +9,6 @@ var createStore = function(spec) {
     var args = Array.prototype.slice.call(arguments),
         options = args[0] || {};
     Store.call(this);
-    if (spec.initialize) spec.initialize.call(this, options);
 
     for (key in spec) {
       if (key === "actions") {
@@ -22,6 +21,8 @@ var createStore = function(spec) {
         this[key] = spec[key];
       }
     }
+
+    if (spec.initialize) spec.initialize.call(this, options);
   };
 
   util.inherits(constructor, Store);
