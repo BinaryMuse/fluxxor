@@ -105,9 +105,11 @@ var Grandchild = React.createClass({
   },
 
   render: function() {
-    console.log("Flux is", this.context.flux);
+    return <button onClick={this.fireAction}>Button!</button>;
+  },
+
+  fireAction: function() {
     this.context.flux.actions.myAction("data1", "data2");
-    return <Grandchild />;
   }
 });
 
