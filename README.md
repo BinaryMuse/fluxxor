@@ -74,7 +74,7 @@ var flux = new Fluxbox.Flux(dispatcher, actions);
 where `actions` is simply an plain object of action names to function calls that
 call `this.dispatch` with the action type and payload.
 
-```
+```javascript
 var actions = {
   myAction: function(data1, data2) {
     this.dispatch("ACTION_TYPE", {data1: data1, otherData: data2});
@@ -84,7 +84,7 @@ var actions = {
 
 From within a component using the Fluxbox mixin, you can dispatch an action with
 
-```
+```javascript
 this.context.flux.actions.myAction("Some data1", "Some data2");
 ```
 
