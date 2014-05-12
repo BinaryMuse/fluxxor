@@ -15,8 +15,8 @@ Creates a new Store constructor. Stores respond to actions by checking the `acti
 ```javascript
 var MyStore = Fluxbox.createStore({
   actions: {
-    "ACTION_TYPE": "methodToCall",
-    "OTHER_ACTION_TYPE": "otherMethodToCall"
+    "ACTION_TYPE": "handleActionType",
+    "OTHER_ACTION_TYPE": "handleOtherActionType"
   },
 
   initialize: function(options) {
@@ -24,11 +24,11 @@ var MyStore = Fluxbox.createStore({
     console.log("Value of `db` was:", options.db);
   },
 
-  methodToCall: function(actionPayload) {
+  handleActionType: function(actionPayload) {
     console.log("The payload is", actionPayload);
   },
 
-  otherMethodToCall: function(actionPayload) {
+  handleOtherActionType: function(actionPayload) {
     // ...
   }
 });
@@ -74,6 +74,12 @@ var actions = {
 };
 ```
 
+From within a component using the Fluxbox mixin, you can dispatch an action with
+
+```
+this.context.flux.actions.myAction("Some data1", "Some data2");
+```
+
 ### `Fluxbox.Mixin`
 
 A mixin for the top-level component that will automatically pass `flux` as a context property to all children that declare a `flux` `contextType`.
@@ -100,6 +106,7 @@ var Grandchild = React.createClass({
 
   render: function() {
     console.log("Flux is", this.context.flux);
+    this.context.flux.actions.myAction("data1", "data2");
     return <Grandchild />;
   }
 });
