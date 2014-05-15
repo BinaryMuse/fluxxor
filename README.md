@@ -1,5 +1,5 @@
 <div align="center">
-<img src="fluxbox.png" alt="Flexbox" title="Flexbox">
+<img src="fluxbox.png" alt="Fluxbox" title="Fluxbox">
 </div>
 
 Fluxbox is a set of tools to aid in developing
