@@ -8,12 +8,21 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "mocha"
   },
   "keywords": [
-    "flux",
-    "react"
+    "react",
+    "flux"
   ],
   "author": "Brandon Tilley <brandon@brandontilley.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "envify": "^1.2.1",
+    "mocha": "^1.18.2",
+    "react": "^0.10.0"
+  },
+  "dependencies": {
+    "lodash": "^2.4.1"
+  }
 }
