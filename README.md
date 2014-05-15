@@ -1,4 +1,6 @@
-<center>![Fluxbox](fluxbox.png)</center>
+<div align="center">
+<img src="fluxbox.png" alt="Flexbox" title="Flexbox">
+</div>
 
 Fluxbox is a set of tools to aid in developing
 [React](http://facebook.github.io/react/) applications with the [Flux
