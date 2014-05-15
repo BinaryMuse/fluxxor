@@ -29,11 +29,11 @@ function createFlux() {
       this.waitFor(["PiStore"], function(piStore) {
         // this.value = piStore.getPi() * payload.radius * payload.radius;
         // this.emit("changed");
-        console.log("ONE");
+        // console.log("ONE");
         this.waitFor(["PiStore"], function(piStore) {
-          console.log("TWO");
+          // console.log("TWO");
           this.waitFor(["PiStore"], function(piStore) {
-            console.log("THREE");
+            // console.log("THREE");
             this.value = piStore.getPi() * payload.radius * payload.radius;
             this.emit("changed");
           })
@@ -66,7 +66,7 @@ describe("Waiting on other stores", function() {
     flux = createFlux();
   });
 
-  it.only("waits on other stores to finish processing an action", function(done) {
+  it("waits on other stores to finish processing an action", function(done) {
     var areaStore = flux.store("CircleAreaStore");
     expect(areaStore.getArea()).to.equal(0);
     areaStore.on("changed", function() {
