@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+
+<meta charset="utf-8">
+<title>undefined - What is Flux?</title>
+<link rel="stylesheet" type="text/css" href="/style/main.css">
+
+<a href="https://github.com/BinaryMuse/fluxbox"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+
+<div class="wrapper">
+  <header>
+    <div class="logo-container-sidebar">
+      <a href="/"><img src="/fluxbox.svg" alt="Fluxbox" title="Fluxbox" class="logo-svg"></a>
+    </div>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/what-is-flux.html">What is Flux?</a></li>
+      <li><a href="/getting-started/">Getting Started</a></li>
+      <ul>
+        <li><a href="/getting-started/installation.html">Installation</a></li>
+        <li><a href="/getting-started/quick-start.html">Quick-Start Guide</a></li>
+      </ul>
+      <li><a href="/examples/">Examples</a></li>
+      <ul>
+        <li><a href="https://github.com/BinaryMuse/fluxbox/tree/master/examples/carousel">Carousel</a></li>
+      </ul>
+      <li><a href="/documentation/">Documentation</a></li>
+      <ul>
+        <li><a href="/documentation/flux.html">Fluxbox.Flux</a></li>
+        <li><a href="/documentation/stores.html">Stores</a></li>
+        <li><a href="/documentation/actions.html">Actions</a></li>
+        <li><a href="/documentation/flux-mixin.html">Fluxbox.FluxMixin</a></li>
+        <li><a href="/documentation/store-watch-mixin.html">Fluxbox.StoreWatchMixin</a></li>
+      </ul>
+    </ul>
+  </header>
+  <section>
+    <h1 id="what-is-flux-">What is Flux?</h1>
+<p>Flux is an architecture for creating data layers in JavaScript applications. It was designed at Facebook where it is used in conjunction with the <a href="http://facebook.github.io/react/">React</a> view library.</p>
+<p>Flux is an alternative to the &quot;M&quot; and &quot;C&quot; in the MVC architecture. In MVC, a user interaction triggers code in a controller, which then coordinates changes to one or more models. When the models change, they notify one or more views, which read the new data from the models and update themselves accordingly so that the user can see that new data.</p>
+<p><img src="/images/mvc-simple.png" alt="Simple MVC"></p>
+<p>As your application grows and you add more models and views, the dependencies between the models and views in your application become more complex.</p>
+<p><img src="/images/mvc-complex.png" alt="Complex MVC"></p>
+<p>It becomes difficult to trace the code paths any given user interaction event will trigger, making it hard to understand which models will update and, in turn, which views will update. Add in the desire to have granular view updates based on changes on certain properties of certain models (rather than just re-rendering the entire view), and you can quickly end up with a codebase that&#39;s hard to debug. Additionally, if changes in models can trigger handlers in the views which themselves trigger yet more changes in the models, you can end up with a cascading series of changes that is both error-prone and difficult to debug.</p>
+<p>Flux eschews this design in favor of a one-way data flow:</p></p>
+<p><img src="/images/flux-diagram.png" alt="Flux"></p>
+<p>All user interactions with a view trigger an <em>action</em> which flows through a singleton <em>dispatcher</em>. The dispatcher is a single-point-of-entry for all actions. The dispatcher also prevents cascading updates by ensuring that only one action can be dispatched at a time.</p>
+<p>The dispatcher sends every action to all the <em>stores</em>. Stores manage data and business logic in a Flux application; each store is responsible for a part of the application&#39;s domain (rather than a single piece or collection of data). Stores update themselves in response to actions—nothing outside the store has any knowledge of how the store manages its data.</p>
+<p>Since stores have no setter methods or public properties for managing their data, testing them becomes a matter of putting them in a starting state, sending them an action, and testing that they end up in the expected final state.</p>
+<p>When stores update, they emit an event that signals that their data has changed. In a React application, a top-level view (sometimes called a &quot;controller-view&quot;) will read all the stores&#39; new data and pass it down to child components as appropriate.</p>
+<p>For a more in-depth look at the Flux architecture, check out <a href="http://facebook.github.io/react/docs/flux-overview.html">Flux Application Architecture</a> on the React site, and be sure to check out <a href="https://www.youtube.com/watch?v=nYkdrAPrdcw">Rethinking Web App Development at Facebook</a> from F8 on YouTube to hear Jing Chen talk more about Flux.</p>
+
+  </section>
+</div>
+
+</html>
