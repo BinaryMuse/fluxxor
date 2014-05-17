@@ -9,7 +9,8 @@ function createStore(storeNameToWaitOn) {
     },
 
     handleAction: function() {
-      this.waitFor([storeNameToWaitOn], function() {});
+      if (storeNameToWaitOn)
+        this.waitFor([storeNameToWaitOn], function() {});
     }
   });
 }
@@ -35,8 +36,8 @@ function createDirectCircularFlux() {
 function createIndirectCircularFlux() {
   var Store1 = createStore("Store4");
   var Store2 = createStore("Store1");
-  var Store3 = createStore("Store2");
-  var Store4 = createStore("Store3");
+  var Store3 = createStore();
+  var Store4 = createStore("Store2");
 
   var stores = {
     Store1: new Store1(),
@@ -59,13 +60,13 @@ describe("Circular waitFor dependencies", function() {
     var flux = createDirectCircularFlux();
     expect(function directCircularWaitFor() {
       flux.actions.action();
-    }).to.throw("Circular");
+    }).to.throw(/circular/i);
   });
 
-  xit("detects indirect circular waitFor calls", function() {
+  it("detects indirect circular waitFor calls", function() {
     var flux = createIndirectCircularFlux();
-    // expect(function indirectCircularWaitFor() {
+    expect(function indirectCircularWaitFor() {
       flux.actions.action();
-    // }).to.throw("Circular");
+    }).to.throw(/circular.*Store1.*Store2.*Store4/i);
   });
 });
