@@ -62,7 +62,7 @@ describe("Circular waitFor dependencies", function() {
     }).to.throw("Circular");
   });
 
-  it.only("detects indirect circular waitFor calls", function() {
+  xit("detects indirect circular waitFor calls", function() {
     var flux = createIndirectCircularFlux();
     // expect(function indirectCircularWaitFor() {
       flux.actions.action();
