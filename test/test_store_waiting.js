@@ -27,17 +27,12 @@ function createFlux() {
 
     handleCalculate: function(payload) {
       this.waitFor(["PiStore"], function(piStore) {
-        // this.value = piStore.getPi() * payload.radius * payload.radius;
-        // this.emit("changed");
-        // console.log("ONE");
         this.waitFor(["PiStore"], function(piStore) {
-          // console.log("TWO");
           this.waitFor(["PiStore"], function(piStore) {
-            // console.log("THREE");
             this.value = piStore.getPi() * payload.radius * payload.radius;
             this.emit("changed");
-          })
-        })
+          });
+        });
       });
     },
 
