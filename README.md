@@ -8,6 +8,10 @@ architecture](http://facebook.github.io/react/docs/flux-overview.html).
 
 :construction: Not ready for consumption :construction:
 
+[![Travis CI](https://api.travis-ci.org/BinaryMuse/fluxbox.svg)](https://travis-ci.org/BinaryMuse/fluxbox)
+
+[![NPM](https://nodei.co/npm/fluxbox.png?downloads=true)](https://nodei.co/npm/fluxbox/)
+
 Installation
 ------------
 
