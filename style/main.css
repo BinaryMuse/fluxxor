@@ -90,3 +90,7 @@ section > h3 {
 .index-button-container.purple a {
   background-color: #3E3773;
 }
+.hljs {
+  background: transparent;
+  font-size: 14px;
+}

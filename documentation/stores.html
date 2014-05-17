@@ -2,7 +2,7 @@
 <html lang="en">
 
 <meta charset="utf-8">
-<title>Fluxbox - Getting Started</title>
+<title>Fluxbox - Stores</title>
 <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css">
 <script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
@@ -41,11 +41,9 @@
     Licensed under <a href="http://opensource.org/licenses/MIT">the MIT license</a></p>
   </header>
   <section>
-    <h1 id="getting-started">Getting Started</h1>
-<ul>
-<li><a href="/getting-started/installation.html">Installation</a></li>
-<li><a href="/getting-started/quick-start.html">Quick-Start Guide</a></li>
-</ul>
+    <h1 id="stores">Stores</h1>
+<p>In a Flux application, the stores are responsible for managing business log and data. If you&#39;re familiar with models in the MVC or similar paradigm, it&#39;s important to understand that stores manage more than a single piece of data or a single collection—stores are responsible for a domain of the application.</p>
+<p>The <em>only</em> way to update stores is to send them an action by way of the dispatcher; stores should not have setter methods or properties that allow users to manipulate the store directly.</p>
 
   </section>
 </div>
