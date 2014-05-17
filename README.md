@@ -20,8 +20,8 @@ Installation
 Documentation
 -------------
 
-See [the wiki on GitHub](https://github.com/BinaryMuse/fluxbox/wiki) for
-in-depth documentation.
+See [the Fluxbox website](http://fluxbox.io) for in-depth documentation,
+installation instructions, and examples.
 
 License
 -------
