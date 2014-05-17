@@ -3,6 +3,14 @@
 var React = require("react");
 
 var Carousel = React.createClass({
+  propTypes: {
+    images: React.PropTypes.array.isRequired,
+    selected: React.PropTypes.number.isRequired,
+    onClickLeft: React.PropTypes.func.isRequired,
+    onClickRight: React.PropTypes.func.isRequired,
+    onSelectImage: React.PropTypes.func.isRequired
+  },
+
   render: function() {
     var left = this.props.selected * 300 * -1,
         ulStyle = {
