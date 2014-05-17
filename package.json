@@ -8,7 +8,9 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "preview-site": "wintersmith preview -C site",
+    "build-site": "wintersmith build -C site"
   },
   "keywords": [
     "react",
@@ -28,6 +30,9 @@
     "style-loader": "^0.6.3",
     "webpack": "^1.1.11",
     "webpack-dev-server": "^1.2.7",
+    "wintersmith": "^2.0.10",
+    "wintersmith-ejs": "^0.1.4",
+    "wintersmith-less": "^0.2.2"
   },
   "dependencies": {
     "lodash": "^2.4.1"

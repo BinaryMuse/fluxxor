@@ -1,0 +1,3 @@
+{
+  "plugins": ["wintersmith-ejs", "wintersmith-less"]
+}
