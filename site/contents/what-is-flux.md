@@ -20,14 +20,18 @@ It becomes difficult to trace the code paths any given user interaction event wi
 
 Flux eschews this design in favor of a one-way data flow:</p>
 
-![Flux](/images/flux-diagram.png)
+![Simple Flux](/images/flux-simple.png)
 
 All user interactions with a view trigger an *action* which flows through a singleton *dispatcher*. The dispatcher is a single-point-of-entry for all actions. The dispatcher also prevents cascading updates by ensuring that only one action can be dispatched at a time.
 
-The dispatcher sends every action to all the *stores*. Stores manage data and business logic in a Flux application; each store is responsible for a part of the application's domain (rather than a single piece or collection of data). Stores update themselves in response to actions—nothing outside the store has any knowledge of how the store manages its data.
+In a React application, a top-level view (known as a "controller-view") will read all the stores' new data and pass it down to child components as appropriate. Child components that need to update the application data will either call a function passed to it by a parent component or dispatch an action to the dispatcher.
+
+![Complex Flux](/images/flux-complex.png)
+
+The dispatcher sends every action to all the *stores*. Stores manage data and business logic in a Flux application; each store is responsible for a domain of the application (rather than a single piece or collection of data). Stores update themselves in response to actions—nothing outside the store has any knowledge of how the store manages its data.
 
 Since stores have no setter methods or public properties for managing their data, testing them becomes a matter of putting them in a starting state, sending them an action, and testing that they end up in the expected final state.
 
-When stores update, they emit an event that signals that their data has changed. In a React application, a top-level view (sometimes called a "controller-view") will read all the stores' new data and pass it down to child components as appropriate.
+When stores update, they emit an event that signals that their data has changed.
 
 For a more in-depth look at the Flux architecture, check out [Flux Application Architecture](http://facebook.github.io/react/docs/flux-overview.html) on the React site, and be sure to check out [Rethinking Web App Development at Facebook](https://www.youtube.com/watch?v=nYkdrAPrdcw) from F8 on YouTube to hear Jing Chen talk more about Flux.

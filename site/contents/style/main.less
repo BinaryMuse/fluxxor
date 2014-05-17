@@ -1,92 +1,108 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+
 body {
   font: 15px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #000;
   font-weight: 300;
   padding: 10px;
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+
+h1, h2, h3, h4, h5, h6 {
   color: #000;
 }
+
 h1 {
   font-size: 28px;
 }
-h1,
-h2,
-h3 {
+
+h1, h2, h3 {
   line-height: 1.1;
 }
+
 a {
   color: #39c;
   text-decoration: none;
   font-weight: 400;
 }
+
 .logo-container {
   text-align: center;
+
+  .logo-svg {
+    max-height: 350px;
+  }
 }
-.logo-container .logo-svg {
-  max-height: 350px;
-}
+
 .logo-container-sidebar .logo-svg {
   max-height: 150px;
 }
+
 .wrapper {
   width: 910px;
   margin: 0 auto;
 }
+
 header {
   width: 225px;
   float: left;
   position: fixed;
+
+  ul {
+    padding-left: 20px;
+  }
 }
-header ul {
-  padding-left: 20px;
-}
+
 section {
   width: 660px;
   float: right;
   padding-bottom: 50px;
+
+  > h1, > h2, > h3 {
+    padding-top: 0;
+    margin-top: 0;
+  }
 }
-section > h1,
-section > h2,
-section > h3 {
-  padding-top: 0;
-  margin-top: 0;
-}
+
 .index-button-container {
   padding-top: 20px;
   width: 220px;
   display: inline-block;
   text-align: center;
+
+  .cta {
+    font-weight: 700;
+  }
+
+  a {
+    display: inline-block;
+    width: 150px;
+    padding: 10px;
+    margin-top: 5px;
+    background-color: #ccc;
+    border-radius: 4px;
+    color: black;
+    font-weight: 700;
+    color: white;
+  }
 }
-.index-button-container .cta {
-  font-weight: 700;
-}
-.index-button-container a {
-  display: inline-block;
-  width: 150px;
-  padding: 10px;
-  margin-top: 5px;
-  background-color: #ccc;
-  border-radius: 4px;
-  color: black;
-  font-weight: 700;
-  color: white;
-}
+
 .index-button-container.teal a {
   background-color: #009A93;
 }
+
 .index-button-container.orange a {
   background-color: #E96633;
 }
+
 .index-button-container.red a {
   background-color: #D95C5C;
 }
+
 .index-button-container.purple a {
   background-color: #3E3773;
+}
+
+.hljs {
+  background: transparent;
+  font-size: 14px;
 }

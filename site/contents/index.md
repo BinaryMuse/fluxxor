@@ -7,21 +7,14 @@ template: index.ejs
   <img src="/fluxbox.svg" alt="Fluxbox" title="Fluxbox" class="logo-svg">
 </div>
 
-Fluxbox is a set of tools to facilitate building JavaScript data layers using <a href="http://facebook.github.io/react/docs/flux-overview.html">the Flux architecture</a>. It works particularly well in conjunction with <a href="http://facebook.github.io/react/">React</a> as the view layer, and contains a few helpers to make integration with React applications easier.
+Fluxbox is a set of tools to facilitate building JavaScript data layers using [the Flux architecture](http://facebook.github.io/react/docs/flux-overview.html). It works particularly well in conjunction with [React](http://facebook.github.io/react/) as the view layer, and contains a few helpers to make integration with React applications easier.
 
 The Flux architecture...
 
 * ...eschews MVC in favor of a one-way data flow
-* ...compliments React&#39;s composable components
+* ...complements React's composable components
 * ...improves data consistency
 * ...prevents hard-to-debug cascading updates
-
-Easy Install
-------------
-
-    npm install [--save] fluxbox
-
-Fluxbox is compatible with module bunders like <a href="http://browserify.org/">Browserify</a> and <a href="http://webpack.github.io/">Webpack</a>. See the <a href="/getting-started/installation.html">installation guide</a> for more details.
 
 <div class="index-button-container teal">
 <span class="cta">Learn More about Flux</span>
