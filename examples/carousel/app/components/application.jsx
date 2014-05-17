@@ -11,21 +11,13 @@ var Carousel = require("./carousel.jsx"),
 var Application = React.createClass({
   mixins: [FluxMixin, StoreWatchMixin("ImageStore", "CarouselStore")],
 
+  // Required by StoreWatchMixin
   getStateFromFlux: function() {
     var flux = this.props.flux;
     return {
       images: flux.store("ImageStore").getState(),
       carousel: flux.store("CarouselStore").getState()
     };
-  },
-
-  setStateFromStores: function() {
-    this.setState(this.getInitialState());
-  },
-
-  componentDidMount: function() {
-    this.props.flux.store("ImageStore").on("change", this.setStateFromStores);
-    this.props.flux.store("CarouselStore").on("change", this.setStateFromStores);
   },
 
   render: function() {

@@ -4,7 +4,8 @@ module.exports = {
   cache: true,
   entry: "./app/app.jsx",
   output: {
-    filename: "./app/bundle.js"
+    path: __dirname + "/app",
+    filename: "bundle.js"
   },
   devtool: "inline-source-map",
   module: {
