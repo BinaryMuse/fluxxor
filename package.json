@@ -18,9 +18,16 @@
   "license": "MIT",
   "devDependencies": {
     "chai": "^1.9.1",
+    "css-loader": "^0.6.12",
     "envify": "^1.2.1",
+    "jsx-loader": "^0.10.2",
+    "less": "^1.7.0",
+    "less-loader": "^0.7.3",
     "mocha": "^1.18.2",
-    "react": "^0.10.0"
+    "react": "^0.10.0",
+    "style-loader": "^0.6.3",
+    "webpack": "^1.1.11",
+    "webpack-dev-server": "^1.2.7",
   },
   "dependencies": {
     "lodash": "^2.4.1"
