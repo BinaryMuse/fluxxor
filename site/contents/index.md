@@ -8,7 +8,7 @@ template: index.ejs
 </div>
 
 <div class="homepage-callout">
-  <p><strong>Fluxbox</strong> is a set of tools to facilitate building JavaScript data layers using <a href="http://facebook.github.io/react/docs/flux-overview.html">the Flux architecture</a>. It works particularly well in conjunction with <a href="http://facebook.github.io/react/">React</a> as the view layer, and contains a few helpers to make integration with React applications easier.</p>
+  <p><strong>Fluxbox</strong> is a set of tools to facilitate building JavaScript data layers using <a href="http://facebook.github.io/react/docs/flux-overview.html">the Flux architecture</a> by reifying many of the core Flux concepts. It works particularly well in conjunction with <a href="http://facebook.github.io/react/">React</a> as the view layer, and contains a few helpers to make integration with React applications easier.</p>
 
   <p>The Flux architecture...</p>
 
