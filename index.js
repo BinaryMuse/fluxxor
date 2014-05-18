@@ -9,7 +9,8 @@ var Fluxbox = {
   Flux: Flux,
   FluxMixin: FluxMixin,
   StoreWatchMixin: StoreWatchMixin,
-  createStore: createStore
+  createStore: createStore,
+  version: require("./package.json").version
 };
 
 module.exports = Fluxbox;
