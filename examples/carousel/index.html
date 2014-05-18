@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+
+<meta charset="utf-8">
+<title>Fluxbox - Carousel</title>
+<link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css">
+<script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<link rel="stylesheet" type="text/css" href="/style/main.css">
+
+<a href="https://github.com/BinaryMuse/fluxbox"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+
+<div class="wrapper">
+  <header>
+    <div class="logo-container-sidebar">
+      <a href="/"><img src="/fluxbox.svg" alt="Fluxbox" title="Fluxbox" class="logo-svg"></a>
+    </div>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/what-is-flux.html">What is Flux?</a></li>
+      <li><a href="/getting-started/">Getting Started</a></li>
+      <ul>
+        <li><a href="/getting-started/installation.html">Installation</a></li>
+        <li><a href="/getting-started/quick-start.html">Quick-Start Guide</a></li>
+      </ul>
+      <li><a href="/examples/">Examples</a></li>
+      <ul>
+        <li><a href="/examples/carousel/">Carousel</a></li>
+      </ul>
+      <li><a href="/documentation/">Documentation</a></li>
+      <ul>
+        <li><a href="/documentation/flux.html">Fluxbox.Flux</a></li>
+        <li><a href="/documentation/stores.html">Stores</a></li>
+        <li><a href="/documentation/actions.html">Actions</a></li>
+        <li><a href="/documentation/flux-mixin.html">Fluxbox.FluxMixin</a></li>
+        <li><a href="/documentation/store-watch-mixin.html">Fluxbox.StoreWatchMixin</a></li>
+      </ul>
+    </ul>
+    <hr>
+    <p>Copyright &copy; 2014 <a href="https://github.com/BinaryMuse/">Brandon Tilley</a><br>
+    Licensed under <a href="http://opensource.org/licenses/MIT">the MIT license</a></p>
+  </header>
+  <section>
+    <h1 id="image-carousel">Image Carousel</h1>
+<p><div id="app"></div></p>
+<p><script src="carousel-bundle.js"></script></p>
+<style>
+.application-container {
+  width: auto !important;
+  float: none;
+  padding-bottom: 10px;
+}
+
+#app form {
+  margin-left: 35px;
+}
+</style>
+
+<p>This image carousel is a very simple React application built using Fluxbox. The source for the example can be found <a href="https://github.com/BinaryMuse/fluxbox/tree/master/examples/carousel">on GitHub</a>.</p>
+<p>The entry point of the application is <code>app/app.jsx</code>. <code>React</code> is exported to the <code>window</code> object so that the <a href="http://facebook.github.io/react/blog/2014/01/02/react-chrome-developer-tools.html">React Chrome Developer Tools</a> will appear; the <code>Fluxbox.Flux</code> instance is exported to <code>window.flux</code> so that you can manipulate the application from the standard JavaScript console (e.g. the methods on <code>window.flux.actions</code>).</p>
+<h2 id="stores">Stores</h2>
+<p>The system contains two stores:</p>
+<ul>
+<li><code>ImageStore</code> - Contains the list of images to display in the carousel</li>
+<li><code>CarouselStore</code> - Contains information about the carousel position (which image is being displayed, etc.) and ensures that the user cannot change images while a transition is in progress</li>
+</ul>
+<p>This separation is perhaps a bit contrived, but shows how you might use multiple stores in a Flux-based React application.</p>
+<h2 id="actions">Actions</h2>
+<p>There are four actions that manipulate the stores:</p>
+<ul>
+<li><code>prevImage</code> - Moves the carousel to the previous image (modifies <code>CarouselStore</code>)</li>
+<li><code>nextImage</code> - Moves the carousel to the next image (modifies <code>CarouselStore</code>)</li>
+<li><code>selectImage</code> - Moves the carousel to a specific image (modifies <code>CarouselStore</code>)</li>
+<li><code>addImage</code> - Adds an image to the carousel and moves to that image (modifies <code>ImageStore</code> and <code>CarouselStore</code>)</li>
+</ul>
+<p><code>addImage</code> is particularly interesting because the action handler inside <code>CarouselStore</code> utilizes the <code>waitFor</code> mechanism to allow the <code>ImageStore</code> to accept or reject adding the image (based on its file extension and whether the image is already in the carousel).</p>
+<h2 id="components">Components</h2>
+<ul>
+<li><code>Application</code> - The top-level component that maintains state from the stores using <code>Fluxbox.StoreWatchMixin</code></li>
+<li><code>Carousel</code> - The actual image carousel itself; all data is passed as props, and user interaction is propagated back to <code>Application</code></li>
+<li><code>ImageForm</code> - A small form for adding images to the carousel; user interaction is propagated back to <code>Application</code></li>
+</ul>
+<hr>
+<p>In this small application, only the top level <code>Application</code> component requires access to the Flux data (via <code>this.props.flux</code>). However, since <code>Application</code> mixes in <code>Fluxbox.FluxMixin</code>, all children of <code>Application</code> automatically have access to the <code>Fluxbox.Flux</code> instance at their <code>this.context.flux</code> properties.</p>
+
+  </section>
+</div>
+
+</html>
