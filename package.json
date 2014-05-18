@@ -23,6 +23,7 @@
     "chai": "^1.9.1",
     "css-loader": "^0.6.12",
     "envify": "^1.2.1",
+    "jsdom": "^0.10.5",
     "jsx-loader": "^0.10.2",
     "less": "^1.7.0",
     "less-loader": "^0.7.3",
