@@ -14,7 +14,9 @@ h6 {
   color: #000;
 }
 h1 {
-  font-size: 28px;
+  font-size: 30px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ccc;
 }
 h1,
 h2,
