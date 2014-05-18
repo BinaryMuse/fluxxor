@@ -74,10 +74,23 @@
 <p>Fluxbox is distributed <a href="https://www.npmjs.org/package/fluxbox">on npm</a>. You can install it with</p>
 <p><code>npm install [--save] fluxbox</code></p>
 <p>If you&#39;re using a client-side module bundler like <a href="http://browserify.org/">Browserify</a> or <a href="http://webpack.github.io/">Webpack</a>, you&#39;re done! Simply <code>require(&quot;fluxbox&quot;)</code> to get a reference to the library.</p>
-<h2 id="standalone-browser-builds">Standalone Browser Builds</h2>
-<p>Standalone browser builds can be found on <a href="https://github.com/BinaryMuse/fluxbox/releases">the Fluxbox releases page</a>. Browser builds use a universal module definition, and should work in CommonJS and AMD environments, as well as environments that don&#39;t use a module loader (e.g. the library is exported to <code>window.Fluxbox</code>).</p>
+<h2 id="browser-builds">Browser Builds</h2>
+<p>Browser builds and corresponding source map files can be found on <a href="https://github.com/BinaryMuse/fluxbox/releases">the Fluxbox releases page</a>. Browser builds use a universal module definition, and should work in the following environments:</p>
+<h3 id="commonjs">CommonJS</h3>
+<pre><code class="lang-javascript"><span class="keyword">var</span> Fluxbox = <span class="built_in">require</span>(<span class="string">"path/to/fluxbox"</span>);
+</code></pre>
+<h3 id="amd">AMD</h3>
+<pre><code class="lang-javascript">define(<span class="string">"someModule"</span>, [<span class="string">"Fluxbox"</span>], <span class="function"><span class="keyword">function</span><span class="params">(Fluxbox)</span> {</span>
+  <span class="comment">// ...</span>
+});
+</code></pre>
+<h3 id="standalone">Standalone</h3>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"path/to/fluxbox"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre>
+<pre><code class="lang-javascript">window.Fluxbox.createStore({ ... });
+</code></pre>
 <h2 id="getting-started">Getting Started</h2>
-<p>Check out <a href="/getting-started/quick-start.html">the quick-start guide</a> to get started building apps with Fluxbox.</p>
+<p>Check out <a href="/getting-started/quick-start.html">the quick-start guide</a> to get up-to-speed building apps with Fluxbox in no time.</p>
 
   </section>
 
