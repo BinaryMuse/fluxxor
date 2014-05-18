@@ -13,10 +13,11 @@ template: index.ejs
   <p>The Flux architecture...</p>
 
   <ul class="features">
-    <li>...eschews MVC in favor of a one-way data flow</li>
-    <li>...complements React's composable components</li>
-    <li>...improves data consistency</li>
+    <li>...eschews complex MVC hierarchies in favor of a one-way data flow</li>
+    <li>...makes it easier to reason about changes to your application's data</li>
+    <li>...helps improves data consistency</li>
     <li>...prevents hard-to-debug cascading updates</li>
+    <li>...works great with React and compliments its composable components</li>
   </ul>
 </div>
 
