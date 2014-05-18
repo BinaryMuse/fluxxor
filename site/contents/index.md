@@ -17,7 +17,7 @@ template: index.ejs
     <li>...makes it easier to reason about changes to your application's data</li>
     <li>...helps improve data consistency</li>
     <li>...prevents hard-to-debug cascading updates</li>
-    <li>...works great with React and complements its composable components</li>
+    <li>...works great with React and complements its reactive data flow</li>
   </ul>
 
   <div style="padding-top: 20px">
