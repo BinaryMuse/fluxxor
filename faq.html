@@ -2,7 +2,7 @@
 <html lang="en">
 
 <meta charset="utf-8">
-<title>Fluxbox - Actions</title>
+<title>Fluxbox - FAQ</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 <meta property="og:image" content="http://fluxbox.io/fluxbox.png">
@@ -70,38 +70,29 @@
     </div>
   </header>
   <section>
-    <h1 id="actions">Actions</h1>
-<p>Actions, which are simply combinations of a string <code>type</code> and an object <code>payload</code>, represent the intent to perform some manipulation of the data in a Flux application. They are dispatched via the aptly named dispatcher to every store the dispatcher knows about. The only way to update stores is to send them actions.</p>
-<p>To make programming with Flux more semantic, the <a href="/documentation/flux.html">Flux</a> constructor takes an object with function values; these functions can call <code>this.dispatch(type, payload)</code> to dispatch an action to the dispatcher. Dispatching an action then looks like a normal method call. As an example, imagine you want to dispatch a method to add a URL at a certain index. Dispatching manually, you would write</p>
-<pre><code class="lang-javascript">flux.dispatcher.dispatch(<span class="string">"ADD_URL"</span>, {url: <span class="string">"http://google.com"</span>, index: <span class="number">3</span>});
-</code></pre>
-<p>By using the <code>actions</code> hash, it would look more like this:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> actions = {
-  addUrl: <span class="function"><span class="keyword">function</span><span class="params">(url, index)</span> {</span>
-    <span class="keyword">this</span>.dispatch(<span class="string">"ADD_URL"</span>, {url: url, index: index});
-  }
-};
+    <h1 id="faq">FAQ</h1>
+<p><strong>Q:</strong> Why does <code>Fluxbox.FluxMixin</code> constantly throw an error?</p>
+<p><strong>A:</strong> <code>Fluxbox.FluxMixin</code> is a function that takes React as a parameter and returns the mixin:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> FluxMixin = Fluxbox.FluxMixin(React);
 
-<span class="keyword">var</span> flux = <span class="keyword">new</span> Fluxbox.Flux(stores, actions);
-
-<span class="comment">// somewhere later...</span>
-flux.actions.addUrl(<span class="string">"http://google.com"</span>, <span class="number">3</span>);
-</code></pre>
-<p><a href="/documentation/stores.html">Stores</a> respond to specific action types via the <code>actions</code> object in their spec or via calls to <code>bindActions</code> during initialization.</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> UrlStore = Fluxbox.createStore({
-  actions: {
-    <span class="string">"ADD_URL"</span>: <span class="string">"handleAddUrl"</span>
-  },
+React.createClass({
+  mixins: [FluxMixin],
 
   <span class="comment">// ...</span>
-
-  handleAddUrl: <span class="function"><span class="keyword">function</span><span class="params">(payload, type)</span> {</span>
-    <span class="keyword">this</span>.urls.splice(payload.index, <span class="number">0</span>, payload.url);
-    <span class="keyword">this</span>.emit(<span class="string">"change"</span>);
-  }
 });
 </code></pre>
-<p>See the documentation on <a href="/documentation/stores.html">stores</a> for more information.</p>
+<hr>
+
+<p><strong>Q:</strong> How do I deal with asynchronous operations in stores?</p>
+<p><strong>A:</strong> Dispatches to stores are always synchronous, but stores can perform asynchronous operations. At the end of the async call, the store can dispatch a separate action that represents the <em>availability</em> of the asynchronously-obtained data.</p>
+<hr>
+
+<p><strong>Q:</strong> Why does dispatching an action while another action is in progress throw an error?</p>
+<p><strong>A:</strong> Fluxbox prevents cascading updates where one action triggers another, and so on. See <a href="/what-is-flux.html">What is Flux</a> and <a href="http://facebook.github.io/react/docs/flux-overview.html">Flux Application Architecture</a> for more information on Flux.</p>
+<hr>
+
+<p><strong>Q:</strong> Why is Fluxbox throwing an error saying an action is already being dispatched when I&#39;m sending an action from an asynchronous operation?</p>
+<p><strong>A:</strong> Some libraries will sometimes call callbacks on the same tick, for example if data is cached. You can wrap the action dispatch call in a <code>setTimeout</code> to ensure the function is asynchronous. For bonus points, notify the author of the offending library that <a href="http://blog.ometer.com/2011/07/24/callbacks-synchronous-and-asynchronous/">their asynchronous callbacks are sometimes synchronous</a>.</p>
 
     <hr>
     See a typo? Something still not clear?

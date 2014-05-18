@@ -60,6 +60,7 @@
         <li><a href="/documentation/flux-mixin.html">Fluxbox.FluxMixin</a></li>
         <li><a href="/documentation/store-watch-mixin.html">Fluxbox.StoreWatchMixin</a></li>
       </ul>
+      <li><a href="/faq.html">FAQ</a></li>
       <li><a href="https://github.com/BinaryMuse/fluxbox">View on GitHub</a></li>
     </ul>
     <div class="sidebar-info">
@@ -70,7 +71,7 @@
   </header>
   <section>
     <h1 id="fluxbox-fluxmixin">Fluxbox.FluxMixin</h1>
-<p><code>Fluxbox.FluxMixin</code> is a simple React mixin that assists with making a <a href="/documentation/flux.html"><code>Flux</code></a> instance available to a component hierarchy. Simply pass an instance of <code>Flux</code> as a property named <code>flux</code> and mix in the component and any descendants of the component that declare <code>flux</code> in their <code>contextTypes</code> will automatically receive the flux instance on <code>this.context.flux</code>.</p>
+<p><code>Fluxbox.FluxMixin</code> is a simple React mixin that assists with making a <a href="/documentation/flux.html"><code>Flux</code></a> instance available to a component hierarchy. Simply pass an instance of <code>Flux</code> as a property named <code>flux</code> and mix in the mixin and any descendants of the component that declare <code>flux</code> in their <code>contextTypes</code> will automatically receive the flux instance on <code>this.context.flux</code>.</p>
 <p>Note that <code>FluxMixin</code> is a function that takes <code>React</code> as an argument and returns the mixin.</p>
 <p>Example:</p>
 <pre><code class="lang-javascript"><span class="keyword">var</span> React = <span class="built_in">require</span>(<span class="string">"react"</span>),
@@ -86,6 +87,12 @@
 });
 
 <span class="keyword">var</span> ChildComponent: React.createClass({
+  render: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="title">GrandchildComponent</span> /&gt;</span>;</span>
+  }
+});
+
+<span class="keyword">var</span> GrandchildComponent: React.createClass({
   contextTypes: {
     flux: React.PropTypes.object
   },
@@ -104,6 +111,9 @@
 React.renderComponent(<span class="xml"><span class="tag">&lt;<span class="title">ParentComponent</span> <span class="attribute">flux</span>=<span class="value">{flux}</span> /&gt;</span>, ...);</span>
 </code></pre>
 
+    <hr>
+    See a typo? Something still not clear?
+    <a href="https://github.com/BinaryMuse/fluxbox/issues/new">Report an issue on GitHub</a>.
   </section>
 
   <div class="footer-info">

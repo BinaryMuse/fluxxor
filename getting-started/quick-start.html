@@ -60,6 +60,7 @@
         <li><a href="/documentation/flux-mixin.html">Fluxbox.FluxMixin</a></li>
         <li><a href="/documentation/store-watch-mixin.html">Fluxbox.StoreWatchMixin</a></li>
       </ul>
+      <li><a href="/faq.html">FAQ</a></li>
       <li><a href="https://github.com/BinaryMuse/fluxbox">View on GitHub</a></li>
     </ul>
     <div class="sidebar-info">
@@ -139,7 +140,7 @@
 </code></pre>
 <h2 id="react-application">React Application</h2>
 <p>Let&#39;s build out our UI with React. Don&#39;t forget <code>/** @jsx React.DOM */</code> at the top of the file if you&#39;re using JSX!</p>
-<p>Our top-level <code>Application</code> component will use the <a href="/documentation/flux-mixin.html">FluxMixin</a> as well as the <a href="/documentation/store-watch-mixin.html">StoreWatchMixin</a> to make our lives a bit easier. It will iterate over the array of todos and emit a <code>TodoItem</code> component for each one.</p>
+<p>Our top-level <code>Application</code> component will use the <a href="/documentation/flux-mixin.html">FluxMixin</a> as well as the <a href="/documentation/store-watch-mixin.html">StoreWatchMixin</a> to make our lives a bit easier. The component will iterate over the array of todos and emit a <code>TodoItem</code> component for each one.</p>
 <p>We&#39;ll also add a quick form for adding new todo items, and a button for clearing completed todos.</p>
 <pre><code class="lang-javascript">var FluxMixin = Fluxbox.FluxMixin(React),
     StoreWatchMixin = Fluxbox.StoreWatchMixin;
@@ -183,7 +184,7 @@ var Application = React.createClass({
   }
 });
 </code></pre>
-<p>The <code>TodoItem</code> component will display and style itself based on the completion of the todo, and will dispatch an action to toggle its state.</p>
+<p>The <code>TodoItem</code> component will display and style itself based on the completion of the todo, and will dispatch an action indicating its intent to toggle its completion state.</p>
 <pre><code class="lang-javascript"><span class="keyword">var</span> TodoItem = React.createClass({
   propTypes: {
     todo: React.PropTypes.object.isRequired
@@ -213,6 +214,9 @@ var Application = React.createClass({
 <p>And that&#39;s it! We&#39;ve created a (super simple) Flux application with React and Fluxbox. You can find the full source code <a href="https://github.com/BinaryMuse/fluxbox/tree/master/examples/todo-basic">on GitHub</a>.</p>
 <script src="todo-bundle.js"></script>
 
+    <hr>
+    See a typo? Something still not clear?
+    <a href="https://github.com/BinaryMuse/fluxbox/issues/new">Report an issue on GitHub</a>.
   </section>
 
   <div class="footer-info">

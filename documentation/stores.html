@@ -60,6 +60,7 @@
         <li><a href="/documentation/flux-mixin.html">Fluxbox.FluxMixin</a></li>
         <li><a href="/documentation/store-watch-mixin.html">Fluxbox.StoreWatchMixin</a></li>
       </ul>
+      <li><a href="/faq.html">FAQ</a></li>
       <li><a href="https://github.com/BinaryMuse/fluxbox">View on GitHub</a></li>
     </ul>
     <div class="sidebar-info">
@@ -70,7 +71,7 @@
   </header>
   <section>
     <h1 id="stores">Stores</h1>
-<p>In a Flux application, the stores are responsible for managing business log and data. If you&#39;re familiar with models in the MVC or similar paradigm, it&#39;s important to understand that stores manage more than a single piece of data or a single collection—stores are responsible for a domain of the application.</p>
+<p>In a Flux application, the stores are responsible for managing business logic and data. If you&#39;re familiar with models in the MVC or similar paradigm, it&#39;s important to understand that stores manage more than a single piece of data or a single collection—stores are responsible for a domain of the application.</p>
 <p>The <em>only</em> way to update stores is to send them an action by way of the dispatcher; stores should not have setter methods or properties that allow users to manipulate the store directly. Stores register their intent to respond to certain action types and actions with those types are routed to the appropriate handlers in the stores. Handlers are called with the action&#39;s payload and type as parameters.</p>
 <p>Fluxbox supports dependencies between stores when necessary. If a store depends on data from other stores, it can wait for those stores to finish handling the currently dispatched action with the <code>waitFor</code> method.</p>
 <p>Action dispatches are synchronous; stores can perform asynchronous updates, but should fire new actions at the end of the asynchronous operation if the rest of the system should be notified of a change in state as a result of the async operation. Once a store returns anything (including <code>undefined</code>) from an action handler, that store is considered to be done with that action&#39;s dispatch (unless it calls <code>waitFor</code>).</p>
@@ -168,6 +169,9 @@ myStore.on(<span class="string">"change"</span>, <span class="function"><span cl
 });
 </code></pre>
 
+    <hr>
+    See a typo? Something still not clear?
+    <a href="https://github.com/BinaryMuse/fluxbox/issues/new">Report an issue on GitHub</a>.
   </section>
 
   <div class="footer-info">

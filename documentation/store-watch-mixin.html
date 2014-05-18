@@ -60,6 +60,7 @@
         <li><a href="/documentation/flux-mixin.html">Fluxbox.FluxMixin</a></li>
         <li><a href="/documentation/store-watch-mixin.html">Fluxbox.StoreWatchMixin</a></li>
       </ul>
+      <li><a href="/faq.html">FAQ</a></li>
       <li><a href="https://github.com/BinaryMuse/fluxbox">View on GitHub</a></li>
     </ul>
     <div class="sidebar-info">
@@ -70,7 +71,7 @@
   </header>
   <section>
     <h1 id="fluxbox-storewatchmixin">Fluxbox.StoreWatchMixin</h1>
-<p><code>Fluxbox.StoreWatchMixin</code> is a simple React mixin that assists with watching for <code>&quot;change&quot;</code> events on one or more stores. Normally, you&#39;d need to bind to store change events in <code>componentWillMount</code> and unbind them in <code>componentWillUnmount</code> to keep from leaking memory. Additionally, you&#39;d need to set up handlers to pull data from the stores during the appropriate lifecycle hooks (such as <code>getInitialState</code>).</p>
+<p><code>Fluxbox.StoreWatchMixin</code> is a simple React mixin that assists with watching for <code>&quot;change&quot;</code> events on one or more stores. Normally, you&#39;d need to bind to store change events in <code>componentWillMount</code> and unbind them in <code>componentWillUnmount</code> to keep from leaking memory. Additionally, you&#39;d need to set up handlers to pull data from the stores during change events and lifecycle hooks (such as <code>getInitialState</code>).</p>
 <p><code>StoreWatchMixin</code> simply requires that you:</p>
 <ol>
 <li>Define a method on your component called <code>getStateFromFlux</code> that returns an object representing the part of the component&#39;s state that comes from the Flux stores.</li>
@@ -98,7 +99,7 @@
 };
 <span class="keyword">var</span> actions = { ... };
 
-<span class="keyword">var</span> flux = <span class="keyword">new</span> Fluxbox.Flux(stores, actiosn);
+<span class="keyword">var</span> flux = <span class="keyword">new</span> Fluxbox.Flux(stores, actions);
 
 <span class="keyword">var</span> MyComponent = React.createClass({
   mixins: [FluxMixin, StoreWatchMixin(<span class="string">"MyStore"</span>, <span class="string">"OtherStore"</span>)],
@@ -117,6 +118,9 @@
 });
 </code></pre>
 
+    <hr>
+    See a typo? Something still not clear?
+    <a href="https://github.com/BinaryMuse/fluxbox/issues/new">Report an issue on GitHub</a>.
   </section>
 
   <div class="footer-info">
