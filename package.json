@@ -9,6 +9,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
+    "build": "webpack -p",
     "preview-site": "wintersmith preview -C site",
     "build-site": "wintersmith build -C site"
   },
