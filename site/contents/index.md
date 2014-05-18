@@ -19,6 +19,15 @@ template: index.ejs
     <li>...prevents hard-to-debug cascading updates</li>
     <li>...works great with React and compliments its composable components</li>
   </ul>
+
+  <div style="padding-top: 20px">
+    <iframe src="http://ghbtns.com/github-btn.html?user=BinaryMuse&repo=fluxbox&type=watch&count=true&size=large"
+    allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe>
+
+    <div class="tweet-button-container">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://fluxbox.io" data-via="BinaryMuse" data-size="large">Tweet</a>
+    </div>
+  </div>
 </div>
 
 <div style="clear: both" class="bottom-button-container">
