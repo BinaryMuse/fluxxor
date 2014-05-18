@@ -35,6 +35,9 @@ a {
 .logo-container .logo-svg {
   height: 350px;
 }
+.logo-container-sidebar {
+  padding-left: 15px;
+}
 .logo-container-sidebar .logo-svg {
   max-height: 150px;
 }

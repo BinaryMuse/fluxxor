@@ -25,6 +25,7 @@
       </ul>
       <li><a href="/examples/">Examples</a></li>
       <ul>
+        <li><a href="/getting-started/quick-start.html">Basic Todos</a></li>
         <li><a href="/examples/carousel/">Carousel</a></li>
       </ul>
       <li><a href="/documentation/">Documentation</a></li>
@@ -42,7 +43,147 @@
   </header>
   <section>
     <h1 id="quick-start-guide">Quick-Start Guide</h1>
-<p>Coming soon.</p>
+<p>Once you have Fluxbox and React installed, it&#39;s time to build an app! Since this should be quick and simple, we&#39;ll build with a <em>very</em> basic todo app—namely, this one right here:</p>
+<p><div id="app"></div></p>
+<script src="todo-bundle.js"></script>
+
+<h2 id="stores-and-actions">Stores and Actions</h2>
+<p>First, let&#39;s create a store to keep track of our todo items. It will respond to the following actions:</p>
+<ul>
+<li><code>&quot;ADD_TODO&quot;</code> - adds a new todo</li>
+<li><code>&quot;TOGGLE_TODO&quot;</code> - completes or uncompletes a specific todo item</li>
+<li><code>&quot;CLEAR_TODOS&quot;</code> - removes all complete todo items</li>
+</ul>
+<pre><code class="lang-javascript"><span class="keyword">var</span> TodoStore = Fluxbox.createStore({
+  actions: {
+    <span class="string">"ADD_TODO"</span>: <span class="string">"onAddTodo"</span>,
+    <span class="string">"TOGGLE_TODO"</span>: <span class="string">"onToggleTodo"</span>,
+    <span class="string">"CLEAR_TODOS"</span>: <span class="string">"onClearTodos"</span>
+  },
+
+  initialize: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">this</span>.todos = [];
+  },
+
+  onAddTodo: <span class="function"><span class="keyword">function</span><span class="params">(payload)</span> {</span>
+    <span class="keyword">this</span>.todos.push({text: payload.text, complete: <span class="literal">false</span>});
+    <span class="keyword">this</span>.emit(<span class="string">"change"</span>);
+  },
+
+  onToggleTodo: <span class="function"><span class="keyword">function</span><span class="params">(payload)</span> {</span>
+    payload.todo.complete = !payload.todo.complete;
+    <span class="keyword">this</span>.emit(<span class="string">"change"</span>);
+  },
+
+  onClearTodos: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">this</span>.todos = <span class="keyword">this</span>.todos.filter(<span class="function"><span class="keyword">function</span><span class="params">(todo)</span> {</span>
+      <span class="keyword">return</span> todo.complete;
+    });
+    <span class="keyword">this</span>.emit(<span class="string">"change"</span>);
+  },
+
+  getState: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">return</span> {
+      todos: <span class="keyword">this</span>.todos
+    };
+  }
+});
+</code></pre>
+<p>Let&#39;s create a few semantic actions to go along with our action types.</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> actions = {
+  addTodo: <span class="function"><span class="keyword">function</span><span class="params">(text)</span> {</span>
+    <span class="keyword">this</span>.dispatch(<span class="string">"ADD_TODO"</span>, {text: text});
+  },
+
+  toggleTodo: <span class="function"><span class="keyword">function</span><span class="params">(todo)</span> {</span>
+    <span class="keyword">this</span>.dispatch(<span class="string">"TOGGLE_TODO"</span>, {todo: todo});
+  },
+
+  clearTodos: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">this</span>.dispatch(<span class="string">"CLEAR_TODOS"</span>);
+  }
+};
+</code></pre>
+<p>Now we can instantiate our store and build a <code>Flux</code> instance:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> stores = {
+  TodoStore: <span class="keyword">new</span> TodoStore()
+};
+
+<span class="keyword">var</span> flux = <span class="keyword">new</span> Fluxbox.Flux(stores, actions);
+</code></pre>
+<h2 id="react-application">React Application</h2>
+<p>Let&#39;s build out our UI with React. Don&#39;t forget <code>/** @jsx React.DOM */</code> at the top of the file if you&#39;re using JSX!</p>
+<p>Our top-level <code>Application</code> component will use the <a href="/documentation/flux-mixin">FluxMixin</a> as well as the <a href="/documentation/store-watch-mixin">StoreWatchMixin</a> to make our lives a bit easier. It will iterate over the array of todos and emit a <code>TodoItem</code> component for each one.</p>
+<p>We&#39;ll also add a quick form for adding new todo items, and a button for clearing completed todos.</p>
+<pre><code class="lang-javascript">var FluxMixin = Fluxbox.FluxMixin(React),
+    StoreWatchMixin = Fluxbox.StoreWatchMixin(React);
+
+var Application = React.createClass({
+  mixins: [FluxMixin, StoreWatchMixin("TodoStore")],
+
+  getStateFromFlux: function() {
+    var flux = this.props.flux;
+    // normally one key per store, but we only have one store
+    return flux.store("TodoStore").getState();
+  },
+
+  render: function() {
+    return (
+      &lt;div&gt;
+        &lt;ul&gt;
+          {this.state.todos.map(function(todo, i) {
+            return &lt;li key={i}&gt;&lt;TodoItem todo={todo} /&gt;&lt;/li&gt;;
+          })}
+        &lt;/ul&gt;
+        &lt;form onSubmit={this.onSubmitForm}&gt;
+          &lt;input ref="input" type="text" size="30" placeholder="New Todo" /&gt;
+          &lt;input type="submit" value="Add Todo" /&gt;
+        &lt;/form&gt;
+        &lt;button onClick={this.clearCompletedTodos}&gt;Clear Completed&lt;/button&gt;
+      &lt;/div&gt;
+    );
+  },
+
+  onSubmitForm: function(e) {
+    e.preventDefault();
+    var node = this.refs.input.getDOMNode();
+    this.props.flux.actions.addTodo(node.value);
+    node.value = "";
+  },
+
+  clearCompletedTodos: function(e) {
+    this.props.flux.actions.clearTodos();
+  }
+});
+</code></pre>
+<p>The <code>TodoItem</code> component will display and style itself based on the completion of the todo, and will dispatch an action to toggle its state.</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> TodoItem = React.createClass({
+  propTypes: {
+    todo: React.PropTypes.object.isRequired
+  },
+
+  contextTypes: {
+    flux: React.PropTypes.object
+  },
+
+  render: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">var</span> style = {
+      <span class="string">"text-decration"</span>: <span class="keyword">this</span>.props.todo.complete ? <span class="string">"line-through"</span> : <span class="string">""</span>
+    };
+
+    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="title">span</span> <span class="attribute">style</span>=<span class="value">{style}</span> <span class="attribute">onClick</span>=<span class="value">{this.onClick}</span>&gt;</span>{this.props.todo.text}<span class="tag">&lt;/<span class="title">span</span>&gt;</span>;</span>
+  },
+
+  onClick: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">this</span>.context.flux.actions.toggleTodo(<span class="keyword">this</span>.props.todo);
+  }
+});
+</code></pre>
+<h2 id="bringing-it-together">Bringing it Together</h2>
+<p>Now that we have a <code>Flux</code> instance and all our components are defined, we can finally render our app. We&#39;ll put it inside a <code>div</code> in our HTML with an ID of &quot;app&quot;.</p>
+<pre><code class="lang-javascript">React.renderComponent(<span class="xml"><span class="tag">&lt;<span class="title">Application</span> <span class="attribute">flux</span>=<span class="value">{flux}</span> /&gt;</span>, document.getElementById("app"));</span>
+</code></pre>
+<p>And that&#39;s it! We&#39;ve created a (super simple) Flux application with React and Fluxbox. You can find the full source code <a href="https://github.com/BinaryMuse/fluxbox/tree/master/examples/todo-basic">on GitHub</a>.</p>
 
   </section>
 </div>
