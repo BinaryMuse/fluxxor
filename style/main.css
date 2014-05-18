@@ -44,7 +44,7 @@ a {
 .homepage-callout {
   float: left;
   width: 520px;
-  padding-top: 30px;
+  padding-top: 0;
 }
 .wrapper {
   width: 910px;
@@ -59,6 +59,12 @@ header {
 }
 header ul {
   padding-left: 20px;
+}
+.tweet-button-container {
+  display: inline-block;
+}
+.tweet-button-container iframe {
+  margin-bottom: 2px;
 }
 section {
   width: 660px;
