@@ -70,7 +70,8 @@ var Application = React.createClass({
 
   getStateFromFlux: function() {
     var flux = this.props.flux;
-    // normally one key per store, but we only have one store
+    // Normally we'd use one key per store, but we only have one store, so
+    // we'll use the state of the store as our entire state here.
     return flux.store("TodoStore").getState();
   },
 
