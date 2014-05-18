@@ -3,19 +3,27 @@
 
 <meta charset="utf-8">
 <title>Fluxbox - Examples</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta property="og:image" content="http://fluxbox.io/fluxbox.svg">
+<meta property="og:site_name" content="Fluxbox">
 <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css">
 <script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 <link rel="stylesheet" type="text/css" href="/style/main.css">
 
-<a href="https://github.com/BinaryMuse/fluxbox"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+<a class="github-banner" href="https://github.com/BinaryMuse/fluxbox"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
 
 <div class="wrapper">
   <header>
     <div class="logo-container-sidebar">
       <a href="/"><img src="/fluxbox.svg" alt="Fluxbox" title="Fluxbox" class="logo-svg"></a>
     </div>
-    <ul>
+    <div class="show-hide-nav">
+      <a href="#" class="show-nav">Show Navigation</a>
+      <a href="#" class="hide-nav">Hide Navigation</a>
+    </div>
+    <ul class="nav-list">
       <li><a href="/">Home</a></li>
       <li><a href="/what-is-flux.html">What is Flux?</a></li>
       <li><a href="/getting-started/">Getting Started</a></li>
@@ -37,9 +45,12 @@
         <li><a href="/documentation/store-watch-mixin.html">Fluxbox.StoreWatchMixin</a></li>
       </ul>
     </ul>
-    <hr>
-    <p>Copyright &copy; 2014 <a href="https://github.com/BinaryMuse/">Brandon Tilley</a><br>
-    Licensed under <a href="http://opensource.org/licenses/MIT">the MIT license</a></p>
+    <div class="sidebar-info">
+      <hr>
+      <p>Copyright &copy; 2014 <a href="https://github.com/BinaryMuse/">Brandon Tilley</a><br>
+      Licensed under <a href="http://opensource.org/licenses/MIT">the MIT license</a><br>
+      <a href="https://github.com/BinaryMuse/fluxbox">Available on GitHub</a></p>
+    </div>
   </header>
   <section>
     <h1 id="examples">Examples</h1>
@@ -49,7 +60,30 @@
 </ul>
 
   </section>
+
+  <div class="footer-info">
+    <hr>
+    <p>Copyright &copy; 2014 <a href="https://github.com/BinaryMuse/">Brandon Tilley</a><br>
+    Licensed under <a href="http://opensource.org/licenses/MIT">the MIT license</a><br>
+    <a href="https://github.com/BinaryMuse/fluxbox">Available on GitHub</a></p>
+  </div>
 </div>
+
+<script>
+document.querySelectorAll(".show-nav")[0].addEventListener("click", function(ev) {
+  ev.preventDefault();
+  document.querySelectorAll(".nav-list")[0].style.display = 'block';
+  document.querySelectorAll(".show-nav")[0].style.display = 'none';
+  document.querySelectorAll(".hide-nav")[0].style.display = 'block';
+});
+
+document.querySelectorAll(".hide-nav")[0].addEventListener("click", function(ev) {
+  ev.preventDefault();
+  document.querySelectorAll(".nav-list")[0].style.display = 'none';
+  document.querySelectorAll(".show-nav")[0].style.display = 'block';
+  document.querySelectorAll(".hide-nav")[0].style.display = 'none';
+});
+</script>
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -61,7 +95,6 @@
   ga('require', 'displayfeatures');
   ga('require', 'linkid', 'linkid.js');
   ga('send', 'pageview');
-
 </script>
 
 </html>
