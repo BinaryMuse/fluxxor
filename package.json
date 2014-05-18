@@ -1,6 +1,6 @@
 {
   "name": "fluxbox",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Flux architecture tools for React",
   "repository": {
     "type": "git",
