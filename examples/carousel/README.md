@@ -7,6 +7,8 @@ This is a small example React application using Fluxbox.
 
 To run, simply open `app/index.html` in your web browser—`index.html`, `bundle.js`, and the `images/` directory are the only files required to run the application (`bundle.js` is build with [Webpack](http://webpack.github.io/)). If you want to modify the source and see your updates, run `./start.sh` and point your browser to `http://localhost:8089/index.html` (you will need to install the `devDependencies` from the root of the Fluxbox project first).
 
+Alternatively, check out the running example [on the Fluxbox website](http://fluxbox.io/examples/carousel/).
+
 The entry point of the application is `app/app.jsx`. `React` is exported to the `window` object so that the [React Chrome Developer Tools](http://facebook.github.io/react/blog/2014/01/02/react-chrome-developer-tools.html) will appear; the `Fluxbox.Flux` instance is exported to `window.flux` so that you can manipulate the application from the standard JavaScript console (e.g. the methods on `window.flux.actions`).
 
 Stores
