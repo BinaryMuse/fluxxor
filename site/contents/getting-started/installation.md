@@ -15,12 +15,36 @@ Fluxbox is distributed [on npm](https://www.npmjs.org/package/fluxbox). You can 
 
 If you're using a client-side module bundler like [Browserify](http://browserify.org/) or [Webpack](http://webpack.github.io/), you're done! Simply `require("fluxbox")` to get a reference to the library.
 
-Standalone Browser Builds
--------------------------
+Browser Builds
+--------------
 
-Standalone browser builds can be found on [the Fluxbox releases page](https://github.com/BinaryMuse/fluxbox/releases). Browser builds use a universal module definition, and should work in CommonJS and AMD environments, as well as environments that don't use a module loader (e.g. the library is exported to `window.Fluxbox`).
+Browser builds and corresponding source map files can be found on [the Fluxbox releases page](https://github.com/BinaryMuse/fluxbox/releases). Browser builds use a universal module definition, and should work in the following environments:
+
+### CommonJS
+
+```javascript
+var Fluxbox = require("path/to/fluxbox");
+```
+
+### AMD
+
+```javascript
+define("someModule", ["Fluxbox"], function(Fluxbox) {
+  // ...
+});
+```
+
+### Standalone
+
+```html
+<script src="path/to/fluxbox"></script>
+```
+
+```javascript
+window.Fluxbox.createStore({ ... });
+```
 
 Getting Started
 ---------------
 
-Check out [the quick-start guide](/getting-started/quick-start.html) to get started building apps with Fluxbox.
+Check out [the quick-start guide](/getting-started/quick-start.html) to get up-to-speed building apps with Fluxbox in no time.
