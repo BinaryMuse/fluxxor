@@ -19,6 +19,30 @@ describe("Store", function() {
     new Store(42, 100);
   });
 
+  it("copies properties from the spec", function() {
+    var Store = Fluxbox.createStore({
+      answer: {is: 42}
+    });
+    var store = new Store();
+    expect(store.answer).to.eql({is: 42});
+  });
+
+  it("disallows reserved property names", function() {
+    var Store = Fluxbox.createStore({
+      flux: true
+    });
+    expect(function() {
+      new Store();
+    }).to.throw(/reserved.*flux/i);
+
+    var Store2 = Fluxbox.createStore({
+      waitFor: true
+    });
+    expect(function() {
+      new Store2();
+    }).to.throw(/reserved.*waitFor/i);
+  });
+
   it("allows registering actions via an actions hash", function() {
     var Store = Fluxbox.createStore({
       actions: {
