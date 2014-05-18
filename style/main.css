@@ -64,9 +64,9 @@ section {
   float: right;
   padding-bottom: 50px;
 }
-section > h1,
-section > h2,
-section > h3 {
+section > h1:first-child,
+section > h2:first-child,
+section > h3:first-child {
   padding-top: 0;
   margin-top: 0;
 }
