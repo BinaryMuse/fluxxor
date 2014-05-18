@@ -28,18 +28,16 @@ describe("Store", function() {
   });
 
   it("disallows reserved property names", function() {
-    var Store = Fluxbox.createStore({
-      flux: true
-    });
     expect(function() {
-      new Store();
+      Fluxbox.createStore({
+        flux: true
+      });
     }).to.throw(/reserved.*flux/i);
 
-    var Store2 = Fluxbox.createStore({
-      waitFor: true
-    });
     expect(function() {
-      new Store2();
+      Fluxbox.createStore({
+        waitFor: true
+      });
     }).to.throw(/reserved.*waitFor/i);
   });
 
