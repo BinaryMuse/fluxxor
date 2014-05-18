@@ -95,4 +95,14 @@ describe("FluxMixin", function() {
       done();
     });
   });
+
+  it("throws when attempting to mix in the function directly", function() {
+    var Comp = React.createClass({
+      mixins: [Fluxbox.StoreWatchMixin],
+      render: function() { return React.DOM.div(); }
+    });
+    expect(function() {
+      React.renderComponentToString(Comp());
+    }).to.throw(/StoreWatchMixin.*function/);
+  });
 });
