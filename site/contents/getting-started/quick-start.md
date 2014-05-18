@@ -89,13 +89,13 @@ React Application
 
 Let's build out our UI with React. Don't forget `/** @jsx React.DOM */` at the top of the file if you're using JSX!
 
-Our top-level `Application` component will use the [FluxMixin](/documentation/flux-mixin) as well as the [StoreWatchMixin](/documentation/store-watch-mixin) to make our lives a bit easier. It will iterate over the array of todos and emit a `TodoItem` component for each one.
+Our top-level `Application` component will use the [FluxMixin](/documentation/flux-mixin.html) as well as the [StoreWatchMixin](/documentation/store-watch-mixin.html) to make our lives a bit easier. It will iterate over the array of todos and emit a `TodoItem` component for each one.
 
 We'll also add a quick form for adding new todo items, and a button for clearing completed todos.
 
 ```javascript
 var FluxMixin = Fluxbox.FluxMixin(React),
-    StoreWatchMixin = Fluxbox.StoreWatchMixin(React);
+    StoreWatchMixin = Fluxbox.StoreWatchMixin;
 
 var Application = React.createClass({
   mixins: [FluxMixin, StoreWatchMixin("TodoStore")],

@@ -20,15 +20,13 @@ The mixin will then automatically
 3. Automatically call `setState` with the return value of `getStateFromFlux` when a store emits a `"change"` event
 4. Automatically set the component's initial state based on the return value of `getStateFromFlux` when the component mounts (note that this object is merged with any other `getDefaultState` functions defined on the component or other mixins)
 
-Note that `StoreWatchMixin` is a function that takes `React` as an argument and returns another function; that function takes the names of the stores to bind to and returns the mixin.
-
 Example:
 
 ```javascript
 var React = require("react"),
     Fluxbox = require("fluxbox"),
     FluxMixin = Fluxbox.FluxMixin(React), // or window.React, etc.
-    StoreWatchMixin = Fluxbox.StoreWatchMixin(React); // or window.React, etc.
+    StoreWatchMixin = Fluxbox.StoreWatchMixin;
 
 var MyStore = Fluxbox.createStore({ ... }),
     OtherStore = Fluxbox.createStore({ ... });

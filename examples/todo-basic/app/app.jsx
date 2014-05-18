@@ -63,7 +63,7 @@ var flux = new Fluxbox.Flux(stores, actions);
 window.flux = flux;
 
 var FluxMixin = Fluxbox.FluxMixin(React),
-    StoreWatchMixin = Fluxbox.StoreWatchMixin(React);
+    StoreWatchMixin = Fluxbox.StoreWatchMixin;
 
 var Application = React.createClass({
   mixins: [FluxMixin, StoreWatchMixin("TodoStore")],
