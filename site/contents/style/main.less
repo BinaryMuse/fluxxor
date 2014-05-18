@@ -26,7 +26,10 @@ a {
 }
 
 .logo-container {
-  text-align: center;
+  text-align: right;
+  float: left;
+  padding-right: 50px;
+  width: 350px;
 
   .logo-svg {
     max-height: 350px;
@@ -35,6 +38,11 @@ a {
 
 .logo-container-sidebar .logo-svg {
   max-height: 150px;
+}
+
+.homepage-callout {
+  float: left;
+  width: 450px;
 }
 
 .wrapper {
@@ -46,6 +54,8 @@ header {
   width: 225px;
   float: left;
   position: fixed;
+  overflow-y: auto;
+  height: 100%;
 
   ul {
     padding-left: 20px;
@@ -61,10 +71,17 @@ section {
     padding-top: 0;
     margin-top: 0;
   }
+
+  img {
+    max-width: 100%;
+  }
+}
+
+.bottom-button-container {
+  padding-top: 50px;
 }
 
 .index-button-container {
-  padding-top: 20px;
   width: 220px;
   display: inline-block;
   text-align: center;
@@ -86,23 +103,36 @@ section {
   }
 }
 
+.colored-button(@color) {
+  background-color: @color;
+  border: 2px solid darken(@color, 15%);
+
+  &:hover {
+    background-color: darken(@color, 5%);
+  }
+}
+
 .index-button-container.teal a {
-  background-color: #009A93;
+  .colored-button(#009A93);
 }
 
 .index-button-container.orange a {
-  background-color: #E96633;
+  .colored-button(#E96633);
 }
 
 .index-button-container.red a {
-  background-color: #D95C5C;
+  .colored-button(#D95C5C);
 }
 
 .index-button-container.purple a {
-  background-color: #3E3773;
+  .colored-button(#3E3773);
 }
 
 .hljs {
   background: transparent;
   font-size: 14px;
+
+  .xml {
+    opacity: 1;
+  }
 }

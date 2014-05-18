@@ -6,7 +6,7 @@ template: page.ejs
 What is Flux?
 =============
 
-Flux is an architecture for creating data layers in JavaScript applications. It was designed at Facebook where it is used in conjunction with the [React](http://facebook.github.io/react/) view library.
+Flux is an architecture for creating data layers in JavaScript applications. It was designed at Facebook along with the [React](http://facebook.github.io/react/) view library.
 
 Flux is an alternative to the "M" and "C" in the MVC architecture. In MVC, a user interaction triggers code in a controller, which then coordinates changes to one or more models. When the models change, they notify one or more views, which read the new data from the models and update themselves accordingly so that the user can see that new data.
 
