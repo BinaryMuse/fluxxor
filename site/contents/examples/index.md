@@ -6,4 +6,5 @@ template: page.ejs
 Examples
 ========
 
-* [Carousel](/examples/carousel/)
+* [Basic Todos](/getting-started/quick-start.html) is a *very* simple todo app; build this app yourself with step-by-step instructions in the [quick-start guide](/getting-started/quick-start.html).
+* [Carousel](/examples/carousel/) is a simple image carousel that uses two stores.

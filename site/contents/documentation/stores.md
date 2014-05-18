@@ -105,7 +105,7 @@ Fluxbox.createStore({
 
 ## `EventEmitter` methods
 
-Stores inherit from Node.js' `EventEmitter` prototype, and thus [inherit all its methos](http://nodejs.org/api/events.html#events_class_events_eventemitter). Most notably, stores should `emit` an event to notify the views that their data has changed.
+Stores inherit from Node.js' `EventEmitter`, and thus [inherit all its methods](http://nodejs.org/api/events.html#events_class_events_eventemitter). Most notably, stores should `emit` an event to notify the views that their data has changed.
 
 The [`StoreWatchMixin`](/documentation/store-watch-mixin.html) assists with attaching event handlers to store change events in React applications.
 
