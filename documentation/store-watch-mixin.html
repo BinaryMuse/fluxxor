@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+
+<meta charset="utf-8">
+<title>Fluxbox - StoreWatchMixin</title>
+<link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css">
+<script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<link rel="stylesheet" type="text/css" href="/style/main.css">
+
+<a href="https://github.com/BinaryMuse/fluxbox"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+
+<div class="wrapper">
+  <header>
+    <div class="logo-container-sidebar">
+      <a href="/"><img src="/fluxbox.svg" alt="Fluxbox" title="Fluxbox" class="logo-svg"></a>
+    </div>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/what-is-flux.html">What is Flux?</a></li>
+      <li><a href="/getting-started/">Getting Started</a></li>
+      <ul>
+        <li><a href="/getting-started/installation.html">Installation</a></li>
+        <li><a href="/getting-started/quick-start.html">Quick-Start Guide</a></li>
+      </ul>
+      <li><a href="/examples/">Examples</a></li>
+      <ul>
+        <li><a href="/examples/carousel/">Carousel</a></li>
+      </ul>
+      <li><a href="/documentation/">Documentation</a></li>
+      <ul>
+        <li><a href="/documentation/flux.html">Fluxbox.Flux</a></li>
+        <li><a href="/documentation/stores.html">Stores</a></li>
+        <li><a href="/documentation/actions.html">Actions</a></li>
+        <li><a href="/documentation/flux-mixin.html">Fluxbox.FluxMixin</a></li>
+        <li><a href="/documentation/store-watch-mixin.html">Fluxbox.StoreWatchMixin</a></li>
+      </ul>
+    </ul>
+    <hr>
+    <p>Copyright &copy; 2014 <a href="https://github.com/BinaryMuse/">Brandon Tilley</a><br>
+    Licensed under <a href="http://opensource.org/licenses/MIT">the MIT license</a></p>
+  </header>
+  <section>
+    <h1 id="fluxbox-storewatchmixin">Fluxbox.StoreWatchMixin</h1>
+<p><code>Fluxbox.StoreWatchMixin</code> is a simple React mixin that assists with watching for <code>&quot;change&quot;</code> events on one or more stores. Normally, you&#39;d need to bind to store change events in <code>componentWillMount</code> and unbind them in <code>componentWillUnmount</code> to keep from leaking memory. Additionally, you&#39;d need to set up handlers to pull data from the stores during the appropriate lifecycle hooks (such as <code>getInitialState</code>).</p>
+<p><code>StoreWatchMixin</code> simply requires that you:</p>
+<ol>
+<li>Define a method on your component called <code>getStateFromFlux</code> that returns an object representing the part of the component&#39;s state that comes from the Flux stores.</li>
+<li>Have a <code>prop</code> or <code>context</code> property named <code>flux</code> that points to the <code>Flux</code> instance with the stores.</li>
+</ol>
+<p>The mixin will then automatically</p>
+<ol>
+<li>Bind to <code>&quot;change&quot;</code> events for each store when the component mounts</li>
+<li>Unbind from <code>&quot;change&quot;</code> events when the component unmounts</li>
+<li>Automatically call <code>setState</code> with the return value of <code>getStateFromFlux</code> when a store emits a <code>&quot;change&quot;</code> event</li>
+<li>Automatically set the component&#39;s initial state based on the return value of <code>getStateFromFlux</code> when the component mounts (note that this object is merged with any other <code>getDefaultState</code> functions defined on the component or other mixins)</li>
+</ol>
+<p>Note that <code>StoreWatchMixin</code> is a function that takes <code>React</code> as an argument and returns another function; that function takes the names of the stores to bind to and returns the mixin.</p>
+<p>Example:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> React = <span class="built_in">require</span>(<span class="string">"react"</span>),
+    Fluxbox = <span class="built_in">require</span>(<span class="string">"fluxbox"</span>),
+    FluxMixin = Fluxbox.FluxMixin(React), <span class="comment">// or window.React, etc.</span>
+    StoreWatchMixin = Fluxbox.StoreWatchMixin(React); <span class="comment">// or window.React, etc.</span>
+
+<span class="keyword">var</span> MyStore = Fluxbox.createStore({ ... }),
+    OtherStore = Fluxbox.createStore({ ... });
+
+<span class="keyword">var</span> stores = {
+  MyStore: <span class="keyword">new</span> MyStore(),
+  OtherStore: <span class="keyword">new</span> OtherStore()
+};
+<span class="keyword">var</span> actions = { ... };
+
+<span class="keyword">var</span> flux = <span class="keyword">new</span> Fluxbox.Flux(stores, actiosn);
+
+<span class="keyword">var</span> MyComponent = React.createClass({
+  mixins: [FluxMixin, StoreWatchMixin(<span class="string">"MyStore"</span>, <span class="string">"OtherStore"</span>)],
+
+  getStateFromFlux: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">var</span> flux = <span class="keyword">this</span>.props.flux;
+    <span class="keyword">return</span> {
+      stateFromMyStore: flux.store(<span class="string">"MyStore"</span>).getSomeData(),
+      stateFromOtherStore: flux.store(<span class="string">"OtherStore"</span>).getMoreData(),
+    };
+  },
+
+  render: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="comment">// ...</span>
+  }
+});
+</code></pre>
+
+  </section>
+</div>
+
+</html>

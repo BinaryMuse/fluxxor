@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<meta charset="utf-8">
+<title>Fluxbox - FluxMixin</title>
+<link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css">
+<script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<link rel="stylesheet" type="text/css" href="/style/main.css">
+
+<a href="https://github.com/BinaryMuse/fluxbox"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+
+<div class="wrapper">
+  <header>
+    <div class="logo-container-sidebar">
+      <a href="/"><img src="/fluxbox.svg" alt="Fluxbox" title="Fluxbox" class="logo-svg"></a>
+    </div>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/what-is-flux.html">What is Flux?</a></li>
+      <li><a href="/getting-started/">Getting Started</a></li>
+      <ul>
+        <li><a href="/getting-started/installation.html">Installation</a></li>
+        <li><a href="/getting-started/quick-start.html">Quick-Start Guide</a></li>
+      </ul>
+      <li><a href="/examples/">Examples</a></li>
+      <ul>
+        <li><a href="/examples/carousel/">Carousel</a></li>
+      </ul>
+      <li><a href="/documentation/">Documentation</a></li>
+      <ul>
+        <li><a href="/documentation/flux.html">Fluxbox.Flux</a></li>
+        <li><a href="/documentation/stores.html">Stores</a></li>
+        <li><a href="/documentation/actions.html">Actions</a></li>
+        <li><a href="/documentation/flux-mixin.html">Fluxbox.FluxMixin</a></li>
+        <li><a href="/documentation/store-watch-mixin.html">Fluxbox.StoreWatchMixin</a></li>
+      </ul>
+    </ul>
+    <hr>
+    <p>Copyright &copy; 2014 <a href="https://github.com/BinaryMuse/">Brandon Tilley</a><br>
+    Licensed under <a href="http://opensource.org/licenses/MIT">the MIT license</a></p>
+  </header>
+  <section>
+    <h1 id="fluxbox-fluxmixin">Fluxbox.FluxMixin</h1>
+<p><code>Fluxbox.FluxMixin</code> is a simple React mixin that assists with making a <a href="/documentation/flux.html"><code>Flux</code></a> instance available to a component hierarchy. Simply pass an instance of <code>Flux</code> as a property named <code>flux</code> and mix in the component and any descendants of the component that declare <code>flux</code> in their <code>contextTypes</code> will automatically receive the flux instance on <code>this.context.flux</code>.</p>
+<p>Note that <code>FluxMixin</code> is a function that takes <code>React</code> as an argument and returns the mixin.</p>
+<p>Example:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> React = <span class="built_in">require</span>(<span class="string">"react"</span>),
+    Fluxbox = <span class="built_in">require</span>(<span class="string">"fluxbox"</span>),
+    FluxMixin = Fluxbox.FluxMixin(React); <span class="comment">// or window.React, etc.</span>
+
+<span class="keyword">var</span> ParentComponent = React.createClass({
+  mixins: [FluxMixin],
+
+  render: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="title">ChildComponent</span> /&gt;</span>;</span>
+  }
+});
+
+<span class="keyword">var</span> ChildComponent: React.createClass({
+  contextTypes: {
+    flux: React.PropTypes.object
+  },
+
+  render: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">onClick</span>=<span class="value">{this.onClick}</span>&gt;</span>Button!<span class="tag">&lt;/<span class="title">button</span>&gt;</span>;</span>
+  },
+
+  onClick: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">var</span> flux = <span class="keyword">this</span>.context.flux;
+    flux.actions.someAction();
+  }
+});
+
+<span class="keyword">var</span> flux = <span class="keyword">new</span> Fluxbox.Flux(...);
+React.renderComponent(<span class="xml"><span class="tag">&lt;<span class="title">ParentComponent</span> <span class="attribute">flux</span>=<span class="value">{flux}</span> /&gt;</span>, ...);</span>
+</code></pre>
+
+  </section>
+</div>
+
+</html>

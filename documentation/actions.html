@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+
+<meta charset="utf-8">
+<title>Fluxbox - Actions</title>
+<link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css">
+<script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<link rel="stylesheet" type="text/css" href="/style/main.css">
+
+<a href="https://github.com/BinaryMuse/fluxbox"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+
+<div class="wrapper">
+  <header>
+    <div class="logo-container-sidebar">
+      <a href="/"><img src="/fluxbox.svg" alt="Fluxbox" title="Fluxbox" class="logo-svg"></a>
+    </div>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/what-is-flux.html">What is Flux?</a></li>
+      <li><a href="/getting-started/">Getting Started</a></li>
+      <ul>
+        <li><a href="/getting-started/installation.html">Installation</a></li>
+        <li><a href="/getting-started/quick-start.html">Quick-Start Guide</a></li>
+      </ul>
+      <li><a href="/examples/">Examples</a></li>
+      <ul>
+        <li><a href="/examples/carousel/">Carousel</a></li>
+      </ul>
+      <li><a href="/documentation/">Documentation</a></li>
+      <ul>
+        <li><a href="/documentation/flux.html">Fluxbox.Flux</a></li>
+        <li><a href="/documentation/stores.html">Stores</a></li>
+        <li><a href="/documentation/actions.html">Actions</a></li>
+        <li><a href="/documentation/flux-mixin.html">Fluxbox.FluxMixin</a></li>
+        <li><a href="/documentation/store-watch-mixin.html">Fluxbox.StoreWatchMixin</a></li>
+      </ul>
+    </ul>
+    <hr>
+    <p>Copyright &copy; 2014 <a href="https://github.com/BinaryMuse/">Brandon Tilley</a><br>
+    Licensed under <a href="http://opensource.org/licenses/MIT">the MIT license</a></p>
+  </header>
+  <section>
+    <h1 id="actions">Actions</h1>
+<p>Actions, which are simply combinations of a string <code>type</code> and an object <code>payload</code>, represent the intent to perform some manipulation of the data in a Flux application. They are dispatched via the aptly named dispatcher to every store the dispatcher knows about. The only way to update stores is to send them actions.</p>
+<p>To make programming with Flux more semantic, the <a href="/documentation/flux.html">Flux</a> constructor takes an object with function values; these functions can call <code>this.dispatch(type, payload)</code> to dispatch an action to the dispatcher. Dispatching an action then looks like a normal method call. As an example, imagine you want to dispatch a method to add a URL at a certain index. Dispatching manually, you would write</p>
+<pre><code class="lang-javascript">flux.dispatcher.dispatch(<span class="string">"ADD_URL"</span>, {url: <span class="string">"http://google.com"</span>, index: <span class="number">3</span>});
+</code></pre>
+<p>By using the <code>actions</code> hash, it would look more like this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> actions = {
+  addUrl: <span class="function"><span class="keyword">function</span><span class="params">(url, index)</span> {</span>
+    <span class="keyword">this</span>.dispatch(<span class="string">"ADD_URL"</span>, {url: url, index: index});
+  }
+};
+
+<span class="keyword">var</span> flux = <span class="keyword">new</span> Fluxbox.Flux(stores, actions);
+
+<span class="comment">// somewhere later...</span>
+flux.actions.addUrl(<span class="string">"http://google.com"</span>, <span class="number">3</span>);
+</code></pre>
+<p><a href="/documentation/stores.html">Stores</a> respond to specific action types via the <code>actions</code> object in their spec or via calls to <code>bindActions</code> during initialization.</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> UrlStore = Fluxbox.createStore({
+  actions: {
+    <span class="string">"ADD_URL"</span>: <span class="string">"handleAddUrl"</span>
+  },
+
+  <span class="comment">// ...</span>
+
+  handleAddUrl: <span class="function"><span class="keyword">function</span><span class="params">(payload, type)</span> {</span>
+    <span class="keyword">this</span>.urls.splice(payload.index, <span class="number">0</span>, payload.url);
+    <span class="keyword">this</span>.emit(<span class="string">"change"</span>);
+  }
+});
+</code></pre>
+<p>See the documentation on <a href="/documentation/stores.html">stores</a> for more information.</p>
+
+  </section>
+</div>
+
+</html>

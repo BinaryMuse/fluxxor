@@ -27,13 +27,20 @@ a {
   font-weight: 400;
 }
 .logo-container {
-  text-align: center;
+  text-align: right;
+  float: left;
+  padding-right: 50px;
+  width: 350px;
 }
 .logo-container .logo-svg {
   max-height: 350px;
 }
 .logo-container-sidebar .logo-svg {
   max-height: 150px;
+}
+.homepage-callout {
+  float: left;
+  width: 450px;
 }
 .wrapper {
   width: 910px;
@@ -43,6 +50,8 @@ header {
   width: 225px;
   float: left;
   position: fixed;
+  overflow-y: auto;
+  height: 100%;
 }
 header ul {
   padding-left: 20px;
@@ -58,8 +67,13 @@ section > h3 {
   padding-top: 0;
   margin-top: 0;
 }
+section img {
+  max-width: 100%;
+}
+.bottom-button-container {
+  padding-top: 50px;
+}
 .index-button-container {
-  padding-top: 20px;
   width: 220px;
   display: inline-block;
   text-align: center;
@@ -79,18 +93,37 @@ section > h3 {
   color: white;
 }
 .index-button-container.teal a {
-  background-color: #009A93;
+  background-color: #009a93;
+  border: 2px solid #004e4a;
+}
+.index-button-container.teal a:hover {
+  background-color: #00817b;
 }
 .index-button-container.orange a {
-  background-color: #E96633;
+  background-color: #e96633;
+  border: 2px solid #bb4314;
+}
+.index-button-container.orange a:hover {
+  background-color: #e7551c;
 }
 .index-button-container.red a {
-  background-color: #D95C5C;
+  background-color: #d95c5c;
+  border: 2px solid #bd2c2c;
+}
+.index-button-container.red a:hover {
+  background-color: #d44747;
 }
 .index-button-container.purple a {
-  background-color: #3E3773;
+  background-color: #3e3773;
+  border: 2px solid #221e3f;
+}
+.index-button-container.purple a:hover {
+  background-color: #352f62;
 }
 .hljs {
   background: transparent;
   font-size: 14px;
+}
+.hljs .xml {
+  opacity: 1;
 }
