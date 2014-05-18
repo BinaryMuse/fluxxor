@@ -1,0 +1,5 @@
+cd examples/todo-basic && ../../node_modules/.bin/webpack -p && cd -
+cd examples/carousel && ../../node_modules/.bin/webpack -p && cd -
+
+cp examples/carousel/app/bundle.js site/contents/examples/carousel/carousel-bundle.js
+cp examples/todo-basic/app/bundle.js site/contents/getting-started/todo-bundle.js
