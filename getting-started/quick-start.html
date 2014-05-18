@@ -26,7 +26,7 @@
       <li><a href="/examples/">Examples</a></li>
       <ul>
         <li><a href="/getting-started/quick-start.html">Basic Todos</a></li>
-        <li><a href="/examples/carousel/">Carousel</a></li>
+        <li><a href="/examples/carousel/">Image Carousel</a></li>
       </ul>
       <li><a href="/documentation/">Documentation</a></li>
       <ul>
@@ -42,8 +42,8 @@
     Licensed under <a href="http://opensource.org/licenses/MIT">the MIT license</a></p>
   </header>
   <section>
-    <h1 id="quick-start-guide">Quick-Start Guide</h1>
-<p>Once you have Fluxbox and React installed, it&#39;s time to build an app! Since this should be quick and simple, we&#39;ll build with a <em>very</em> basic todo app—namely, this one right here:</p>
+    <h1 id="quick-start-guide-basic-todos-example">Quick-Start Guide / Basic Todos Example</h1>
+<p>Once you have Fluxbox and React <a href="/getting-started/installation.html">installed</a>, it&#39;s time to build an app! Since this guide is designed to cover the basics quickly, we&#39;ll start with a <em>very</em> basic todo app—namely, this one right here:</p>
 <p><div id="app"></div></p>
 <script src="todo-bundle.js"></script>
 
@@ -123,7 +123,8 @@ var Application = React.createClass({
 
   getStateFromFlux: function() {
     var flux = this.props.flux;
-    // normally one key per store, but we only have one store
+    // Normally we'd use one key per store, but we only have one store, so
+    // we'll use the state of the store as our entire state here.
     return flux.store("TodoStore").getState();
   },
 
