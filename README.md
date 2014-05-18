@@ -6,8 +6,6 @@ Fluxbox is a set of tools to aid in developing
 [React](http://facebook.github.io/react/) applications with the [Flux
 architecture](http://facebook.github.io/react/docs/flux-overview.html).
 
-:construction: Not ready for consumption :construction:
-
 [![Travis CI](https://api.travis-ci.org/BinaryMuse/fluxbox.svg)](https://travis-ci.org/BinaryMuse/fluxbox)
 
 [![NPM](https://nodei.co/npm/fluxbox.png?downloads=true)](https://nodei.co/npm/fluxbox/)
@@ -20,8 +18,11 @@ Installation
 Documentation
 -------------
 
-See [the Fluxbox website](http://fluxbox.io) for in-depth documentation,
-installation instructions, and examples.
+See [the Fluxbox website](http://fluxbox.io) for in-depth
+[documentation](http://fluxbox.io/documentation/),
+[installation instructions](http://fluxbox.io/getting-started/installation.html),
+[examples](http://fluxbox.io/examples/), and
+[a getting started guide](http://fluxbox.io/getting-started/quick-start.html).
 
 License
 -------
