@@ -6,7 +6,7 @@ template: page.ejs
 Fluxbox.FluxMixin
 =================
 
-`Fluxbox.FluxMixin` is a simple React mixin that assists with making a [`Flux`](/documentation/flux.html) instance available to a component hierarchy. Simply pass an instance of `Flux` as a property named `flux` and mix in the component and any descendants of the component that declare `flux` in their `contextTypes` will automatically receive the flux instance on `this.context.flux`.
+`Fluxbox.FluxMixin` is a simple React mixin that assists with making a [`Flux`](/documentation/flux.html) instance available to a component hierarchy. Simply pass an instance of `Flux` as a property named `flux` and mix in the mixin and any descendants of the component that declare `flux` in their `contextTypes` will automatically receive the flux instance on `this.context.flux`.
 
 Note that `FluxMixin` is a function that takes `React` as an argument and returns the mixin.
 
@@ -26,6 +26,12 @@ var ParentComponent = React.createClass({
 });
 
 var ChildComponent: React.createClass({
+  render: function() {
+    return <GrandchildComponent />;
+  }
+});
+
+var GrandchildComponent: React.createClass({
   contextTypes: {
     flux: React.PropTypes.object
   },

@@ -15,9 +15,9 @@ template: index.ejs
   <ul class="features">
     <li>...eschews complex MVC hierarchies in favor of a one-way data flow</li>
     <li>...makes it easier to reason about changes to your application's data</li>
-    <li>...helps improves data consistency</li>
+    <li>...helps improve data consistency</li>
     <li>...prevents hard-to-debug cascading updates</li>
-    <li>...works great with React and compliments its composable components</li>
+    <li>...works great with React and complements its composable components</li>
   </ul>
 
   <div style="padding-top: 20px">

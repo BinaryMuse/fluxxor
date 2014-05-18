@@ -37,7 +37,7 @@ define("someModule", ["Fluxbox"], function(Fluxbox) {
 ### Standalone
 
 ```html
-<script src="path/to/fluxbox"></script>
+<script src="path/to/fluxbox.js"></script>
 ```
 
 ```javascript

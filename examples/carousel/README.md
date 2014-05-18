@@ -42,4 +42,4 @@ Components
 
 ---
 
-In this small application, only the top level `Application` component requires access to the Flux data (via `this.props.flux`). However, since `Application` mixes in `Fluxbox.FluxMixin`, all children of `Application` automatically have access to the `Fluxbox.Flux` instance at their `this.context.flux` properties.
+In this small application, only the top level `Application` component requires access to the Flux data (via `this.props.flux`). However, since `Application` mixes in `Fluxbox.FluxMixin`, all children of `Application` with the appropriate `contextTypes` property automatically have access to the `Fluxbox.Flux` instance at their `this.context.flux` properties.

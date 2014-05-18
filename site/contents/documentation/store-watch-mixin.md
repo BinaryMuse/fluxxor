@@ -6,7 +6,7 @@ template: page.ejs
 Fluxbox.StoreWatchMixin
 =======================
 
-`Fluxbox.StoreWatchMixin` is a simple React mixin that assists with watching for `"change"` events on one or more stores. Normally, you'd need to bind to store change events in `componentWillMount` and unbind them in `componentWillUnmount` to keep from leaking memory. Additionally, you'd need to set up handlers to pull data from the stores during the appropriate lifecycle hooks (such as `getInitialState`).
+`Fluxbox.StoreWatchMixin` is a simple React mixin that assists with watching for `"change"` events on one or more stores. Normally, you'd need to bind to store change events in `componentWillMount` and unbind them in `componentWillUnmount` to keep from leaking memory. Additionally, you'd need to set up handlers to pull data from the stores during change events and lifecycle hooks (such as `getInitialState`).
 
 `StoreWatchMixin` simply requires that you:
 
@@ -37,7 +37,7 @@ var stores = {
 };
 var actions = { ... };
 
-var flux = new Fluxbox.Flux(stores, actiosn);
+var flux = new Fluxbox.Flux(stores, actions);
 
 var MyComponent = React.createClass({
   mixins: [FluxMixin, StoreWatchMixin("MyStore", "OtherStore")],
