@@ -33,7 +33,7 @@ a {
   width: 350px;
 }
 .logo-container .logo-svg {
-  max-height: 350px;
+  height: 350px;
 }
 .logo-container-sidebar .logo-svg {
   max-height: 150px;
