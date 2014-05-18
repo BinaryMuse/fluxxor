@@ -3,13 +3,12 @@ title: Quick-Start Guide
 template: page.ejs
 ---
 
-Quick-Start Guide
-=================
+Quick-Start Guide / Basic Todos Example
+=======================================
 
-Once you have Fluxbox and React installed, it's time to build an app! Since this should be quick and simple, we'll build with a *very* basic todo app—namely, this one right here:
+Once you have Fluxbox and React [installed](/getting-started/installation.html), it's time to build an app! Since this guide is designed to cover the basics quickly, we'll start with a *very* basic todo app—namely, this one right here:
 
 <div id="app"></div>
-<script src="todo-bundle.js"></script>
 
 Stores and Actions
 ------------------
@@ -103,7 +102,8 @@ var Application = React.createClass({
 
   getStateFromFlux: function() {
     var flux = this.props.flux;
-    // normally one key per store, but we only have one store
+    // Normally we'd use one key per store, but we only have one store, so
+    // we'll use the state of the store as our entire state here.
     return flux.store("TodoStore").getState();
   },
 
@@ -173,3 +173,5 @@ React.renderComponent(<Application flux={flux} />, document.getElementById("app"
 ```
 
 And that's it! We've created a (super simple) Flux application with React and Fluxbox. You can find the full source code [on GitHub](https://github.com/BinaryMuse/fluxbox/tree/master/examples/todo-basic).
+
+<script src="todo-bundle.js"></script>

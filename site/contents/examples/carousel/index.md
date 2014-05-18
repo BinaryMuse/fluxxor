@@ -7,18 +7,6 @@ Image Carousel
 ==============
 
 <div id="app"></div>
-<script src="carousel-bundle.js"></script>
-<style>
-.application-container {
-  width: auto !important;
-  float: none;
-  padding-bottom: 10px;
-}
-
-#app form {
-  margin-left: 35px;
-}
-</style>
 
 This image carousel is a very simple React application built using Fluxbox. The source for the example can be found [on GitHub](https://github.com/BinaryMuse/fluxbox/tree/master/examples/carousel).
 
@@ -56,3 +44,16 @@ Components
 ---
 
 In this small application, only the top level `Application` component requires access to the Flux data (via `this.props.flux`). However, since `Application` mixes in `Fluxbox.FluxMixin`, all children of `Application` automatically have access to the `Fluxbox.Flux` instance at their `this.context.flux` properties.
+
+<script src="carousel-bundle.js"></script>
+<style>
+.application-container {
+  width: auto !important;
+  float: none;
+  padding-bottom: 10px;
+}
+
+#app form {
+  margin-left: 35px;
+}
+</style>

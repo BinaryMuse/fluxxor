@@ -28,7 +28,7 @@ template: index.ejs
 
   <div class="index-button-container orange">
   <span class="cta">Get Up and Running</span>
-  <div class="button-container"><a href="/getting-started/">INSTALLATION</a></div>
+  <div class="button-container"><a href="/getting-started/quick-start.html">QUICK START</a></div>
   </div>
 
   <div class="index-button-container purple">
