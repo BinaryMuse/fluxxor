@@ -30,7 +30,7 @@ a {
   text-align: right;
   float: left;
   padding-right: 50px;
-  width: 350px;
+  width: 310px;
 }
 .logo-container .logo-svg {
   height: 350px;
@@ -43,7 +43,8 @@ a {
 }
 .homepage-callout {
   float: left;
-  width: 450px;
+  width: 520px;
+  padding-top: 30px;
 }
 .wrapper {
   width: 910px;
@@ -139,7 +140,7 @@ pre {
 .footer-info {
   display: none;
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 940px) {
   .wrapper {
     width: auto;
   }
@@ -156,6 +157,7 @@ pre {
   }
   .homepage-callout {
     width: auto;
+    padding-top: 0;
   }
   header {
     float: none;
@@ -180,6 +182,7 @@ pre {
   section {
     width: auto;
     float: none;
+    padding-bottom: 0;
   }
   .index-button-container {
     width: auto;
