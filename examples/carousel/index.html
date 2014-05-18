@@ -43,19 +43,7 @@
   </header>
   <section>
     <h1 id="image-carousel">Image Carousel</h1>
-<p><div id="app"></div></p>
-<p><script src="carousel-bundle.js"></script></p>
-<style>
-.application-container {
-  width: auto !important;
-  float: none;
-  padding-bottom: 10px;
-}
-
-#app form {
-  margin-left: 35px;
-}
-</style>
+<div id="app"></div>
 
 <p>This image carousel is a very simple React application built using Fluxbox. The source for the example can be found <a href="https://github.com/BinaryMuse/fluxbox/tree/master/examples/carousel">on GitHub</a>.</p>
 <p>The entry point of the application is <code>app/app.jsx</code>. <code>React</code> is exported to the <code>window</code> object so that the <a href="http://facebook.github.io/react/blog/2014/01/02/react-chrome-developer-tools.html">React Chrome Developer Tools</a> will appear; the <code>Fluxbox.Flux</code> instance is exported to <code>window.flux</code> so that you can manipulate the application from the standard JavaScript console (e.g. the methods on <code>window.flux.actions</code>).</p>
@@ -83,6 +71,18 @@
 </ul>
 <hr>
 <p>In this small application, only the top level <code>Application</code> component requires access to the Flux data (via <code>this.props.flux</code>). However, since <code>Application</code> mixes in <code>Fluxbox.FluxMixin</code>, all children of <code>Application</code> automatically have access to the <code>Fluxbox.Flux</code> instance at their <code>this.context.flux</code> properties.</p>
+<p><script src="carousel-bundle.js"></script></p>
+<style>
+.application-container {
+  width: auto !important;
+  float: none;
+  padding-bottom: 10px;
+}
+
+#app form {
+  margin-left: 35px;
+}
+</style>
 
   </section>
 </div>
