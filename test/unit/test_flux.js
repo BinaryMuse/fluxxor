@@ -17,6 +17,15 @@ describe("Flux", function() {
     expect(flux.store("Store2")).to.equal(store2);
   });
 
+  it("sets a 'flux' property on stores", function() {
+    var store1 = {};
+    var store2 = {};
+    var stores = { Store1: store1, Store2: store2 };
+    var flux = new Fluxbox.Flux(stores, {});
+    expect(store1.flux).to.equal(flux);
+    expect(store2.flux).to.equal(flux);
+  });
+
   it("binds actions' `this.dispatch` to the dispatcher", function() {
     var actions = {
       act: function() { this.dispatch("ABC", {val: 123}) }

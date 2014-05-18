@@ -8,7 +8,8 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "mocha --recursive",
+    "test": "npm run jshint && mocha --recursive",
+    "jshint": "jsxhint lib/",
     "build": "webpack -p",
     "preview-site": "wintersmith preview -C site",
     "build-site": "wintersmith build -C site"
@@ -25,6 +26,7 @@
     "envify": "^1.2.1",
     "jsdom": "^0.10.5",
     "jsx-loader": "^0.10.2",
+    "jsxhint": "^0.4.9",
     "less": "^1.7.0",
     "less-loader": "^0.7.3",
     "mocha": "^1.18.2",
