@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://raw.githubusercontent.com/BinaryMuse/fluxbox/master/fluxbox.svg" height="350" alt="Fluxbox" title="Fluxbox">
+<img src="http://fluxbox.io/fluxbox.svg" height="350" alt="Fluxbox" title="Fluxbox">
 </div>
 
 Fluxbox is a set of tools to aid in developing
