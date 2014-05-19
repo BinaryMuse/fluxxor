@@ -150,7 +150,7 @@ var TodoItem = React.createClass({
 
   render: function() {
     var style = {
-      "text-decration": this.props.todo.complete ? "line-through" : ""
+      "text-decoration": this.props.todo.complete ? "line-through" : ""
     };
 
     return <span style={style} onClick={this.onClick}>{this.props.todo.text}</span>;
