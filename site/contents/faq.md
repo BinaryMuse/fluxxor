@@ -8,7 +8,7 @@ FAQ
 
 **Q:** Why does `Fluxbox.FluxMixin` and `Fluxbox.FluxChildMixin` constantly throw an error?
 
-**A:** `Fluxbox.FluxMixin` and `Fluxbox.FluxChildMixin` are functions that takes React as a parameter and return the associated mixin:
+**A:** `Fluxbox.FluxMixin` and `Fluxbox.FluxChildMixin` are functions that take React as a parameter and return the associated mixin:
 
 ```javascript
 var FluxMixin = Fluxbox.FluxMixin(React),

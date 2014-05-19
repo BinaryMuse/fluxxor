@@ -10,7 +10,7 @@ Fluxbox.FluxMixin
 
 Keep in mind that implicitly passing data through context can make it more difficult to reason about things like `shouldComponentUpdate`. Ideally, an instance of `Flux` on the context of a child component should only be used to dispatch actions, and *not* to read data from the stores—read data from the stores at the top-level component and pass the data through props as necessary.
 
-Note that `FluxMixin` and `FluxChildMixin` are functions that takes `React` as an argument and return the associated mixin.
+Note that `FluxMixin` and `FluxChildMixin` are functions that take `React` as an argument and return the associated mixin.
 
 Example:
 
