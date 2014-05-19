@@ -104,7 +104,7 @@
 <li><code>ImageForm</code> - A small form for adding images to the carousel; user interaction is propagated back to <code>Application</code></li>
 </ul>
 <hr>
-<p>In this small application, only the top level <code>Application</code> component requires access to the Flux data (via <code>this.props.flux</code>). However, since <code>Application</code> mixes in <code>Fluxbox.FluxMixin</code>, all children of <code>Application</code> with the appropriate <code>contextTypes</code> property automatically have access to the <code>Fluxbox.Flux</code> instance at their <code>this.context.flux</code> properties.</p>
+<p>In this small application, only the top level <code>Application</code> component requires access to the Flux data. However, since <code>Application</code> mixes in <code>Fluxbox.FluxMixin</code>, any descendants of <code>Application</code> with the <code>Fluxbox.FluxChildMixin</code> would automatically have access to the <code>Fluxbox.Flux</code> instance via <code>this.getFlux()</code>.</p>
 <p><script src="carousel-bundle.js"></script></p>
 <style>
 .application-container {

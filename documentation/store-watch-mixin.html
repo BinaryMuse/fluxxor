@@ -81,7 +81,7 @@
 <p><code>StoreWatchMixin</code> simply requires that you:</p>
 <ol>
 <li>Define a method on your component called <code>getStateFromFlux</code> that returns an object representing the part of the component&#39;s state that comes from the Flux stores.</li>
-<li>Have a <code>prop</code> or <code>context</code> property named <code>flux</code> that points to the <code>Flux</code> instance with the stores.</li>
+<li>Have a <code>prop</code> or <code>context</code> property named <code>flux</code> that points to the <code>Flux</code> instance with the stores. This is automatic if you use <a href="/documentation/flux-mixin.html"><code>FluxMixin</code> and <code>FluxChildMixin</code></a>.</li>
 </ol>
 <p>The mixin will then automatically</p>
 <ol>
@@ -111,7 +111,7 @@
   mixins: [FluxMixin, StoreWatchMixin(<span class="string">"MyStore"</span>, <span class="string">"OtherStore"</span>)],
 
   getStateFromFlux: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-    <span class="keyword">var</span> flux = <span class="keyword">this</span>.props.flux;
+    <span class="keyword">var</span> flux = <span class="keyword">this</span>.getFlux();
     <span class="keyword">return</span> {
       stateFromMyStore: flux.store(<span class="string">"MyStore"</span>).getSomeData(),
       stateFromOtherStore: flux.store(<span class="string">"OtherStore"</span>).getMoreData(),
