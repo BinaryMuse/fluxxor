@@ -27,13 +27,13 @@ var ParentComponent = React.createClass({
   }
 });
 
-var ChildComponent: React.createClass({
+var ChildComponent = React.createClass({
   render: function() {
     return <GrandchildComponent />;
   }
 });
 
-var GrandchildComponent: React.createClass({
+var GrandchildComponent = React.createClass({
   contextTypes: {
     flux: React.PropTypes.object
   },
