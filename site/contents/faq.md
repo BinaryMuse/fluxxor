@@ -6,15 +6,16 @@ template: page.ejs
 FAQ
 ===
 
-**Q:** Why does `Fluxbox.FluxMixin` constantly throw an error?
+**Q:** Why does `Fluxbox.FluxMixin` and `Fluxbox.FluxChildMixin` constantly throw an error?
 
-**A:** `Fluxbox.FluxMixin` is a function that takes React as a parameter and returns the mixin:
+**A:** `Fluxbox.FluxMixin` and `Fluxbox.FluxChildMixin` are functions that takes React as a parameter and return the associated mixin:
 
 ```javascript
-var FluxMixin = Fluxbox.FluxMixin(React);
+var FluxMixin = Fluxbox.FluxMixin(React),
+    FluxChildMixin = Fluxbox.FluxChildMixin(React);
 
 React.createClass({
-  mixins: [FluxMixin],
+  mixins: [FluxMixin], // or FluxChildMixin, as appropriate
 
   // ...
 });
