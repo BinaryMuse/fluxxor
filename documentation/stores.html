@@ -2,17 +2,17 @@
 <html lang="en">
 
 <meta charset="utf-8">
-<title>Fluxbox - Stores</title>
+<title>Fluxxor - Stores</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
-<meta property="og:image" content="http://fluxbox.io/fluxbox.png">
-<meta property="og:site_name" content="Fluxbox">
+<meta property="og:image" content="http://fluxxor.com/fluxxor.png">
+<meta property="og:site_name" content="Fluxxor">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="">
-<meta name="twitter:title" content="Fluxbox">
-<meta name="twitter:description" content="Fluxbox is a set of tools to facilitate building JavaScript data layers using the Flux architecture.">
+<meta name="twitter:title" content="Fluxxor">
+<meta name="twitter:description" content="Fluxxor is a set of tools to facilitate building JavaScript data layers using the Flux architecture.">
 <meta name="twitter:creator" content="BinaryMuse">
-<meta name="twitter:image:src" content="http://fluxbox.io/fluxbox.png">
+<meta name="twitter:image:src" content="http://fluxxor.com/fluxxor.png">
 <meta name="twitter:domain" content="">
 <meta name="twitter:app:name:iphone" content="">
 <meta name="twitter:app:name:ipad" content="">
@@ -28,12 +28,12 @@
 <script>hljs.initHighlightingOnLoad();</script>
 <link rel="stylesheet" type="text/css" href="/style/main.css">
 
-<a class="github-banner" href="https://github.com/BinaryMuse/fluxbox"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+<a class="github-banner" href="https://github.com/BinaryMuse/fluxxor"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
 
 <div class="wrapper">
   <header>
     <div class="logo-container-sidebar">
-      <a href="/"><img src="/fluxbox.svg" alt="Fluxbox" title="Fluxbox" class="logo-svg"></a>
+      <a href="/"><img src="/fluxxor.svg" alt="Fluxxor" title="Fluxxor" class="logo-svg"></a>
     </div>
     <div class="show-hide-nav">
       <a href="#" class="show-nav">Show Navigation</a>
@@ -55,18 +55,18 @@
         </ul>
         <li><a href="/documentation/">Documentation</a></li>
         <ul>
-          <li><a href="/documentation/flux.html">Fluxbox.Flux</a></li>
+          <li><a href="/documentation/flux.html">Fluxxor.Flux</a></li>
           <li><a href="/documentation/stores.html">Stores</a></li>
           <li><a href="/documentation/actions.html">Actions</a></li>
-          <li><a href="/documentation/flux-mixin.html">Fluxbox.FluxMixin</a></li>
-          <li><a href="/documentation/store-watch-mixin.html">Fluxbox.StoreWatchMixin</a></li>
+          <li><a href="/documentation/flux-mixin.html">Fluxxor.FluxMixin</a></li>
+          <li><a href="/documentation/store-watch-mixin.html">Fluxxor.StoreWatchMixin</a></li>
         </ul>
         <li><a href="/faq.html">FAQ</a></li>
-        <li><a href="https://github.com/BinaryMuse/fluxbox">View on GitHub</a></li>
+        <li><a href="https://github.com/BinaryMuse/fluxxor">View on GitHub</a></li>
       </ul>
       <p>
-        <a href="https://gitter.im/BinaryMuse/fluxbox">Support and chat on Gitter</a><br>
-        <a href="https://gitter.im/BinaryMuse/fluxbox"><img src="https://badges.gitter.im/BinaryMuse/fluxbox.png"></a>
+        <a href="https://gitter.im/BinaryMuse/fluxxor">Support and chat on Gitter</a><br>
+        <a href="https://gitter.im/BinaryMuse/fluxxor"><img src="https://badges.gitter.im/BinaryMuse/fluxxor.png"></a>
       </p>
     </div>
     <div class="sidebar-info">
@@ -79,9 +79,9 @@
     <h1 id="stores">Stores</h1>
 <p>In a Flux application, the stores are responsible for managing business logic and data. If you&#39;re familiar with models in the MVC or similar paradigm, it&#39;s important to understand that stores manage more than a single piece of data or a single collection—stores are responsible for a domain of the application.</p>
 <p>The <em>only</em> way to update stores is to send them an action by way of the dispatcher; stores should not have setter methods or properties that allow users to manipulate the store directly. Stores register their intent to respond to certain action types and actions with those types are routed to the appropriate handlers in the stores. Handlers are called with the action&#39;s payload and type as parameters.</p>
-<p>Fluxbox supports dependencies between stores when necessary. If a store depends on data from other stores, it can wait for those stores to finish handling the currently dispatched action with the <code>waitFor</code> method.</p>
+<p>Fluxxor supports dependencies between stores when necessary. If a store depends on data from other stores, it can wait for those stores to finish handling the currently dispatched action with the <code>waitFor</code> method.</p>
 <p>Action dispatches are synchronous; stores can perform asynchronous updates, but should fire new actions at the end of the asynchronous operation if the rest of the system should be notified of a change in state as a result of the async operation. Once a store returns anything (including <code>undefined</code>) from an action handler, that store is considered to be done with that action&#39;s dispatch (unless it calls <code>waitFor</code>).</p>
-<h2 id="-fluxbox-createstore-spec-"><code>Fluxbox.createStore(spec)</code></h2>
+<h2 id="-fluxxor-createstore-spec-"><code>Fluxxor.createStore(spec)</code></h2>
 <p>Create a new store constructor.</p>
 <ul>
 <li><code>spec</code> - An object describing the stores created with the returned constructor.</li>
@@ -92,7 +92,7 @@
 <li><code>initialize(options)</code> - A function that will be called right after a store is instantiated. <code>options</code> is an optional object passed from the constructor.</li>
 </ul>
 <p>Example:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> MyStore = Fluxbox.createStore({
+<pre><code class="lang-javascript"><span class="keyword">var</span> MyStore = Fluxxor.createStore({
   actions: {
     <span class="string">"ACTION_TYPE"</span>: <span class="string">"handleActionType"</span>
   },
@@ -120,7 +120,7 @@
 <pre><code class="lang-javascript"><span class="keyword">var</span> ACTION_TYPE = <span class="string">"ACTION_TYPE_1"</span>,
     OTHER_ACTION_TYPE = <span class="string">"ACTION_TYPE_2"</span>;
 
-<span class="keyword">var</span> MyStore = Fluxbox.createStore({
+<span class="keyword">var</span> MyStore = Fluxxor.createStore({
   initialize: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
     <span class="keyword">this</span>.bindActions(ACTION_TYPE, <span class="keyword">this</span>.handleActionType,
                      OTHER_ACTION_TYPE, <span class="string">"handleOtherActionType"</span>);
@@ -143,7 +143,7 @@
 </ul>
 <p><code>waitFor</code> will throw if it detects circular dependencies among the stores being dispatched to.</p>
 <p>Example:</p>
-<pre><code class="lang-javascript">Fluxbox.createStore({
+<pre><code class="lang-javascript">Fluxxor.createStore({
   actions: {
     <span class="string">"ACTION_TYPE"</span>: <span class="string">"actionHandler"</span>
   },
@@ -159,7 +159,7 @@
 <p>Stores inherit from Node.js&#39; <code>EventEmitter</code>, and thus <a href="http://nodejs.org/api/events.html#events_class_events_eventemitter">inherit all its methods</a>. Most notably, stores should <code>emit</code> an event to notify the views that their data has changed.</p>
 <p>The <a href="/documentation/store-watch-mixin.html"><code>StoreWatchMixin</code></a> assists with attaching event handlers to store change events in React applications.</p>
 <p>Example:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> MyStore = Fluxbox.createStore({
+<pre><code class="lang-javascript"><span class="keyword">var</span> MyStore = Fluxxor.createStore({
   <span class="comment">// ...</span>
 
   actionHandler: <span class="function"><span class="keyword">function</span><span class="params">(payload, type)</span> {</span>
@@ -177,14 +177,14 @@ myStore.on(<span class="string">"change"</span>, <span class="function"><span cl
 
     <hr>
     See a typo? Something still not clear?
-    <a href="https://github.com/BinaryMuse/fluxbox/issues/new">Report an issue on GitHub</a>.
+    <a href="https://github.com/BinaryMuse/fluxxor/issues/new">Report an issue on GitHub</a>.
   </section>
 
   <div class="footer-info">
     <hr>
     <p>Copyright &copy; 2014 <a href="https://github.com/BinaryMuse/">Brandon Tilley</a><br>
     Licensed under <a href="http://opensource.org/licenses/MIT">the MIT license</a><br>
-    <a href="https://github.com/BinaryMuse/fluxbox">Available on GitHub</a></p>
+    <a href="https://github.com/BinaryMuse/fluxxor">Available on GitHub</a></p>
   </div>
 </div>
 
@@ -210,7 +210,7 @@ document.querySelectorAll(".hide-nav")[0].addEventListener("click", function(ev)
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-51086297-1', 'fluxbox.io');
+  ga('create', 'UA-51086297-1', 'fluxxor.com');
   ga('require', 'displayfeatures');
   ga('require', 'linkid', 'linkid.js');
   ga('send', 'pageview');
