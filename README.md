@@ -24,6 +24,13 @@ See [the Fluxbox website](http://fluxbox.io) for in-depth
 [examples](http://fluxbox.io/examples/), and
 [a getting started guide](http://fluxbox.io/getting-started/quick-start.html).
 
+Support and Chat
+----------------
+
+Get help with and chat about Fluxbox [on Gitter](https://gitter.im/BinaryMuse/fluxbox).
+
+[![Gitter chat](https://badges.gitter.im/BinaryMuse/fluxbox.png)](https://gitter.im/BinaryMuse/fluxbox)
+
 License
 -------
 
