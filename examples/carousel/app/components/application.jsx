@@ -13,7 +13,7 @@ var Application = React.createClass({
 
   // Required by StoreWatchMixin
   getStateFromFlux: function() {
-    var flux = this.props.flux;
+    var flux = this.getFlux();
     return {
       images: flux.store("ImageStore").getState(),
       carousel: flux.store("CarouselStore").getState()
@@ -34,19 +34,19 @@ var Application = React.createClass({
   },
 
   onClickLeft: function() {
-    this.props.flux.actions.prevImage();
+    this.getFlux().actions.prevImage();
   },
 
   onClickRight: function() {
-    this.props.flux.actions.nextImage();
+    this.getFlux().actions.nextImage();
   },
 
   onSelectImage: function(i) {
-    this.props.flux.actions.selectImage(i);
+    this.getFlux().actions.selectImage(i);
   },
 
   onAddUrl: function(url) {
-    this.props.flux.actions.addImage(url);
+    this.getFlux().actions.addImage(url);
   }
 });
 

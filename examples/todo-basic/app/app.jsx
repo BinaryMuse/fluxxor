@@ -63,13 +63,14 @@ var flux = new Fluxbox.Flux(stores, actions);
 window.flux = flux;
 
 var FluxMixin = Fluxbox.FluxMixin(React),
+    FluxChildMixin = Fluxbox.FluxChildMixin(React),
     StoreWatchMixin = Fluxbox.StoreWatchMixin;
 
 var Application = React.createClass({
   mixins: [FluxMixin, StoreWatchMixin("TodoStore")],
 
   getStateFromFlux: function() {
-    var flux = this.props.flux;
+    var flux = this.getFlux();
     // Normally we'd use one key per store, but we only have one store, so
     // we'll use the state of the store as our entire state here.
     return flux.store("TodoStore").getState();
@@ -95,22 +96,20 @@ var Application = React.createClass({
   onSubmitForm: function(e) {
     e.preventDefault();
     var node = this.refs.input.getDOMNode();
-    this.props.flux.actions.addTodo(node.value);
+    this.getFlux().actions.addTodo(node.value);
     node.value = "";
   },
 
   clearCompletedTodos: function(e) {
-    this.props.flux.actions.clearTodos();
+    this.getFlux().actions.clearTodos();
   }
 });
 
 var TodoItem = React.createClass({
+  mixins: [FluxChildMixin],
+
   propTypes: {
     todo: React.PropTypes.object.isRequired
-  },
-
-  contextTypes: {
-    flux: React.PropTypes.object
   },
 
   render: function() {
@@ -122,7 +121,7 @@ var TodoItem = React.createClass({
   },
 
   onClick: function() {
-    this.context.flux.actions.toggleTodo(this.props.todo);
+    this.getFlux().actions.toggleTodo(this.props.todo);
   }
 });
 

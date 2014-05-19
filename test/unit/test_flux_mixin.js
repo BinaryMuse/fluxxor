@@ -24,9 +24,7 @@ function createComponent(React, FluxMixin) {
   });
 
   var Grandchild = React.createClass({
-    contextTypes: {
-      flux: React.PropTypes.object
-    },
+    mixins: [Fluxbox.FluxChildMixin(React)],
 
     render: function() {
       return React.DOM.div();
@@ -63,12 +61,13 @@ describe("FluxMixin", function() {
     delete global.navigator;
   });
 
-  it("passes flux as context to descendants who ask for it", function() {
+  it("passes flux via getFlux() to descendants who ask for it", function() {
     var tree = TestUtils.renderIntoDocument(Parent({flux: flux}));
+    expect(tree.getFlux()).to.equal(flux);
     var child = TestUtils.findRenderedComponentWithType(tree, Child);
-    expect(child.context).to.be.null;
+    expect(child.getFlux).to.be.undefined;
     var grandchild = TestUtils.findRenderedComponentWithType(tree, Grandchild);
-    expect(grandchild.context.flux).to.equal(flux);
+    expect(grandchild.getFlux()).to.equal(flux);
   });
 
   it("throws when attempting to mix in the function directly", function() {
@@ -79,5 +78,15 @@ describe("FluxMixin", function() {
     expect(function() {
       React.renderComponentToString(Comp());
     }).to.throw(/FluxMixin.*function/);
+  });
+
+  it("throws when attempting to mix in the child function directly", function() {
+    var Comp = React.createClass({
+      mixins: [Fluxbox.FluxChildMixin],
+      render: function() { return React.DOM.div(); }
+    });
+    expect(function() {
+      React.renderComponentToString(Comp());
+    }).to.throw(/FluxChildMixin.*function/);
   });
 });

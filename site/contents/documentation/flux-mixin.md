@@ -6,7 +6,7 @@ template: page.ejs
 Fluxbox.FluxMixin
 =================
 
-`Fluxbox.FluxMixin` is a simple React mixin that assists with making a [`Flux`](/documentation/flux.html) instance available to a component hierarchy. Simply pass an instance of `Flux` as a property named `flux` and mix in the mixin and any descendants of the component that declare `flux` in their `contextTypes` will automatically receive the flux instance on `this.context.flux`.
+`Fluxbox.FluxMixin` and `Fluxbox.FluxChildMixin` is a pair of simple React mixins that assists with making a [`Flux`](/documentation/flux.html) instance available to a component hierarchy. Pass an instance of `Flux` as a property named `flux` and mix in `FluxMixin` to a top level component, and mix in `FluxChildMixin` to any child components, and the `Flux` object will be available as `this.getFlux()` in a component using either mixin.
 
 Keep in mind that implicitly passing data through context can make it more difficult to reason about things like `shouldComponentUpdate`. Ideally, an instance of `Flux` on the context of a child component should only be used to dispatch actions, and *not* to read data from the stores—read data from the stores at the top-level component and pass the data through props as necessary.
 
@@ -17,7 +17,8 @@ Example:
 ```javascript
 var React = require("react"),
     Fluxbox = require("fluxbox"),
-    FluxMixin = Fluxbox.FluxMixin(React); // or window.React, etc.
+    FluxMixin = Fluxbox.FluxMixin(React), // or window.React, etc.
+    FluxChildMixin = Fluxbox.FluxChildMixin(React); // or window.React, etc.
 
 var ParentComponent = React.createClass({
   mixins: [FluxMixin],
@@ -34,17 +35,14 @@ var ChildComponent = React.createClass({
 });
 
 var GrandchildComponent = React.createClass({
-  contextTypes: {
-    flux: React.PropTypes.object
-  },
+  mixins: [FluxChildMixin],
 
   render: function() {
     return <button onClick={this.onClick}>Button!</button>;
   },
 
   onClick: function() {
-    var flux = this.context.flux;
-    flux.actions.someAction();
+    this.getFlux().actions.someAction();
   }
 });
 
