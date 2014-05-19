@@ -32,7 +32,7 @@ a {
   text-align: right;
   float: left;
   padding-right: 50px;
-  width: 310px;
+  width: 305px;
 }
 .logo-container .logo-svg {
   height: 350px;
@@ -92,7 +92,7 @@ section img {
   padding-top: 50px;
 }
 .index-button-container {
-  width: 220px;
+  width: 222px;
   display: inline-block;
   text-align: center;
 }
