@@ -93,13 +93,13 @@
   }
 });
 
-<span class="keyword">var</span> ChildComponent: React.createClass({
+<span class="keyword">var</span> ChildComponent = React.createClass({
   render: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
     <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="title">GrandchildComponent</span> /&gt;</span>;</span>
   }
 });
 
-<span class="keyword">var</span> GrandchildComponent: React.createClass({
+<span class="keyword">var</span> GrandchildComponent = React.createClass({
   contextTypes: {
     flux: React.PropTypes.object
   },
