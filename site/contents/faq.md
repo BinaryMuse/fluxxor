@@ -6,6 +6,12 @@ template: page.ejs
 FAQ
 ===
 
+**Q:** Does Fluxxor require React?
+
+**A:** Fluxxor works great with React, and if you want to use the mixins, you will of course need React, but Fluxxor has no dependency on React itself.
+
+<hr>
+
 **Q:** Why does `Fluxxor.FluxMixin` and `Fluxxor.FluxChildMixin` constantly throw an error?
 
 **A:** `Fluxxor.FluxMixin` and `Fluxxor.FluxChildMixin` are functions that take React as a parameter and return the associated mixin:

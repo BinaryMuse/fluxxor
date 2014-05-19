@@ -6,6 +6,8 @@ template: page.ejs
 Installation
 ============
 
+You have a few options when it comes to installing Fluxxor. Keep in mind that, while Fluxxor works great with [React](http://facebook.github.io/react/), React is not required for Fluxxor.
+
 CommonJS Module Bundlers
 ------------------------
 
