@@ -1,40 +1,40 @@
 <div align="center">
-<img src="http://fluxbox.io/fluxbox.svg" height="350" alt="Fluxbox" title="Fluxbox">
+<img src="http://fluxxor.com/fluxxor.svg" height="350" alt="Fluxxor" title="Fluxxor">
 </div>
 
-Fluxbox is a set of tools to aid in developing
+Fluxxor is a set of tools to aid in developing
 [React](http://facebook.github.io/react/) applications with the [Flux
 architecture](http://facebook.github.io/react/docs/flux-overview.html).
 
-[![Travis CI](https://api.travis-ci.org/BinaryMuse/fluxbox.svg)](https://travis-ci.org/BinaryMuse/fluxbox)
+[![Travis CI](https://api.travis-ci.org/BinaryMuse/fluxxor.svg)](https://travis-ci.org/BinaryMuse/fluxxor)
 
-[![NPM](https://nodei.co/npm/fluxbox.png?downloads=true)](https://nodei.co/npm/fluxbox/)
+[![NPM](https://nodei.co/npm/fluxxor.png?downloads=true)](https://nodei.co/npm/fluxxor/)
 
 Installation
 ------------
 
-    npm install [--save] fluxbox
+    npm install [--save] fluxxor
 
 Documentation
 -------------
 
-See [the Fluxbox website](http://fluxbox.io) for in-depth
-[documentation](http://fluxbox.io/documentation/),
-[installation instructions](http://fluxbox.io/getting-started/installation.html),
-[examples](http://fluxbox.io/examples/), and
-[a getting started guide](http://fluxbox.io/getting-started/quick-start.html).
+See [the Fluxxor website](http://fluxxor.com) for in-depth
+[documentation](http://fluxxor.com/documentation/),
+[installation instructions](http://fluxxor.com/getting-started/installation.html),
+[examples](http://fluxxor.com/examples/), and
+[a getting started guide](http://fluxxor.com/getting-started/quick-start.html).
 
 Support and Chat
 ----------------
 
-Get help with and chat about Fluxbox [on Gitter](https://gitter.im/BinaryMuse/fluxbox).
+Get help with and chat about Fluxxor [on Gitter](https://gitter.im/BinaryMuse/fluxxor).
 
-[![Gitter chat](https://badges.gitter.im/BinaryMuse/fluxbox.png)](https://gitter.im/BinaryMuse/fluxbox)
+[![Gitter chat](https://badges.gitter.im/BinaryMuse/fluxxor.png)](https://gitter.im/BinaryMuse/fluxxor)
 
 License
 -------
 
-Fluxbox is licensed under the MIT license.
+Fluxxor is licensed under the MIT license.
 
 > The MIT License (MIT)
 >

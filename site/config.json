@@ -1,6 +1,6 @@
 {
   "locals": {
-    "title": "Fluxbox"
+    "title": "Fluxxor"
   },
   "plugins": ["wintersmith-ejs", "wintersmith-less"]
 }

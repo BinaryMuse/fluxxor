@@ -1,4 +1,4 @@
-var Fluxbox = require("../../");
+var Fluxxor = require("../../");
 
 var chai = require("chai"),
     expect = chai.expect,
@@ -12,7 +12,7 @@ describe("Flux", function() {
     var store1 = {};
     var store2 = {};
     var stores = { Store1: store1, Store2: store2 };
-    var flux = new Fluxbox.Flux(stores, {});
+    var flux = new Fluxxor.Flux(stores, {});
     expect(flux.store("Store1")).to.equal(store1);
     expect(flux.store("Store2")).to.equal(store2);
   });
@@ -21,7 +21,7 @@ describe("Flux", function() {
     var store1 = {};
     var store2 = {};
     var stores = { Store1: store1, Store2: store2 };
-    var flux = new Fluxbox.Flux(stores, {});
+    var flux = new Fluxxor.Flux(stores, {});
     expect(store1.flux).to.equal(flux);
     expect(store2.flux).to.equal(flux);
   });
@@ -30,7 +30,7 @@ describe("Flux", function() {
     var actions = {
       act: function() { this.dispatch("ABC", {val: 123}) }
     };
-    var flux = new Fluxbox.Flux({}, actions);
+    var flux = new Fluxxor.Flux({}, actions);
     flux.dispatcher.dispatch = sinon.spy();
     flux.actions.act();
     var action = {type: "ABC", payload: {val: 123}};

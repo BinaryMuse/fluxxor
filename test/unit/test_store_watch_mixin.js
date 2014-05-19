@@ -1,5 +1,5 @@
-var Fluxbox = require("../../"),
-    StoreWatchMixin = Fluxbox.StoreWatchMixin,
+var Fluxxor = require("../../"),
+    StoreWatchMixin = Fluxxor.StoreWatchMixin,
     jsdom = require("jsdom");
 
 var chai = require("chai"),
@@ -33,7 +33,7 @@ function createComponent(React) {
   return Component
 }
 
-var Store = Fluxbox.createStore({
+var Store = Fluxxor.createStore({
   actions: {
     "ACTION": "handleAction"
   },
@@ -71,7 +71,7 @@ describe("FluxMixin", function() {
         this.dispatch("ACTION", {});
       }
     }
-    flux = new Fluxbox.Flux(stores, actions);
+    flux = new Fluxxor.Flux(stores, actions);
   });
 
   afterEach(function() {
@@ -98,7 +98,7 @@ describe("FluxMixin", function() {
 
   it("throws when attempting to mix in the function directly", function() {
     var Comp = React.createClass({
-      mixins: [Fluxbox.StoreWatchMixin],
+      mixins: [Fluxxor.StoreWatchMixin],
       render: function() { return React.DOM.div(); }
     });
     expect(function() {

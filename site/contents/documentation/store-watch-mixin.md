@@ -3,10 +3,10 @@ title: StoreWatchMixin
 template: page.ejs
 ---
 
-Fluxbox.StoreWatchMixin
+Fluxxor.StoreWatchMixin
 =======================
 
-`Fluxbox.StoreWatchMixin` is a simple React mixin that assists with watching for `"change"` events on one or more stores. Normally, you'd need to bind to store change events in `componentWillMount` and unbind them in `componentWillUnmount` to keep from leaking memory. Additionally, you'd need to set up handlers to pull data from the stores during change events and lifecycle hooks (such as `getInitialState`).
+`Fluxxor.StoreWatchMixin` is a simple React mixin that assists with watching for `"change"` events on one or more stores. Normally, you'd need to bind to store change events in `componentWillMount` and unbind them in `componentWillUnmount` to keep from leaking memory. Additionally, you'd need to set up handlers to pull data from the stores during change events and lifecycle hooks (such as `getInitialState`).
 
 `StoreWatchMixin` simply requires that you:
 
@@ -24,12 +24,12 @@ Example:
 
 ```javascript
 var React = require("react"),
-    Fluxbox = require("fluxbox"),
-    FluxMixin = Fluxbox.FluxMixin(React), // or window.React, etc.
-    StoreWatchMixin = Fluxbox.StoreWatchMixin;
+    Fluxxor = require("fluxxor"),
+    FluxMixin = Fluxxor.FluxMixin(React), // or window.React, etc.
+    StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
-var MyStore = Fluxbox.createStore({ ... }),
-    OtherStore = Fluxbox.createStore({ ... });
+var MyStore = Fluxxor.createStore({ ... }),
+    OtherStore = Fluxxor.createStore({ ... });
 
 var stores = {
   MyStore: new MyStore(),
@@ -37,7 +37,7 @@ var stores = {
 };
 var actions = { ... };
 
-var flux = new Fluxbox.Flux(stores, actions);
+var flux = new Fluxxor.Flux(stores, actions);
 
 var MyComponent = React.createClass({
   mixins: [FluxMixin, StoreWatchMixin("MyStore", "OtherStore")],

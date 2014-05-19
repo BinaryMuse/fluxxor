@@ -1,4 +1,4 @@
-var Fluxbox = require("../../");
+var Fluxxor = require("../../");
 
 var chai = require("chai"),
     expect = chai.expect,
@@ -9,7 +9,7 @@ chai.use(sinonChai);
 
 describe("Store", function() {
   it("passes one object from constructor to initialize", function(done) {
-    var Store = Fluxbox.createStore({
+    var Store = Fluxxor.createStore({
       initialize: function(opt, nothing) {
         expect(opt).to.equal(42);
         expect(nothing).to.be.undefined;
@@ -20,7 +20,7 @@ describe("Store", function() {
   });
 
   it("copies properties from the spec", function() {
-    var Store = Fluxbox.createStore({
+    var Store = Fluxxor.createStore({
       answer: {is: 42}
     });
     var store = new Store();
@@ -29,20 +29,20 @@ describe("Store", function() {
 
   it("disallows reserved property names", function() {
     expect(function() {
-      Fluxbox.createStore({
+      Fluxxor.createStore({
         flux: true
       });
     }).to.throw(/reserved.*flux/i);
 
     expect(function() {
-      Fluxbox.createStore({
+      Fluxxor.createStore({
         waitFor: true
       });
     }).to.throw(/reserved.*waitFor/i);
   });
 
   it("allows registering actions via an actions hash", function() {
-    var Store = Fluxbox.createStore({
+    var Store = Fluxxor.createStore({
       actions: {
         "ACTION": "handleAction"
       },
@@ -58,7 +58,7 @@ describe("Store", function() {
 
   it("allows registering actions via bindActions", function() {
     // also tests that methods are autobound to the store instance
-    var Store = Fluxbox.createStore({
+    var Store = Fluxxor.createStore({
       actions: {
         "ACTION": "handleAction"
       },

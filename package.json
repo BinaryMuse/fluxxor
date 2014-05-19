@@ -1,10 +1,10 @@
 {
-  "name": "fluxbox",
+  "name": "fluxxor",
   "version": "1.1.0",
   "description": "Flux architecture tools for React",
   "repository": {
     "type": "git",
-    "url": "https://github.com/BinaryMuse/fluxbox.git"
+    "url": "https://github.com/BinaryMuse/fluxxor.git"
   },
   "main": "index.js",
   "scripts": {

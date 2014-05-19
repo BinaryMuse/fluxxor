@@ -23,7 +23,7 @@ var actions = {
   }
 };
 
-var flux = new Fluxbox.Flux(stores, actions);
+var flux = new Fluxxor.Flux(stores, actions);
 
 // somewhere later...
 flux.actions.addUrl("http://google.com", 3);
@@ -32,7 +32,7 @@ flux.actions.addUrl("http://google.com", 3);
 [Stores](/documentation/stores.html) respond to specific action types via the `actions` object in their spec or via calls to `bindActions` during initialization.
 
 ```javascript
-var UrlStore = Fluxbox.createStore({
+var UrlStore = Fluxxor.createStore({
   actions: {
     "ADD_URL": "handleAddUrl"
   },

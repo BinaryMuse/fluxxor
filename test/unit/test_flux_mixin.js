@@ -1,4 +1,4 @@
-var Fluxbox = require("../../"),
+var Fluxxor = require("../../"),
     jsdom = require("jsdom");
 
 var chai = require("chai"),
@@ -24,7 +24,7 @@ function createComponent(React, FluxMixin) {
   });
 
   var Grandchild = React.createClass({
-    mixins: [Fluxbox.FluxChildMixin(React)],
+    mixins: [Fluxxor.FluxChildMixin(React)],
 
     render: function() {
       return React.DOM.div();
@@ -47,12 +47,12 @@ describe("FluxMixin", function() {
     global.navigator = window.navigator;
     React = require("react/addons");
     TestUtils = React.addons.TestUtils;
-    FluxMixin = Fluxbox.FluxMixin(React);
+    FluxMixin = Fluxxor.FluxMixin(React);
     objs = createComponent(React, FluxMixin);
     Parent = objs.Parent;
     Child = objs.Child;
     Grandchild = objs.Grandchild;
-    flux = new Fluxbox.Flux({}, {});
+    flux = new Fluxxor.Flux({}, {});
   });
 
   afterEach(function() {
@@ -72,7 +72,7 @@ describe("FluxMixin", function() {
 
   it("throws when attempting to mix in the function directly", function() {
     var Comp = React.createClass({
-      mixins: [Fluxbox.FluxMixin],
+      mixins: [Fluxxor.FluxMixin],
       render: function() { return React.DOM.div(); }
     });
     expect(function() {
@@ -82,7 +82,7 @@ describe("FluxMixin", function() {
 
   it("throws when attempting to mix in the child function directly", function() {
     var Comp = React.createClass({
-      mixins: [Fluxbox.FluxChildMixin],
+      mixins: [Fluxxor.FluxChildMixin],
       render: function() { return React.DOM.div(); }
     });
     expect(function() {

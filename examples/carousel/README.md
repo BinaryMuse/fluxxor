@@ -1,15 +1,15 @@
 Carousel Example
 ================
 
-This is a small example React application using Fluxbox.
+This is a small example React application using Fluxxor.
 
-![Screenshot](fluxbox-carousel-screenshot.png)
+![Screenshot](fluxxor-carousel-screenshot.png)
 
-To run, simply open `app/index.html` in your web browser—`index.html`, `bundle.js`, and the `images/` directory are the only files required to run the application (`bundle.js` is build with [Webpack](http://webpack.github.io/)). If you want to modify the source and see your updates, run `./start.sh` and point your browser to `http://localhost:8089/index.html` (you will need to install the `devDependencies` from the root of the Fluxbox project first).
+To run, simply open `app/index.html` in your web browser—`index.html`, `bundle.js`, and the `images/` directory are the only files required to run the application (`bundle.js` is build with [Webpack](http://webpack.github.io/)). If you want to modify the source and see your updates, run `./start.sh` and point your browser to `http://localhost:8089/index.html` (you will need to install the `devDependencies` from the root of the Fluxxor project first).
 
-Alternatively, check out the running example [on the Fluxbox website](http://fluxbox.io/examples/carousel/).
+Alternatively, check out the running example [on the Fluxxor website](http://fluxxor.com/examples/carousel/).
 
-The entry point of the application is `app/app.jsx`. `React` is exported to the `window` object so that the [React Chrome Developer Tools](http://facebook.github.io/react/blog/2014/01/02/react-chrome-developer-tools.html) will appear; the `Fluxbox.Flux` instance is exported to `window.flux` so that you can manipulate the application from the standard JavaScript console (e.g. the methods on `window.flux.actions`).
+The entry point of the application is `app/app.jsx`. `React` is exported to the `window` object so that the [React Chrome Developer Tools](http://facebook.github.io/react/blog/2014/01/02/react-chrome-developer-tools.html) will appear; the `Fluxxor.Flux` instance is exported to `window.flux` so that you can manipulate the application from the standard JavaScript console (e.g. the methods on `window.flux.actions`).
 
 Stores
 ------
@@ -36,10 +36,10 @@ There are four actions that manipulate the stores:
 Components
 ----------
 
-* `Application` - The top-level component that maintains state from the stores using `Fluxbox.StoreWatchMixin`
+* `Application` - The top-level component that maintains state from the stores using `Fluxxor.StoreWatchMixin`
 * `Carousel` - The actual image carousel itself; all data is passed as props, and user interaction is propagated back to `Application`
 * `ImageForm` - A small form for adding images to the carousel; user interaction is propagated back to `Application`
 
 ---
 
-In this small application, only the top level `Application` component requires access to the Flux data. However, since `Application` mixes in `Fluxbox.FluxMixin`, any descendants of `Application` with the `Fluxbox.FluxChildMixin` would automatically have access to the `Fluxbox.Flux` instance via `this.getFlux()`.
+In this small application, only the top level `Application` component requires access to the Flux data. However, since `Application` mixes in `Fluxxor.FluxMixin`, any descendants of `Application` with the `Fluxxor.FluxChildMixin` would automatically have access to the `Fluxxor.Flux` instance via `this.getFlux()`.

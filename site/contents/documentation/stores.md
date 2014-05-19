@@ -10,11 +10,11 @@ In a Flux application, the stores are responsible for managing business logic an
 
 The *only* way to update stores is to send them an action by way of the dispatcher; stores should not have setter methods or properties that allow users to manipulate the store directly. Stores register their intent to respond to certain action types and actions with those types are routed to the appropriate handlers in the stores. Handlers are called with the action's payload and type as parameters.
 
-Fluxbox supports dependencies between stores when necessary. If a store depends on data from other stores, it can wait for those stores to finish handling the currently dispatched action with the `waitFor` method.
+Fluxxor supports dependencies between stores when necessary. If a store depends on data from other stores, it can wait for those stores to finish handling the currently dispatched action with the `waitFor` method.
 
 Action dispatches are synchronous; stores can perform asynchronous updates, but should fire new actions at the end of the asynchronous operation if the rest of the system should be notified of a change in state as a result of the async operation. Once a store returns anything (including `undefined`) from an action handler, that store is considered to be done with that action's dispatch (unless it calls `waitFor`).
 
-## `Fluxbox.createStore(spec)`
+## `Fluxxor.createStore(spec)`
 
 Create a new store constructor.
 
@@ -28,7 +28,7 @@ Create a new store constructor.
 Example:
 
 ```javascript
-var MyStore = Fluxbox.createStore({
+var MyStore = Fluxxor.createStore({
   actions: {
     "ACTION_TYPE": "handleActionType"
   },
@@ -62,7 +62,7 @@ Example:
 var ACTION_TYPE = "ACTION_TYPE_1",
     OTHER_ACTION_TYPE = "ACTION_TYPE_2";
 
-var MyStore = Fluxbox.createStore({
+var MyStore = Fluxxor.createStore({
   initialize: function() {
     this.bindActions(ACTION_TYPE, this.handleActionType,
                      OTHER_ACTION_TYPE, "handleOtherActionType");
@@ -90,7 +90,7 @@ Waits for other stores to finish dispatching the current action, executing `call
 Example:
 
 ```javascript
-Fluxbox.createStore({
+Fluxxor.createStore({
   actions: {
     "ACTION_TYPE": "actionHandler"
   },
@@ -112,7 +112,7 @@ The [`StoreWatchMixin`](/documentation/store-watch-mixin.html) assists with atta
 Example:
 
 ```javascript
-var MyStore = Fluxbox.createStore({
+var MyStore = Fluxxor.createStore({
   // ...
 
   actionHandler: function(payload, type) {

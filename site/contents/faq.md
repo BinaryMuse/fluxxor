@@ -6,13 +6,13 @@ template: page.ejs
 FAQ
 ===
 
-**Q:** Why does `Fluxbox.FluxMixin` and `Fluxbox.FluxChildMixin` constantly throw an error?
+**Q:** Why does `Fluxxor.FluxMixin` and `Fluxxor.FluxChildMixin` constantly throw an error?
 
-**A:** `Fluxbox.FluxMixin` and `Fluxbox.FluxChildMixin` are functions that take React as a parameter and return the associated mixin:
+**A:** `Fluxxor.FluxMixin` and `Fluxxor.FluxChildMixin` are functions that take React as a parameter and return the associated mixin:
 
 ```javascript
-var FluxMixin = Fluxbox.FluxMixin(React),
-    FluxChildMixin = Fluxbox.FluxChildMixin(React);
+var FluxMixin = Fluxxor.FluxMixin(React),
+    FluxChildMixin = Fluxxor.FluxChildMixin(React);
 
 React.createClass({
   mixins: [FluxMixin], // or FluxChildMixin, as appropriate
@@ -31,10 +31,10 @@ React.createClass({
 
 **Q:** Why does dispatching an action while another action is in progress throw an error?
 
-**A:** Fluxbox prevents cascading updates where one action triggers another, and so on. See [What is Flux](/what-is-flux.html) and [Flux Application Architecture](http://facebook.github.io/react/docs/flux-overview.html) for more information on Flux.
+**A:** Fluxxor prevents cascading updates where one action triggers another, and so on. See [What is Flux](/what-is-flux.html) and [Flux Application Architecture](http://facebook.github.io/react/docs/flux-overview.html) for more information on Flux.
 
 <hr>
 
-**Q:** Why is Fluxbox throwing an error saying an action is already being dispatched when I'm sending an action from an asynchronous operation?
+**Q:** Why is Fluxxor throwing an error saying an action is already being dispatched when I'm sending an action from an asynchronous operation?
 
 **A:** Some libraries will sometimes call callbacks on the same tick, for example if data is cached. You can wrap the action dispatch call in a `setTimeout` to ensure the function is asynchronous. For bonus points, notify the author of the offending library that [their asynchronous callbacks are sometimes synchronous](http://blog.ometer.com/2011/07/24/callbacks-synchronous-and-asynchronous/).

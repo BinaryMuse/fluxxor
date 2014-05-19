@@ -4,11 +4,11 @@ template: index.ejs
 ---
 
 <div class="logo-container">
-  <img src="/fluxbox.svg" alt="Fluxbox" title="Fluxbox" class="logo-svg">
+  <img src="/fluxxor.svg" alt="Fluxxor" title="Fluxxor" class="logo-svg">
 </div>
 
 <div class="homepage-callout">
-  <p><strong>Fluxbox</strong> is a set of tools to facilitate building JavaScript data layers using <a href="http://facebook.github.io/react/docs/flux-overview.html">the Flux architecture</a> by reifying many of the core Flux concepts. It works particularly well in conjunction with <a href="http://facebook.github.io/react/">React</a> as the view layer, and contains a few helpers to make integration with React applications easier.</p>
+  <p><strong>Fluxxor</strong> is a set of tools to facilitate building JavaScript data layers using <a href="http://facebook.github.io/react/docs/flux-overview.html">the Flux architecture</a> by reifying many of the core Flux concepts. It works particularly well in conjunction with <a href="http://facebook.github.io/react/">React</a> as the view layer, and contains a few helpers to make integration with React applications easier.</p>
 
   <p>The Flux architecture...</p>
 
@@ -21,11 +21,11 @@ template: index.ejs
   </ul>
 
   <div style="padding-top: 20px">
-    <iframe src="http://ghbtns.com/github-btn.html?user=BinaryMuse&repo=fluxbox&type=watch&count=true&size=large"
+    <iframe src="http://ghbtns.com/github-btn.html?user=BinaryMuse&repo=fluxxor&type=watch&count=true&size=large"
     allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe>
 
     <div class="tweet-button-container">
-      <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://fluxbox.io" data-via="BinaryMuse" data-size="large">Tweet</a>
+      <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://fluxxor.com" data-via="BinaryMuse" data-size="large">Tweet</a>
     </div>
   </div>
 </div>

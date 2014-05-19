@@ -1,7 +1,7 @@
-var Fluxbox = require("../../../../"),
+var Fluxxor = require("../../../../"),
     Constants = require("../constants");
 
-var CarouselStore = Fluxbox.createStore({
+var CarouselStore = Fluxxor.createStore({
   initialize: function(options) {
     this.current = options.current || 0;
     this.count = options.count || 0;

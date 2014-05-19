@@ -6,7 +6,7 @@ template: page.ejs
 Quick-Start Guide / Basic Todos Example
 =======================================
 
-Once you have Fluxbox and React [installed](/getting-started/installation.html), it's time to build an app! Since this guide is designed to cover the basics quickly, we'll start with a *very* basic todo app—namely, this one right here:
+Once you have Fluxxor and React [installed](/getting-started/installation.html), it's time to build an app! Since this guide is designed to cover the basics quickly, we'll start with a *very* basic todo app—namely, this one right here:
 
 <div id="app"></div>
 
@@ -20,7 +20,7 @@ First, let's create a store to keep track of our todo items. It will respond to 
 * `"CLEAR_TODOS"` - removes all complete todo items
 
 ```javascript
-var TodoStore = Fluxbox.createStore({
+var TodoStore = Fluxxor.createStore({
   actions: {
     "ADD_TODO": "onAddTodo",
     "TOGGLE_TODO": "onToggleTodo",
@@ -81,7 +81,7 @@ var stores = {
   TodoStore: new TodoStore()
 };
 
-var flux = new Fluxbox.Flux(stores, actions);
+var flux = new Fluxxor.Flux(stores, actions);
 ```
 
 React Application
@@ -94,9 +94,9 @@ Our top-level `Application` component will use the [FluxMixin](/documentation/fl
 We'll also add a quick form for adding new todo items, and a button for clearing completed todos.
 
 ```javascript
-var FluxMixin = Fluxbox.FluxMixin(React),
-    FluxChildMixin = Fluxbox.FluxChildMixin(React),
-    StoreWatchMixin = Fluxbox.StoreWatchMixin;
+var FluxMixin = Fluxxor.FluxMixin(React),
+    FluxChildMixin = Fluxxor.FluxChildMixin(React),
+    StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var Application = React.createClass({
   mixins: [FluxMixin, StoreWatchMixin("TodoStore")],
@@ -171,6 +171,6 @@ Now that we have a `Flux` instance and all our components are defined, we can fi
 React.renderComponent(<Application flux={flux} />, document.getElementById("app"));
 ```
 
-And that's it! We've created a (super simple) Flux application with React and Fluxbox. You can find the full source code [on GitHub](https://github.com/BinaryMuse/fluxbox/tree/master/examples/todo-basic).
+And that's it! We've created a (super simple) Flux application with React and Fluxxor. You can find the full source code [on GitHub](https://github.com/BinaryMuse/fluxxor/tree/master/examples/todo-basic).
 
 <script src="todo-bundle.js"></script>

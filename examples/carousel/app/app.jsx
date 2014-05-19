@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require("react"),
-    Fluxbox = require("../../../");
+    Fluxxor = require("../../../");
 
 var Application = require("./components/application.jsx"),
     ImageStore = require("./stores/image_store"),
@@ -20,7 +20,7 @@ var stores = {
   ImageStore: new ImageStore({images: images})
 };
 
-var flux = new Fluxbox.Flux(stores, actions);
+var flux = new Fluxxor.Flux(stores, actions);
 window.flux = flux;
 
 React.renderComponent(<Application flux={flux} />, document.getElementById("app"));

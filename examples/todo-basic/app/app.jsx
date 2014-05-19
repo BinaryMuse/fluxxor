@@ -1,11 +1,11 @@
 /** @jsx React.DOM */
 
 var React = require("react"),
-    Fluxbox = require("../../../");
+    Fluxxor = require("../../../");
 
 window.React = React;
 
-var TodoStore = Fluxbox.createStore({
+var TodoStore = Fluxxor.createStore({
   actions: {
     "ADD_TODO": "onAddTodo",
     "TOGGLE_TODO": "onToggleTodo",
@@ -58,13 +58,13 @@ var stores = {
   TodoStore: new TodoStore()
 };
 
-var flux = new Fluxbox.Flux(stores, actions);
+var flux = new Fluxxor.Flux(stores, actions);
 
 window.flux = flux;
 
-var FluxMixin = Fluxbox.FluxMixin(React),
-    FluxChildMixin = Fluxbox.FluxChildMixin(React),
-    StoreWatchMixin = Fluxbox.StoreWatchMixin;
+var FluxMixin = Fluxxor.FluxMixin(React),
+    FluxChildMixin = Fluxxor.FluxChildMixin(React),
+    StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var Application = React.createClass({
   mixins: [FluxMixin, StoreWatchMixin("TodoStore")],

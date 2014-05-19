@@ -1,7 +1,7 @@
-var Fluxbox = require("../../../../"),
+var Fluxxor = require("../../../../"),
     Constants = require("../constants");
 
-var ImageStore = Fluxbox.createStore({
+var ImageStore = Fluxxor.createStore({
   initialize: function(options) {
     this.images = options.images || [];
 

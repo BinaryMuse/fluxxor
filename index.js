@@ -5,7 +5,7 @@ var Dispatcher = require("./lib/dispatcher"),
     StoreWatchMixin = require("./lib/store_watch_mixin"),
     createStore = require("./lib/create_store");
 
-var Fluxbox = {
+var Fluxxor = {
   Dispatcher: Dispatcher,
   Flux: Flux,
   FluxMixin: FluxMixin,
@@ -15,4 +15,4 @@ var Fluxbox = {
   version: require("./package.json").version
 };
 
-module.exports = Fluxbox;
+module.exports = Fluxxor;

@@ -1,9 +1,9 @@
 /** @jsx React.DOM */
 
 var React = require("react"),
-    Fluxbox = require("../../../../"),
-    FluxMixin = Fluxbox.FluxMixin(React),
-    StoreWatchMixin = Fluxbox.StoreWatchMixin;
+    Fluxxor = require("../../../../"),
+    FluxMixin = Fluxxor.FluxMixin(React),
+    StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var Carousel = require("./carousel.jsx"),
     ImageForm = require("./image_form.jsx");

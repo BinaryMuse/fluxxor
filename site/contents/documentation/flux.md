@@ -1,14 +1,14 @@
 ---
-title: Fluxbox.Flux
+title: Fluxxor.Flux
 template: page.ejs
 ---
 
 Flubox.Flux
 ===========
 
-`Fluxbox.Flux` is the main container object for a Flux application. It provides access to the [stores](/documentation/stores.html) and the [actions](/documentation/actions.html), and is responsible for managing the dispatcher internally.
+`Fluxxor.Flux` is the main container object for a Flux application. It provides access to the [stores](/documentation/stores.html) and the [actions](/documentation/actions.html), and is responsible for managing the dispatcher internally.
 
-## `new Fluxbox.Flux(stores, actions)`
+## `new Fluxxor.Flux(stores, actions)`
 
 Creates a new `Flux` instance.
 
@@ -29,10 +29,10 @@ var actions = {
   }
 };
 
-var flux = new Fluxbox.Flux(stores, actions);
+var flux = new Fluxxor.Flux(stores, actions);
 ```
 
-## `Fluxbox.Flux#store(name)`
+## `Fluxxor.Flux#store(name)`
 
 Retrieves a store by its name.
 
@@ -45,12 +45,12 @@ var stores = {
   MyStore: new MyStore();
 };
 
-var flux = new Fluxbox.Flux(stores, actions);
+var flux = new Fluxxor.Flux(stores, actions);
 
 var myStore = flux.store("MyStore");
 ```
 
-## `Fluxbox.Flux#actions`
+## `Fluxxor.Flux#actions`
 
 Retrieves the map of actions.
 
@@ -63,7 +63,7 @@ var actions = {
   }
 };
 
-var flux = new Fluxbox.Flux(stores, actions);
+var flux = new Fluxxor.Flux(stores, actions);
 
 flux.actions.processThing(myThing);
 ```
