@@ -8,6 +8,8 @@ Fluxbox.FluxMixin
 
 `Fluxbox.FluxMixin` is a simple React mixin that assists with making a [`Flux`](/documentation/flux.html) instance available to a component hierarchy. Simply pass an instance of `Flux` as a property named `flux` and mix in the mixin and any descendants of the component that declare `flux` in their `contextTypes` will automatically receive the flux instance on `this.context.flux`.
 
+Keep in mind that implicitly passing data through context can make it more difficult to reason about things like `shouldComponentUpdate`. Ideally, an instance of `Flux` on the context of a child component should only be used to dispatch actions, and *not* to read data from the stores—read data from the stores at the top-level component and pass the data through props as necessary.
+
 Note that `FluxMixin` is a function that takes `React` as an argument and returns the mixin.
 
 Example:
