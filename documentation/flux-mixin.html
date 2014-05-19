@@ -79,7 +79,7 @@
     <h1 id="fluxbox-fluxmixin">Fluxbox.FluxMixin</h1>
 <p><code>Fluxbox.FluxMixin</code> and <code>Fluxbox.FluxChildMixin</code> are simple React mixins that assists with making a <a href="/documentation/flux.html"><code>Flux</code></a> instance available to a component hierarchy. Pass an instance of <code>Flux</code> as a property named <code>flux</code> and mix <code>FluxMixin</code> in to a top level component, and mix in <code>FluxChildMixin</code> to any child components, and the <code>Flux</code> object will be available as <code>this.getFlux()</code> in any component using either mixin.</p>
 <p>Keep in mind that implicitly passing data through context can make it more difficult to reason about things like <code>shouldComponentUpdate</code>. Ideally, an instance of <code>Flux</code> on the context of a child component should only be used to dispatch actions, and <em>not</em> to read data from the stores—read data from the stores at the top-level component and pass the data through props as necessary.</p>
-<p>Note that <code>FluxMixin</code> and <code>FluxChildMixin</code> are functions that takes <code>React</code> as an argument and return the associated mixin.</p>
+<p>Note that <code>FluxMixin</code> and <code>FluxChildMixin</code> are functions that take <code>React</code> as an argument and return the associated mixin.</p>
 <p>Example:</p>
 <pre><code class="lang-javascript"><span class="keyword">var</span> React = <span class="built_in">require</span>(<span class="string">"react"</span>),
     Fluxbox = <span class="built_in">require</span>(<span class="string">"fluxbox"</span>),
