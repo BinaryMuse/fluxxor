@@ -41,6 +41,8 @@ Components
 * `Carousel` - The actual image carousel itself; all data is passed as props, and user interaction is propagated back to `Application`
 * `ImageForm` - A small form for adding images to the carousel; user interaction is propagated back to `Application`
 
+Note that `ImageForm` has state outside of the data from the stores—however, it's localized to the form, and isn't part of the larger "application state." When the form is submitted, this local state is sent to the parent component through a property, where it is then sent to the dispatcher via the `addImage` action.
+
 ---
 
 In this small application, only the top level `Application` component requires access to the Flux data. However, since `Application` mixes in `Fluxxor.FluxMixin`, any descendants of `Application` with the `Fluxxor.FluxChildMixin` would automatically have access to the `Fluxxor.Flux` instance via `this.getFlux()`.
