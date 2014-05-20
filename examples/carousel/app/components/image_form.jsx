@@ -8,26 +8,27 @@ var ImageForm = React.createClass({
   },
 
   getInitialState: function() {
-    return {value: ''};
+    return { url: '' };
   },
 
   render: function() {
     return (
       <form onSubmit={this.onSubmit}>
-        <input ref="url" type="text" placeholder="Enter URL" size="30" value={this.state.value} onChange={this.handleChange} />
+        <input type="text" placeholder="Enter URL" size="30"
+               value={this.state.url} onChange={this.handleChange} />
         <input type="submit" value="Add URL" />
       </form>
     );
   },
 
-  handleChange: function() {
-    this.setState({value: this.refs.url.getDOMNode().value});
-  }, 
+  handleChange: function(e) {
+    this.setState({url: e.target.value});
+  },
 
   onSubmit: function(e) {
     e.preventDefault();
-    this.props.onAddUrl(this.refs.url.getDOMNode().value);
-    this.setState({value: ''});
+    this.props.onAddUrl(this.state.url);
+    this.setState({url: ''});
   }
 });
 
