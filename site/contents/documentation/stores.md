@@ -6,7 +6,7 @@ template: page.ejs
 Stores
 ======
 
-In a Flux application, the stores are responsible for managing business logic and data. If you're familiar with models in the MVC or similar paradigm, it's important to understand that stores manage more than a single piece of data or a single collection—stores are responsible for a domain of the application.
+In a Flux application, the stores are responsible for managing business logic and data. They're akin to models or collections in MVC systems, but stores may manage more than a single piece of data or a single collection, as they are responsible for a *domain* of the application.
 
 The *only* way to update stores is to send them an action by way of the dispatcher; stores should not have setter methods or properties that allow users to manipulate the store directly. Stores register their intent to respond to certain action types and actions with those types are routed to the appropriate handlers in the stores. Handlers are called with the action's payload and type as parameters.
 

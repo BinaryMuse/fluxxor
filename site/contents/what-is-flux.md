@@ -28,7 +28,7 @@ In a React application, a top-level view (known as a "controller-view") will rea
 
 ![Complex Flux](/images/flux-complex.png)
 
-The dispatcher sends every action to all the *stores*. Stores manage data and business logic in a Flux application; each store is responsible for a domain of the application (rather than a single piece or collection of data). Stores update themselves in response to actions—nothing outside the store has any knowledge of how the store manages its data. When they update, they emit an event that signals that their data has changed, allowing the views to fetch the new data and update accordingly.
+The dispatcher sends every action to all the *stores*. Stores manage data and business logic in a Flux application; each store is responsible for a domain of the application (which may consist of more than a single piece or collection of data). Stores update themselves in response to actions—nothing outside the store has any knowledge of how the store manages its data. When they update, they emit an event that signals that their data has changed, allowing the views to fetch the new data and update accordingly.
 
 Since stores have no setter methods or public properties for managing their data, testing them becomes a matter of putting them in a starting state, sending them an action, and testing that they end up in the expected final state.
 
