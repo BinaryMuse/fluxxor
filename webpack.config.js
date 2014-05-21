@@ -1,5 +1,4 @@
-var webpack = require("webpack"),
-    pkg = require("./package.json");
+var webpack = require("webpack");
 
 module.exports = {
   cache: true,
@@ -19,10 +18,5 @@ module.exports = {
       { test: /\.jsx$/, loader: "jsx-loader" },
       { test: /\.json$/, loader: "json" }
     ]
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      "process.env.FLUXXOR_VERSION": JSON.stringify(pkg.version)
-    })
-  ]
+  }
 };
