@@ -1,0 +1,3 @@
+./script/write-version-file
+./node_modules/.bin/webpack
+./node_modules/.bin/webpack -p --output-file "fluxxor.min.js" --output-source-map-file "fluxxor.min.js.map"

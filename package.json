@@ -10,7 +10,7 @@
   "scripts": {
     "test": "npm run jshint && mocha --recursive",
     "jshint": "jsxhint lib/",
-    "build": "webpack -p && ./script/build-examples",
+    "build": "./script/build-fluxxor && ./script/build-examples",
     "preview-site": "wintersmith preview -C site",
     "build-site": "wintersmith build -C site"
   },

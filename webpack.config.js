@@ -3,11 +3,10 @@ var webpack = require("webpack");
 module.exports = {
   cache: true,
   entry: "./index.js",
-  sourceMapFilename: "fluxxor.js.min.map",
-  minimize: true,
+  sourceMapFilename: "fluxxor.js.map",
   output: {
     path: __dirname + "/build",
-    filename: "fluxxor.min.js",
+    filename: "fluxxor.js",
     library: "Fluxxor",
     libraryTarget: "umd"
   },
