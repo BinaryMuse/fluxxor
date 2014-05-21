@@ -11,8 +11,12 @@ var Fluxxor = {
   FluxMixin: FluxMixin,
   FluxChildMixin: FluxChildMixin,
   StoreWatchMixin: StoreWatchMixin,
-  createStore: createStore,
-  version: require("./package.json").version
+  createStore: createStore
 };
+
+if (process.env.FLUXXOR_VERSION)
+  Fluxxor.version = process.env.FLUXXOR_VERSION;
+else
+  Fluxxor.version = require("./package.json").version;
 
 module.exports = Fluxxor;
