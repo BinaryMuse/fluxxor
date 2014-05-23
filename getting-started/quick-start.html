@@ -110,7 +110,7 @@
 
   onClearTodos: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
     <span class="keyword">this</span>.todos = <span class="keyword">this</span>.todos.filter(<span class="function"><span class="keyword">function</span><span class="params">(todo)</span> {</span>
-      <span class="keyword">return</span> todo.complete;
+      <span class="keyword">return</span> !todo.complete;
     });
     <span class="keyword">this</span>.emit(<span class="string">"change"</span>);
   },
