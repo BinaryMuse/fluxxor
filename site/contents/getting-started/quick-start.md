@@ -43,7 +43,7 @@ var TodoStore = Fluxxor.createStore({
 
   onClearTodos: function() {
     this.todos = this.todos.filter(function(todo) {
-      return todo.complete;
+      return !todo.complete;
     });
     this.emit("change");
   },
