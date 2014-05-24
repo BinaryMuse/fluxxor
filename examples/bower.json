@@ -1,0 +1,31 @@
+{
+  "name": "fluxxor",
+  "version": "1.1.2",
+  "main": "build/fluxxor.min.js",
+  "description": "Flux architecture tools for React",
+  "homepage": "",
+  "authors": [
+    "Brandon Tilley <brandon@brandontilley.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    ".git",
+    "examples",
+    "lib",
+    "node_modules",
+    "script",
+    "site",
+    "test",
+    ".gitignore",
+    ".travis.yml",
+    "fluxxor.svg",
+    "index.js",
+    "package.json",
+    "version.js",
+    "webpack.config.js"
+  ],
+  "keywords": [
+    "flux",
+    "react"
+  ]
+}
