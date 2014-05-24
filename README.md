@@ -18,8 +18,11 @@ Fluxxor is available on npm and works with module bundlers like
 
     npm install [--save] fluxxor
 
-Standalone browser builds can be found on
-[the GitHub releases page](https://github.com/BinaryMuse/fluxxor/releases).
+Standalone browser builds can be downloaded from
+[the GitHub releases page](https://github.com/BinaryMuse/fluxxor/releases) or installed via
+Bower:
+
+    bower install fluxxor
 
 More detailed installation instructions can be found on
 [the Fluxxor website](http://fluxxor.com/getting-started/installation.html).

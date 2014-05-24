@@ -20,7 +20,7 @@ If you're using a client-side module bundler like [Browserify](http://browserify
 Browser Builds
 --------------
 
-Browser builds and corresponding source map files can be found on [the Fluxxor releases page](https://github.com/BinaryMuse/fluxxor/releases). Browser builds use a universal module definition, and should work in the following environments:
+Browser builds and corresponding source map files can be downloaded from [the Fluxxor releases page](https://github.com/BinaryMuse/fluxxor/releases) or installed via [Bower](http://bower.io/) via `bower install fluxxor`. Browser builds use a universal module definition, and should work in the following environments:
 
 ### CommonJS
 
