@@ -1,6 +1,6 @@
 {
   "name": "fluxxor",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Flux architecture tools for React",
   "repository": {
     "type": "git",
