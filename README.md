@@ -13,7 +13,16 @@ architecture](http://facebook.github.io/react/docs/flux-overview.html).
 Installation
 ------------
 
+Fluxxor is available on npm and works with module bundlers like
+[Browserify](http://browserify.org/) and [Webpack](http://webpack.github.io/).
+
     npm install [--save] fluxxor
+
+Standalone browser builds can be found on
+[the GitHub releases page](https://github.com/BinaryMuse/fluxxor/releases).
+
+More detailed installation instructions can be found on
+[the Fluxxor website](http://fluxxor.com/getting-started/installation.html).
 
 Documentation
 -------------
