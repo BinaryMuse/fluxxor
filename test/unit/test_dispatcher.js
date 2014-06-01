@@ -23,12 +23,15 @@ describe("Dispatcher", function() {
   });
 
   it("does not allow dispatching while another action is dispatching", function(done) {
-    dispatcher.dispatch();
+    store1.__handleAction__ = function() {
+      dispatcher.dispatch();
+    };
     expect(function() {
       dispatcher.dispatch();
     }).to.throw(/another action/);
 
     setTimeout(function() {
+      store1.__handleAction__ = sinon.spy();
       expect(function() {
         dispatcher.dispatch();
       }).not.to.throw();
