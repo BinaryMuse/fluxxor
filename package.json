@@ -9,7 +9,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run jshint && mocha --recursive",
-    "jshint": "jsxhint lib/",
+    "jshint": "jsxhint lib/ test/",
     "build": "./script/build-fluxxor && ./script/build-examples",
     "preview-site": "wintersmith preview -C site",
     "build-site": "wintersmith build -C site"
@@ -43,5 +43,19 @@
   },
   "dependencies": {
     "lodash-node": "^2.4.1"
+  },
+  "jshintConfig": {
+    "camelcase": true,
+    "curly": true,
+    "eqeqeq": true,
+    "forin": true,
+    "latedef": true,
+    "newcap": false,
+    "undef": true,
+    "unused": true,
+    "trailing": true,
+    "node": true,
+    "browser": true,
+    "predef": ["it", "describe", "beforeEach", "afterEach"]
   }
 }
