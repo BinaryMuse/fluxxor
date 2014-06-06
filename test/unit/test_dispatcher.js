@@ -1,5 +1,3 @@
-var events = require("events");
-
 var Fluxxor = require("../../");
 
 var chai = require("chai"),
