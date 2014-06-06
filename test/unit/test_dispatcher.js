@@ -51,6 +51,7 @@ describe("Dispatcher", function() {
     try {
       dispatcher.dispatch();
     } catch (e) {
+      expect(e.message).to.equal("omg");
       thrw = false;
     }
 
