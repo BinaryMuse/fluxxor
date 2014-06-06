@@ -10,8 +10,8 @@ chai.use(sinonChai);
 describe("Dispatcher", function() {
   var store1, store2, dispatcher;
   beforeEach(function() {
-    store1 = { __handleAction__: sinon.spy() },
-    store2 = { __handleAction__: sinon.spy() }
+    store1 = { __handleAction__: sinon.spy() };
+    store2 = { __handleAction__: sinon.spy() };
     dispatcher = new Fluxxor.Dispatcher({Store1: store1, Store2: store2});
   });
 
@@ -28,7 +28,7 @@ describe("Dispatcher", function() {
         dispatcher.dispatch();
       }).to.throw(/another action/);
       done();
-    }
+    };
     dispatcher.dispatch();
   });
 
@@ -45,7 +45,8 @@ describe("Dispatcher", function() {
       if (thrw) {
         throw new Error("omg");
       }
-    }
+    };
+
     try {
       dispatcher.dispatch();
     } catch (e) {
@@ -63,7 +64,7 @@ describe("Dispatcher", function() {
     var Store1 = Fluxxor.createStore({
       actions: { "ACTION": "handleAction" },
       handleAction: function() {
-        this.waitFor(["Store2"], function(store2) {
+        this.waitFor(["Store2"], function() {
           this.value = ++callCount;
         });
       }
@@ -84,7 +85,7 @@ describe("Dispatcher", function() {
 
   it("does not allow stores to wait unless an action is being dispatched", function() {
     expect(function() {
-      dispatcher.waitForStores()
+      dispatcher.waitForStores();
     }).to.throw(/unless.*action.*dispatch/);
   });
 
@@ -92,12 +93,11 @@ describe("Dispatcher", function() {
     var Store = Fluxxor.createStore({
       actions: { "ACTION": "handleAction" },
       handleAction: function() {
-        this.waitFor(["Store"], function(store2) {
-          this.value = ++callCount;
+        this.waitFor(["Store"], function() {
         });
       }
     });
-    store = new Store();
+    var store = new Store();
     dispatcher = new Fluxxor.Dispatcher({Store: store});
     expect(function() {
       dispatcher.dispatch({type: "ACTION"});
@@ -128,7 +128,7 @@ describe("Dispatcher", function() {
         this.waitFor(["Store2"], function() {
           this.waitFor(["Store2"], function(store2) {
             this.value = store2.value;
-          })
+          });
         });
       }
     });
@@ -152,7 +152,7 @@ describe("Dispatcher", function() {
         this.waitFor(["StoreFake"], sinon.spy());
       }
     });
-    store = new Store();
+    var store = new Store();
     dispatcher = new Fluxxor.Dispatcher({Store: store});
     expect(function() {
       dispatcher.dispatch({type: "ACTION"});
@@ -201,7 +201,7 @@ describe("Dispatcher", function() {
     });
     store1 = new Store1();
     store2 = new Store2();
-    store3 = new Store3();
+    var store3 = new Store3();
     dispatcher = new Fluxxor.Dispatcher({Store1: store1, Store2: store2, Store3: store3});
     expect(function() {
       dispatcher.dispatch({type: "ACTION"});

@@ -3,11 +3,7 @@ var Fluxxor = require("../../"),
     jsdom = require("jsdom");
 
 var chai = require("chai"),
-    expect = chai.expect,
-    sinon = require("sinon"),
-    sinonChai = require("sinon-chai");
-
-chai.use(sinonChai);
+    expect = chai.expect;
 
 function createComponent(React) {
   var Component = React.createClass({
@@ -19,7 +15,7 @@ function createComponent(React) {
       return {
         store1state: this.props.flux.store("Store1").getState(),
         store2state: this.props.flux.store("Store2").getState()
-      }
+      };
     },
 
     render: function() {
@@ -30,7 +26,7 @@ function createComponent(React) {
     }
   });
 
-  return Component
+  return Component;
 }
 
 var Store = Fluxxor.createStore({
@@ -53,7 +49,7 @@ var Store = Fluxxor.createStore({
 });
 
 describe("FluxMixin", function() {
-  var React, TestUtils, StoreWatchMixin, Comp, flux;
+  var React, TestUtils, Comp, flux;
 
   beforeEach(function() {
     global.window = jsdom.jsdom().createWindow("<html><body></body></html>");
@@ -70,7 +66,7 @@ describe("FluxMixin", function() {
       act: function() {
         this.dispatch("ACTION", {});
       }
-    }
+    };
     flux = new Fluxxor.Flux(stores, actions);
   });
 
@@ -83,7 +79,7 @@ describe("FluxMixin", function() {
   it("watches for store change events until the component is unmounted", function(done) {
     var tree = TestUtils.renderIntoDocument(Comp({flux: flux}));
     expect(tree.getStateCalls).to.eql(1);
-    expect(tree.state).to.eql({store1state: {value: 0}, store2state: {value: 0}})
+    expect(tree.state).to.eql({store1state: {value: 0}, store2state: {value: 0}});
     flux.actions.act();
     expect(tree.getStateCalls).to.eql(3);
     expect(tree.state).to.eql({store1state: {value: 1}, store2state: {value: 1}});

@@ -28,12 +28,12 @@ describe("Flux", function() {
 
   it("binds actions' `this.dispatch` to the dispatcher", function() {
     var actions = {
-      act: function() { this.dispatch("ABC", {val: 123}) }
+      act: function() { this.dispatch("ABC", {val: 123}); }
     };
     var flux = new Fluxxor.Flux({}, actions);
     flux.dispatcher.dispatch = sinon.spy();
     flux.actions.act();
     var action = {type: "ABC", payload: {val: 123}};
     expect(flux.dispatcher.dispatch).to.have.been.calledWith(action);
-  })
+  });
 });

@@ -2,11 +2,7 @@ var Fluxxor = require("../../"),
     jsdom = require("jsdom");
 
 var chai = require("chai"),
-    expect = chai.expect,
-    sinon = require("sinon"),
-    sinonChai = require("sinon-chai");
-
-chai.use(sinonChai);
+    expect = chai.expect;
 
 function createComponent(React, FluxMixin) {
   var Parent = React.createClass({
@@ -39,7 +35,7 @@ function createComponent(React, FluxMixin) {
 }
 
 describe("FluxMixin", function() {
-  var React, TestUtils, FluxMixin, Parent, Child, Grandchild, flux;
+  var React, TestUtils, FluxMixin, Parent, Child, Grandchild, flux, objs;
 
   beforeEach(function() {
     global.window = jsdom.jsdom().createWindow("<html><body></body></html>");
@@ -62,6 +58,7 @@ describe("FluxMixin", function() {
   });
 
   it("passes flux via getFlux() to descendants who ask for it", function() {
+    /* jshint expr:true */
     var tree = TestUtils.renderIntoDocument(Parent({flux: flux}));
     expect(tree.getFlux()).to.equal(flux);
     var child = TestUtils.findRenderedComponentWithType(tree, Child);

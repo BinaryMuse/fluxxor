@@ -9,6 +9,7 @@ chai.use(sinonChai);
 
 describe("Store", function() {
   it("passes one object from constructor to initialize", function(done) {
+    /* jshint expr:true */
     var Store = Fluxxor.createStore({
       initialize: function(opt, nothing) {
         expect(opt).to.equal(42);
@@ -65,7 +66,7 @@ describe("Store", function() {
 
       initialize: function() {
         this.bindActions("ACTION2", "handleAction2",
-                         "ACTION3", this.handleAction3)
+                         "ACTION3", this.handleAction3);
       },
 
       handleAction: function() {},
