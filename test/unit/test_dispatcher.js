@@ -25,22 +25,35 @@ describe("Dispatcher", function() {
   });
 
   it("does not allow cascading dispatches", function(done) {
-    store1 = new events.EventEmitter();
-    dispatcher = new Fluxxor.Dispatcher({Store1: store1});
     store1.__handleAction__ = function() {
-      this.emit("change");
-    }
-    store1.on("change", function() {
       expect(function() {
         dispatcher.dispatch();
       }).to.throw(/another action/);
       done();
-    });
+    }
     dispatcher.dispatch();
   });
 
   it("allows back-to-back dispatches on the same tick", function() {
     dispatcher.dispatch();
+    expect(function() {
+      dispatcher.dispatch();
+    }).not.to.throw();
+  });
+
+  it("gracefully handles exceptions in the action handlers", function() {
+    var thrw = true;
+    store1.__handleAction__ = function() {
+      if (thrw) {
+        throw new Error("omg");
+      }
+    }
+    try {
+      dispatcher.dispatch();
+    } catch (e) {
+      thrw = false;
+    }
+
     expect(function() {
       dispatcher.dispatch();
     }).not.to.throw();
