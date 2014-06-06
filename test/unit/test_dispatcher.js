@@ -1,3 +1,5 @@
+var events = require("events");
+
 var Fluxxor = require("../../");
 
 var chai = require("chai"),
@@ -22,18 +24,26 @@ describe("Dispatcher", function() {
     expect(store2.__handleAction__).to.have.been.calledWith(action);
   });
 
-  it("does not allow dispatching while another action is dispatching", function(done) {
+  it("does not allow cascading dispatches", function(done) {
+    store1 = new events.EventEmitter();
+    dispatcher = new Fluxxor.Dispatcher({Store1: store1});
+    store1.__handleAction__ = function() {
+      this.emit("change");
+    }
+    store1.on("change", function() {
+      expect(function() {
+        dispatcher.dispatch();
+      }).to.throw(/another action/);
+      done();
+    });
+    dispatcher.dispatch();
+  });
+
+  it("allows back-to-back dispatches on the same tick", function() {
     dispatcher.dispatch();
     expect(function() {
       dispatcher.dispatch();
-    }).to.throw(/another action/);
-
-    setTimeout(function() {
-      expect(function() {
-        dispatcher.dispatch();
-      }).not.to.throw();
-      done();
-    });
+    }).not.to.throw();
   });
 
   it("allows stores to wait on other stores", function() {
