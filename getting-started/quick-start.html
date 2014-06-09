@@ -201,7 +201,7 @@ var Application = React.createClass({
 
   render: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
     <span class="keyword">var</span> style = {
-      <span class="string">"text-decoration"</span>: <span class="keyword">this</span>.props.todo.complete ? <span class="string">"line-through"</span> : <span class="string">""</span>
+      textDecoration: <span class="keyword">this</span>.props.todo.complete ? <span class="string">"line-through"</span> : <span class="string">""</span>
     };
 
     <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="title">span</span> <span class="attribute">style</span>=<span class="value">{style}</span> <span class="attribute">onClick</span>=<span class="value">{this.onClick}</span>&gt;</span>{this.props.todo.text}<span class="tag">&lt;/<span class="title">span</span>&gt;</span>;</span>
