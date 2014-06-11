@@ -62,23 +62,23 @@ describe("Dispatcher", function() {
   it("throws when asked to dispatch an action with to 'type' property", function() {
     expect(function() {
       dispatcher.dispatch();
-    }).to.throw();
+    }).to.throw(/dispatch.*type/);
 
     expect(function() {
       dispatcher.dispatch(false);
-    }).to.throw();
+    }).to.throw(/dispatch.*type/);
 
     expect(function() {
       dispatcher.dispatch("");
-    }).to.throw();
+    }).to.throw(/dispatch.*type/);
 
     expect(function() {
       dispatcher.dispatch(null);
-    }).to.throw();
+    }).to.throw(/dispatch.*type/);
 
     expect(function() {
       dispatcher.dispatch({});
-    }).to.throw();
+    }).to.throw(/dispatch.*type/);
   });
 
   it("allows stores to wait on other stores", function() {
