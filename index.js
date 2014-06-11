@@ -12,7 +12,10 @@ var Fluxxor = {
   FluxChildMixin: FluxChildMixin,
   StoreWatchMixin: StoreWatchMixin,
   createStore: createStore,
-  version: require("./version").version
+  version: require("./version").version,
+  action: function(type, payload) {
+    return { type: type, payload: payload };
+  }
 };
 
 module.exports = Fluxxor;

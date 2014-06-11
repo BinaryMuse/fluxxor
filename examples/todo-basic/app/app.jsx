@@ -5,15 +5,32 @@ var React = require("react"),
 
 window.React = React;
 
-var TodoStore = Fluxxor.createStore({
-  actions: {
-    "ADD_TODO": "onAddTodo",
-    "TOGGLE_TODO": "onToggleTodo",
-    "CLEAR_TODOS": "onClearTodos"
+var TodoActions = {
+  ADD_TODO: "ADD_TODO",
+  TOGGLE_TODO: "TOGGLE_TODO",
+  CLEAR_TODOS: "CLEAR_TODOS",
+
+  addTodo: function(text) {
+    return Fluxxor.action(this.ADD_TODO, {text: text});
   },
 
+  toggleTodo: function(todo) {
+    return Fluxxor.action(this.TOGGLE_TODO, {todo: todo});
+  },
+
+  clearTodos: function() {
+    return Fluxxor.action(this.CLEAR_TODOS);
+  }
+};
+
+var TodoStore = Fluxxor.createStore({
   initialize: function() {
     this.todos = [];
+    this.bindActions(
+      TodoActions.ADD_TODO, this.onAddTodo,
+      TodoActions.TOGGLE_TODO, this.onToggleTodo,
+      TodoActions.CLEAR_TODOS, this.onClearTodos
+    );
   },
 
   onAddTodo: function(payload) {
@@ -40,25 +57,9 @@ var TodoStore = Fluxxor.createStore({
   }
 });
 
-var actions = {
-  addTodo: function(text) {
-    this.dispatch("ADD_TODO", {text: text});
-  },
-
-  toggleTodo: function(todo) {
-    this.dispatch("TOGGLE_TODO", {todo: todo});
-  },
-
-  clearTodos: function() {
-    this.dispatch("CLEAR_TODOS");
-  }
-};
-
-var stores = {
+var flux = new Fluxxor.Flux({
   TodoStore: new TodoStore()
-};
-
-var flux = new Fluxxor.Flux(stores, actions);
+});
 
 window.flux = flux;
 
@@ -96,12 +97,12 @@ var Application = React.createClass({
   onSubmitForm: function(e) {
     e.preventDefault();
     var node = this.refs.input.getDOMNode();
-    this.getFlux().actions.addTodo(node.value);
+    this.getFlux().dispatch(TodoActions.addTodo(node.value));
     node.value = "";
   },
 
   clearCompletedTodos: function(e) {
-    this.getFlux().actions.clearTodos();
+    this.getFlux().dispatch(TodoActions.clearTodos());
   }
 });
 
@@ -121,7 +122,7 @@ var TodoItem = React.createClass({
   },
 
   onClick: function() {
-    this.getFlux().actions.toggleTodo(this.props.todo);
+    this.getFlux().dispatch(TodoActions.toggleTodo(this.props.todo));
   }
 });
 
