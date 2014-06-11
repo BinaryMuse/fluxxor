@@ -25,17 +25,17 @@ describe("Dispatcher", function() {
   it("does not allow cascading dispatches", function(done) {
     store1.__handleAction__ = function() {
       expect(function() {
-        dispatcher.dispatch();
+        dispatcher.dispatch({type:"action"});
       }).to.throw(/another action/);
       done();
     };
-    dispatcher.dispatch();
+    dispatcher.dispatch({type:"action"});
   });
 
   it("allows back-to-back dispatches on the same tick", function() {
-    dispatcher.dispatch();
+    dispatcher.dispatch({type:"action"});
     expect(function() {
-      dispatcher.dispatch();
+      dispatcher.dispatch({type:"action"});
     }).not.to.throw();
   });
 
@@ -48,15 +48,37 @@ describe("Dispatcher", function() {
     };
 
     try {
-      dispatcher.dispatch();
+      dispatcher.dispatch({type:"action"});
     } catch (e) {
       expect(e.message).to.equal("omg");
       thrw = false;
     }
 
     expect(function() {
-      dispatcher.dispatch();
+      dispatcher.dispatch({type:"action"});
     }).not.to.throw();
+  });
+
+  it("throws when asked to dispatch an action with to 'type' property", function() {
+    expect(function() {
+      dispatcher.dispatch();
+    }).to.throw();
+
+    expect(function() {
+      dispatcher.dispatch(false);
+    }).to.throw();
+
+    expect(function() {
+      dispatcher.dispatch("");
+    }).to.throw();
+
+    expect(function() {
+      dispatcher.dispatch(null);
+    }).to.throw();
+
+    expect(function() {
+      dispatcher.dispatch({});
+    }).to.throw();
   });
 
   it("allows stores to wait on other stores", function() {
