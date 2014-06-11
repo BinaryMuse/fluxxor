@@ -6,7 +6,7 @@ Fluxxor is a set of tools to aid in developing
 [React](http://facebook.github.io/react/) applications with the [Flux
 architecture](http://facebook.github.io/react/docs/flux-overview.html).
 
-[![Travis CI](https://api.travis-ci.org/BinaryMuse/fluxxor.svg)](https://travis-ci.org/BinaryMuse/fluxxor)
+[![Travis CI](https://api.travis-ci.org/BinaryMuse/fluxxor.svg?branch=master)](https://travis-ci.org/BinaryMuse/fluxxor)
 
 [![NPM](https://nodei.co/npm/fluxxor.png?downloads=true)](https://nodei.co/npm/fluxxor/)
 
