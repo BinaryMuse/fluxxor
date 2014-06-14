@@ -155,6 +155,10 @@
 var Application = React.createClass({
   mixins: [FluxMixin, StoreWatchMixin("TodoStore")],
 
+  getInitialState: function() {
+    return { newTodoText: "" };
+  },
+
   getStateFromFlux: function() {
     var flux = this.getFlux();
     // Normally we'd use one key per store, but we only have one store, so
@@ -171,7 +175,8 @@ var Application = React.createClass({
           })}
         &lt;/ul&gt;
         &lt;form onSubmit={this.onSubmitForm}&gt;
-          &lt;input ref="input" type="text" size="30" placeholder="New Todo" /&gt;
+          &lt;input type="text" size="30" placeholder="New Todo"
+                 value={this.state.newTodoText} onChange={this.handleTodoTextChange} /&gt;
           &lt;input type="submit" value="Add Todo" /&gt;
         &lt;/form&gt;
         &lt;button onClick={this.clearCompletedTodos}&gt;Clear Completed&lt;/button&gt;
@@ -179,11 +184,16 @@ var Application = React.createClass({
     );
   },
 
+  handleTodoTextChange: function(e) {
+    this.setState({newTodoText: e.target.value});
+  },
+
   onSubmitForm: function(e) {
     e.preventDefault();
-    var node = this.refs.input.getDOMNode();
-    this.getFlux().actions.addTodo(node.value);
-    node.value = "";
+    if (this.state.newTodoText.trim()) {
+      this.getFlux().actions.addTodo(this.state.newTodoText);
+      this.setState({newTodoText: ""});
+    }
   },
 
   clearCompletedTodos: function(e) {
