@@ -136,8 +136,10 @@ var Application = React.createClass({
 
   onSubmitForm: function(e) {
     e.preventDefault();
-    this.getFlux().actions.addTodo(this.state.newTodoText);
-    this.setState({newTodoText: ""});
+    if (this.state.newTodoText.trim()) {
+      this.getFlux().actions.addTodo(this.state.newTodoText);
+      this.setState({newTodoText: ""});
+    }
   },
 
   clearCompletedTodos: function(e) {
