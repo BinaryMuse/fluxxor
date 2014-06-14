@@ -90,7 +90,8 @@ var Application = React.createClass({
         </ul>
         <form onSubmit={this.onSubmitForm}>
           <input type="text" size="30" placeholder="New Todo"
-                 value={this.state.newTodoText} onChange={this.handleTodoTextChange} />
+                 value={this.state.newTodoText}
+                 onChange={this.handleTodoTextChange} />
           <input type="submit" value="Add Todo" />
         </form>
         <button onClick={this.clearCompletedTodos}>Clear Completed</button>
