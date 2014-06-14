@@ -176,7 +176,8 @@ var Application = React.createClass({
         &lt;/ul&gt;
         &lt;form onSubmit={this.onSubmitForm}&gt;
           &lt;input type="text" size="30" placeholder="New Todo"
-                 value={this.state.newTodoText} onChange={this.handleTodoTextChange} /&gt;
+                 value={this.state.newTodoText}
+                 onChange={this.handleTodoTextChange} /&gt;
           &lt;input type="submit" value="Add Todo" /&gt;
         &lt;/form&gt;
         &lt;button onClick={this.clearCompletedTodos}&gt;Clear Completed&lt;/button&gt;
