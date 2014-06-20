@@ -88,7 +88,7 @@
 <li>Bind to <code>&quot;change&quot;</code> events for each store when the component mounts</li>
 <li>Unbind from <code>&quot;change&quot;</code> events when the component unmounts</li>
 <li>Automatically call <code>setState</code> with the return value of <code>getStateFromFlux</code> when a store emits a <code>&quot;change&quot;</code> event</li>
-<li>Automatically set the component&#39;s initial state based on the return value of <code>getStateFromFlux</code> when the component mounts (note that this object is merged with any other <code>getDefaultState</code> functions defined on the component or other mixins)</li>
+<li>Automatically set the component&#39;s initial state based on the return value of <code>getStateFromFlux</code> when the component mounts (note that this object is merged with any other <code>getInitialState</code> functions defined on the component or other mixins)</li>
 </ol>
 <p>Example:</p>
 <pre><code class="lang-javascript"><span class="keyword">var</span> React = <span class="built_in">require</span>(<span class="string">"react"</span>),
