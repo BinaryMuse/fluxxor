@@ -18,7 +18,7 @@ The mixin will then automatically
 1. Bind to `"change"` events for each store when the component mounts
 2. Unbind from `"change"` events when the component unmounts
 3. Automatically call `setState` with the return value of `getStateFromFlux` when a store emits a `"change"` event
-4. Automatically set the component's initial state based on the return value of `getStateFromFlux` when the component mounts (note that this object is merged with any other `getDefaultState` functions defined on the component or other mixins)
+4. Automatically set the component's initial state based on the return value of `getStateFromFlux` when the component mounts (note that this object is merged with any other `getInitialState` functions defined on the component or other mixins)
 
 Example:
 
