@@ -107,8 +107,14 @@ var Application = React.createClass({
 
   getStateFromFlux: function() {
     var flux = this.getFlux();
-    // Normally we'd use one key per store, but we only have one store, so
-    // we'll use the state of the store as our entire state here.
+    // Our entire state is made up of the TodoStore data. In a larger
+    // application, you will likely return data from multiple stores, e.g.:
+    //
+    //   return {
+    //     todoData: flux.store("TodoStore").getState(),
+    //     userData: flux.store("UserStore").getData(),
+    //     fooBarData: flux.store("FooBarStore").someMoreData()
+    //   };
     return flux.store("TodoStore").getState();
   },
 
