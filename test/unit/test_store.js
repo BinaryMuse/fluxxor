@@ -167,4 +167,74 @@ describe("Store", function() {
       new Store();
     }).to.throw(/handler.*type ACTION.*falsy/);
   });
+
+  it("Allows use of mixins", function() {
+    var value = 0;
+    var mixin = {
+      actions: {
+        "ACTION3": "handleAction3"
+      },
+      handleAction: function() {
+        value++;
+      },
+      handleAction3: function() {
+        value++;
+      }
+    };
+    var mixin2 = {
+      handleAction2: function() {
+        value++;
+      }
+    };
+
+    var Store = Fluxxor.createStore({
+      mixins: [mixin, mixin2],
+      actions: {
+        "ACTION": "handleAction",
+        "ACTION2": "handleAction2"
+      },
+
+      handleAction: function() {
+        value++;
+      },
+      handleAction2: function() {
+        value++;
+      }
+    });
+    var store = new Store();
+
+    store.__handleAction__({type: "ACTION"});
+    expect(value).to.equal(2);
+    store.__handleAction__({type: "ACTION2"});
+    expect(value).to.equal(4);
+    store.__handleAction__({type: "ACTION3"});
+    expect(value).to.equal(5);
+  });
+
+  it("Throws errors when incorrectly using mixins", function() {
+    var mixin = {
+      handleAction: function() {}
+    };
+    // An error should be thrown when attempting to mix a string with a function.
+    var mixin2 = {
+      handleAction: "string"
+    };
+
+    function createStore(){
+      var Store = Fluxxor.createStore({
+        mixins: [mixin, mixin2],
+        actions: {
+          "ACTION": "handleAction"
+        },
+
+        handleAction: function() {}
+      });
+      return new Store();
+    }
+
+    expect(createStore).to.throw(
+      require('../../lib/function_chaining_error'), 
+      /You are attempting to define `handleAction`.*/
+    );
+  });
 });
