@@ -65,7 +65,7 @@ var constants = {
 };
 ```
 
-The actions themselves will immediately dispatch the `LOAD_BUZZ` or `ADD_BUZZ` action types so that any stores that want to optimisically update the UI can do. They will then delegate to the `BuzzwordClient` and dispatch the appropriate success or failure action type depending on how it responds.
+The actions themselves will immediately dispatch the `LOAD_BUZZ` or `ADD_BUZZ` action types so that any stores that want to optimisically update the UI can do so. They will then delegate to the `BuzzwordClient` and dispatch the appropriate success or failure action type depending on how it responds.
 
 We also generate a temporary client-side ID that we can use to track a specific word across the asynchronous operations, and include it in part of the payload when adding a new buzzword.
 
@@ -95,7 +95,7 @@ var actions = {
 };
 ```
 
-From here on out, it's pretty much the same game.
+From here on out, our app will look pretty similar to any other.
 
 Store
 -----
