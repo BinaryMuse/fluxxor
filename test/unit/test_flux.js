@@ -36,4 +36,24 @@ describe("Flux", function() {
     var action = {type: "ABC", payload: {val: 123}};
     expect(flux.dispatcher.dispatch).to.have.been.calledWith(action);
   });
+
+  it("allows namespaced actions", function() {
+    var actions = {
+      a: {
+        b: {
+          c: function() { this.dispatch("action", {name: "a.b.c"}); }
+        },
+        d: function() { this.dispatch("action", {name: "a.d"}); }
+      },
+      e: function() { this.dispatch("action", {name: "e"}); }
+    };
+    var flux = new Fluxxor.Flux({}, actions);
+    flux.dispatcher.dispatch = sinon.spy();
+    flux.actions.e();
+    expect(flux.dispatcher.dispatch).to.have.been.calledWith({type: "action", payload: {name: "e"}});
+    flux.actions.a.d();
+    expect(flux.dispatcher.dispatch).to.have.been.calledWith({type: "action", payload: {name: "a.d"}});
+    flux.actions.a.b.c();
+    expect(flux.dispatcher.dispatch).to.have.been.calledWith({type: "action", payload: {name: "a.b.c"}});
+  });
 });
