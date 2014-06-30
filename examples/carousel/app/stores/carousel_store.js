@@ -6,10 +6,12 @@ var CarouselStore = Fluxxor.createStore({
     this.current = options.current || 0;
     this.count = options.count || 0;
 
-    this.bindActions(Constants.NEXT_IMAGE, this.handleNextImage,
-                     Constants.PREV_IMAGE, this.handlePrevImage,
-                     Constants.SEL_IMAGE,  this.handleSelectImage,
-                     Constants.ADD_IMAGE,  this.handleAddImage);
+    this.bindActions(
+      Constants.NEXT_IMAGE, this.handleNextImage,
+      Constants.PREV_IMAGE, this.handlePrevImage,
+      Constants.SEL_IMAGE,  this.handleSelectImage,
+      Constants.ADD_IMAGE,  this.handleAddImage
+    );
   },
 
   getState: function() {
