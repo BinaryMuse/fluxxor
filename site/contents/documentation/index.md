@@ -17,4 +17,4 @@ Additionally, Fluxxor ships with some mixins to make it easier to use in conjunc
 * [Fluxxor.FluxMixin](/documentation/flux-mixin.html)
 * [Fluxxor.StoreWatchMixin](/documentation/store-watch-mixin.html)
 
-For installation instructions, see the [installation](/getting-started/installation.html) page. Be sure to check out the [quick-start guide](/getting-started/quick-start.html) and the [examples](/examples/), too!
+For installation instructions, see the [installation](/guides/installation.html) page. Be sure to check out the [quick-start guide](/guides/quick-start.html) and the [examples](/examples/), too!

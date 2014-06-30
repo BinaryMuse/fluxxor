@@ -6,5 +6,6 @@ template: page.ejs
 Getting Started
 ===============
 
-* [Installation](/getting-started/installation.html)
-* [Quick-Start Guide](/getting-started/quick-start.html)
+<meta http-equiv="refresh" content="0; url=/guides/">
+
+[This content has moved. Click here if you are not automatically redirected.](/guides/)

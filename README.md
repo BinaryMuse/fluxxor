@@ -27,16 +27,16 @@ Bower:
 Fluxxor is compatible with any [ES5-compliant browser](http://kangax.github.io/compat-table/es5/) (IE 9+, FF 4+, Safari 5.1.4+, Chrome 19+, Opera 12.10+). You can use [es5-shim](https://github.com/es-shims/es5-shim) for other browsers.
 
 More detailed installation instructions can be found on
-[the Fluxxor website](http://fluxxor.com/getting-started/installation.html).
+[the Fluxxor website](http://fluxxor.com/guides/installation.html).
 
 Documentation
 -------------
 
 See [the Fluxxor website](http://fluxxor.com) for in-depth
 [documentation](http://fluxxor.com/documentation/),
-[installation instructions](http://fluxxor.com/getting-started/installation.html),
+[installation instructions](http://fluxxor.com/guides/installation.html),
 [examples](http://fluxxor.com/examples/), and
-[a getting started guide](http://fluxxor.com/getting-started/quick-start.html).
+[a getting started guide](http://fluxxor.com/guides/quick-start.html).
 
 Support and Chat
 ----------------
