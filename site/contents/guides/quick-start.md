@@ -20,15 +20,21 @@ First, let's create a store to keep track of our todo items. It will respond to 
 * `"CLEAR_TODOS"` - removes all complete todo items
 
 ```javascript
-var TodoStore = Fluxxor.createStore({
-  actions: {
-    "ADD_TODO": "onAddTodo",
-    "TOGGLE_TODO": "onToggleTodo",
-    "CLEAR_TODOS": "onClearTodos"
-  },
+var constants = {
+  ADD_TODO: "ADD_TODO",
+  TOGGLE_TODO: "TOGGLE_TODO",
+  CLEAR_TODOS: "CLEAR_TODOS"
+};
 
+var TodoStore = Fluxxor.createStore({
   initialize: function() {
     this.todos = [];
+
+    this.bindActions(
+      constants.ADD_TODO, this.onAddTodo,
+      constants.TOGGLE_TODO, this.onToggleTodo,
+      constants.CLEAR_TODOS, this.onClearTodos
+    );
   },
 
   onAddTodo: function(payload) {
@@ -61,15 +67,15 @@ Let's create a few semantic actions to go along with our action types.
 ```javascript
 var actions = {
   addTodo: function(text) {
-    this.dispatch("ADD_TODO", {text: text});
+    this.dispatch(constants.ADD_TODO, {text: text});
   },
 
   toggleTodo: function(todo) {
-    this.dispatch("TOGGLE_TODO", {todo: todo});
+    this.dispatch(constants.TOGGLE_TODO, {todo: todo});
   },
 
   clearTodos: function() {
-    this.dispatch("CLEAR_TODOS");
+    this.dispatch(constants.CLEAR_TODOS);
   }
 };
 ```
