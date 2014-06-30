@@ -43,15 +43,17 @@
       <ul>
         <li><a href="/">Home</a></li>
         <li><a href="/what-is-flux.html">What is Flux?</a></li>
-        <li><a href="/getting-started/">Getting Started</a></li>
+        <li><a href="/guides/">Guides</a></li>
         <ul>
-          <li><a href="/getting-started/installation.html">Installation</a></li>
-          <li><a href="/getting-started/quick-start.html">Quick-Start Guide</a></li>
+          <li><a href="/guides/installation.html">Installation</a></li>
+          <li><a href="/guides/quick-start.html">Quick-Start Guide</a></li>
+          <li><a href="/guides/async-data.html">Dealing with Asynchronous Data</a></li>
         </ul>
         <li><a href="/examples/">Examples</a></li>
         <ul>
-          <li><a href="/getting-started/quick-start.html">Basic Todos</a></li>
+          <li><a href="/guides/quick-start.html">Basic Todos</a></li>
           <li><a href="/examples/carousel/">Image Carousel</a></li>
+          <li><a href="/guides/async-data.html">Asynchronous Data</a></li>
         </ul>
         <li><a href="/documentation/">Documentation</a></li>
         <ul>
@@ -93,6 +95,25 @@
 <span class="comment">// somewhere later...</span>
 flux.actions.addUrl(<span class="string">"http://google.com"</span>, <span class="number">3</span>);
 </code></pre>
+<h2 id="namespaced-actions">Namespaced Actions</h2>
+<p>Fluxxor will iterate over objets in your actions definition, allowing for namespaced actions:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> actions = {
+  user: {
+    login: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span> <span class="keyword">this</span>.dispatch(...); },
+    logout: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span> <span class="keyword">this</span>.dispatch(...); }
+  },
+  post: {
+    add: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span> <span class="keyword">this</span>.dispatch(...); },
+    remove: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span> <span class="keyword">this</span>.dispatch(...); }
+  }
+};
+
+<span class="keyword">var</span> flux = <span class="keyword">new</span> Fluxxor.Flux(stores, actions);
+
+<span class="comment">// somewhere later...</span>
+flux.actions.user.login(...);
+</code></pre>
+<h2 id="responding-to-actions">Responding to Actions</h2>
 <p><a href="/documentation/stores.html">Stores</a> respond to specific action types via the <code>actions</code> object in their spec or via calls to <code>bindActions</code> during initialization.</p>
 <pre><code class="lang-javascript"><span class="keyword">var</span> UrlStore = Fluxxor.createStore({
   actions: {

@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+
+<meta charset="utf-8">
+<title>Fluxxor - Quick-Start Guide</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta property="og:image" content="http://fluxxor.com/fluxxor.png">
+<meta property="og:site_name" content="Fluxxor">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="">
+<meta name="twitter:title" content="Fluxxor">
+<meta name="twitter:description" content="Fluxxor is a set of tools to facilitate building JavaScript data layers using the Flux architecture.">
+<meta name="twitter:creator" content="BinaryMuse">
+<meta name="twitter:image:src" content="http://fluxxor.com/fluxxor.png">
+<meta name="twitter:domain" content="">
+<meta name="twitter:app:name:iphone" content="">
+<meta name="twitter:app:name:ipad" content="">
+<meta name="twitter:app:name:googleplay" content="">
+<meta name="twitter:app:url:iphone" content="">
+<meta name="twitter:app:url:ipad" content="">
+<meta name="twitter:app:url:googleplay" content="">
+<meta name="twitter:app:id:iphone" content="">
+<meta name="twitter:app:id:ipad" content="">
+<meta name="twitter:app:id:googleplay" content="">
+<link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css">
+<script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<link rel="stylesheet" type="text/css" href="/style/main.css">
+
+<a class="github-banner" href="https://github.com/BinaryMuse/fluxxor"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+
+<div class="wrapper">
+  <header>
+    <div class="logo-container-sidebar">
+      <a href="/"><img src="/fluxxor.svg" alt="Fluxxor" title="Fluxxor" class="logo-svg"></a>
+    </div>
+    <div class="show-hide-nav">
+      <a href="#" class="show-nav">Show Navigation</a>
+      <a href="#" class="hide-nav">Hide Navigation</a>
+    </div>
+    <div class="nav-list">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/what-is-flux.html">What is Flux?</a></li>
+        <li><a href="/guides/">Guides</a></li>
+        <ul>
+          <li><a href="/guides/installation.html">Installation</a></li>
+          <li><a href="/guides/quick-start.html">Quick-Start Guide</a></li>
+          <li><a href="/guides/async-data.html">Dealing with Asynchronous Data</a></li>
+        </ul>
+        <li><a href="/examples/">Examples</a></li>
+        <ul>
+          <li><a href="/guides/quick-start.html">Basic Todos</a></li>
+          <li><a href="/examples/carousel/">Image Carousel</a></li>
+          <li><a href="/guides/async-data.html">Asynchronous Data</a></li>
+        </ul>
+        <li><a href="/documentation/">Documentation</a></li>
+        <ul>
+          <li><a href="/documentation/flux.html">Fluxxor.Flux</a></li>
+          <li><a href="/documentation/stores.html">Stores</a></li>
+          <li><a href="/documentation/actions.html">Actions</a></li>
+          <li><a href="/documentation/flux-mixin.html">Fluxxor.FluxMixin</a></li>
+          <li><a href="/documentation/store-watch-mixin.html">Fluxxor.StoreWatchMixin</a></li>
+        </ul>
+        <li><a href="/faq.html">FAQ</a></li>
+        <li><a href="https://github.com/BinaryMuse/fluxxor">View on GitHub</a></li>
+      </ul>
+      <p>
+        <a href="https://gitter.im/BinaryMuse/fluxxor">Support and chat on Gitter</a><br>
+        <a href="https://gitter.im/BinaryMuse/fluxxor"><img src="https://badges.gitter.im/BinaryMuse/fluxxor.png"></a>
+      </p>
+    </div>
+    <div class="sidebar-info">
+      <hr>
+      <p>Copyright &copy; 2014 <a href="https://github.com/BinaryMuse/">Brandon Tilley</a><br>
+      Licensed under <a href="http://opensource.org/licenses/MIT">the MIT license</a></p>
+    </div>
+  </header>
+  <section>
+    <h1 id="quick-start-guide-basic-todos-example">Quick-Start Guide / Basic Todos Example</h1>
+<p>Once you have Fluxxor and React <a href="/guides/installation.html">installed</a>, it&#39;s time to build an app! Since this guide is designed to cover the basics quickly, we&#39;ll start with a <em>very</em> basic todo app—namely, this one right here:</p>
+<div id="app"></div>
+
+<h2 id="stores-and-actions">Stores and Actions</h2>
+<p>First, let&#39;s create a store to keep track of our todo items. It will respond to the following actions:</p>
+<ul>
+<li><code>&quot;ADD_TODO&quot;</code> - adds a new todo</li>
+<li><code>&quot;TOGGLE_TODO&quot;</code> - completes or uncompletes a specific todo item</li>
+<li><code>&quot;CLEAR_TODOS&quot;</code> - removes all complete todo items</li>
+</ul>
+<pre><code class="lang-javascript"><span class="keyword">var</span> constants = {
+  ADD_TODO: <span class="string">"ADD_TODO"</span>,
+  TOGGLE_TODO: <span class="string">"TOGGLE_TODO"</span>,
+  CLEAR_TODOS: <span class="string">"CLEAR_TODOS"</span>
+};
+
+<span class="keyword">var</span> TodoStore = Fluxxor.createStore({
+  initialize: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">this</span>.todos = [];
+
+    <span class="keyword">this</span>.bindActions(
+      constants.ADD_TODO, <span class="keyword">this</span>.onAddTodo,
+      constants.TOGGLE_TODO, <span class="keyword">this</span>.onToggleTodo,
+      constants.CLEAR_TODOS, <span class="keyword">this</span>.onClearTodos
+    );
+  },
+
+  onAddTodo: <span class="function"><span class="keyword">function</span><span class="params">(payload)</span> {</span>
+    <span class="keyword">this</span>.todos.push({text: payload.text, complete: <span class="literal">false</span>});
+    <span class="keyword">this</span>.emit(<span class="string">"change"</span>);
+  },
+
+  onToggleTodo: <span class="function"><span class="keyword">function</span><span class="params">(payload)</span> {</span>
+    payload.todo.complete = !payload.todo.complete;
+    <span class="keyword">this</span>.emit(<span class="string">"change"</span>);
+  },
+
+  onClearTodos: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">this</span>.todos = <span class="keyword">this</span>.todos.filter(<span class="function"><span class="keyword">function</span><span class="params">(todo)</span> {</span>
+      <span class="keyword">return</span> !todo.complete;
+    });
+    <span class="keyword">this</span>.emit(<span class="string">"change"</span>);
+  },
+
+  getState: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">return</span> {
+      todos: <span class="keyword">this</span>.todos
+    };
+  }
+});
+</code></pre>
+<p>Let&#39;s create a few semantic actions to go along with our action types.</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> actions = {
+  addTodo: <span class="function"><span class="keyword">function</span><span class="params">(text)</span> {</span>
+    <span class="keyword">this</span>.dispatch(constants.ADD_TODO, {text: text});
+  },
+
+  toggleTodo: <span class="function"><span class="keyword">function</span><span class="params">(todo)</span> {</span>
+    <span class="keyword">this</span>.dispatch(constants.TOGGLE_TODO, {todo: todo});
+  },
+
+  clearTodos: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">this</span>.dispatch(constants.CLEAR_TODOS);
+  }
+};
+</code></pre>
+<p>Now we can instantiate our store and build a <code>Flux</code> instance:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> stores = {
+  TodoStore: <span class="keyword">new</span> TodoStore()
+};
+
+<span class="keyword">var</span> flux = <span class="keyword">new</span> Fluxxor.Flux(stores, actions);
+</code></pre>
+<h2 id="react-application">React Application</h2>
+<p>Let&#39;s build out our UI with React. Don&#39;t forget <code>/** @jsx React.DOM */</code> at the top of the file if you&#39;re using JSX!</p>
+<p>Our top-level <code>Application</code> component will use the <a href="/documentation/flux-mixin.html">FluxMixin</a> as well as the <a href="/documentation/store-watch-mixin.html">StoreWatchMixin</a> to make our lives a bit easier. The component will iterate over the array of todos and emit a <code>TodoItem</code> component for each one.</p>
+<p>We&#39;ll also add a quick form for adding new todo items, and a button for clearing completed todos.</p>
+<pre><code class="lang-javascript">var FluxMixin = Fluxxor.FluxMixin(React),
+    FluxChildMixin = Fluxxor.FluxChildMixin(React),
+    StoreWatchMixin = Fluxxor.StoreWatchMixin;
+
+var Application = React.createClass({
+  mixins: [FluxMixin, StoreWatchMixin("TodoStore")],
+
+  getInitialState: function() {
+    return { newTodoText: "" };
+  },
+
+  getStateFromFlux: function() {
+    var flux = this.getFlux();
+    // Our entire state is made up of the TodoStore data. In a larger
+    // application, you will likely return data from multiple stores, e.g.:
+    //
+    //   return {
+    //     todoData: flux.store("TodoStore").getState(),
+    //     userData: flux.store("UserStore").getData(),
+    //     fooBarData: flux.store("FooBarStore").someMoreData()
+    //   };
+    return flux.store("TodoStore").getState();
+  },
+
+  render: function() {
+    return (
+      &lt;div&gt;
+        &lt;ul&gt;
+          {this.state.todos.map(function(todo, i) {
+            return &lt;li key={i}&gt;&lt;TodoItem todo={todo} /&gt;&lt;/li&gt;;
+          })}
+        &lt;/ul&gt;
+        &lt;form onSubmit={this.onSubmitForm}&gt;
+          &lt;input type="text" size="30" placeholder="New Todo"
+                 value={this.state.newTodoText}
+                 onChange={this.handleTodoTextChange} /&gt;
+          &lt;input type="submit" value="Add Todo" /&gt;
+        &lt;/form&gt;
+        &lt;button onClick={this.clearCompletedTodos}&gt;Clear Completed&lt;/button&gt;
+      &lt;/div&gt;
+    );
+  },
+
+  handleTodoTextChange: function(e) {
+    this.setState({newTodoText: e.target.value});
+  },
+
+  onSubmitForm: function(e) {
+    e.preventDefault();
+    if (this.state.newTodoText.trim()) {
+      this.getFlux().actions.addTodo(this.state.newTodoText);
+      this.setState({newTodoText: ""});
+    }
+  },
+
+  clearCompletedTodos: function(e) {
+    this.getFlux().actions.clearTodos();
+  }
+});
+</code></pre>
+<p>The <code>TodoItem</code> component will display and style itself based on the completion of the todo, and will dispatch an action indicating its intent to toggle its completion state.</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> TodoItem = React.createClass({
+  mixins: [FluxChildMixin],
+
+  propTypes: {
+    todo: React.PropTypes.object.isRequired
+  },
+
+  render: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">var</span> style = {
+      textDecoration: <span class="keyword">this</span>.props.todo.complete ? <span class="string">"line-through"</span> : <span class="string">""</span>
+    };
+
+    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="title">span</span> <span class="attribute">style</span>=<span class="value">{style}</span> <span class="attribute">onClick</span>=<span class="value">{this.onClick}</span>&gt;</span>{this.props.todo.text}<span class="tag">&lt;/<span class="title">span</span>&gt;</span>;</span>
+  },
+
+  onClick: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">this</span>.getFlux().actions.toggleTodo(<span class="keyword">this</span>.props.todo);
+  }
+});
+</code></pre>
+<h2 id="bringing-it-together">Bringing it Together</h2>
+<p>Now that we have a <code>Flux</code> instance and all our components are defined, we can finally render our app. We&#39;ll put it inside a <code>div</code> in our HTML with an ID of &quot;app&quot;.</p>
+<pre><code class="lang-javascript">React.renderComponent(<span class="xml"><span class="tag">&lt;<span class="title">Application</span> <span class="attribute">flux</span>=<span class="value">{flux}</span> /&gt;</span>, document.getElementById("app"));</span>
+</code></pre>
+<p>And that&#39;s it! We&#39;ve created a (super simple) Flux application with React and Fluxxor. You can find the full source code <a href="https://github.com/BinaryMuse/fluxxor/tree/master/examples/todo-basic">on GitHub</a>.</p>
+<script src="todo-bundle.js"></script>
+
+    <hr>
+    See a typo? Something still not clear?
+    <a href="https://github.com/BinaryMuse/fluxxor/issues/new">Report an issue on GitHub</a>.
+  </section>
+
+  <div class="footer-info">
+    <hr>
+    <p>Copyright &copy; 2014 <a href="https://github.com/BinaryMuse/">Brandon Tilley</a><br>
+    Licensed under <a href="http://opensource.org/licenses/MIT">the MIT license</a><br>
+    <a href="https://github.com/BinaryMuse/fluxxor">Available on GitHub</a></p>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll(".show-nav")[0].addEventListener("click", function(ev) {
+  ev.preventDefault();
+  document.querySelectorAll(".nav-list")[0].style.display = 'block';
+  document.querySelectorAll(".show-nav")[0].style.display = 'none';
+  document.querySelectorAll(".hide-nav")[0].style.display = 'block';
+});
+
+document.querySelectorAll(".hide-nav")[0].addEventListener("click", function(ev) {
+  ev.preventDefault();
+  document.querySelectorAll(".nav-list")[0].style.display = 'none';
+  document.querySelectorAll(".show-nav")[0].style.display = 'block';
+  document.querySelectorAll(".hide-nav")[0].style.display = 'none';
+});
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-51086297-1', 'fluxxor.com');
+  ga('require', 'displayfeatures');
+  ga('require', 'linkid', 'linkid.js');
+  ga('send', 'pageview');
+</script>
+
+</html>

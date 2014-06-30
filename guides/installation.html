@@ -79,9 +79,30 @@
   </header>
   <section>
     <h1 id="installation">Installation</h1>
-<meta http-equiv="refresh" content="0; url=/guides/installation.html">
-
-<p><a href="/guides/installation.html">This content has moved. Click here if you are not automatically redirected.</a></p>
+<p>You have a few options when it comes to installing Fluxxor. Keep in mind that, while Fluxxor works great with <a href="http://facebook.github.io/react/">React</a>, React is not required for Fluxxor.</p>
+<h2 id="commonjs-module-bundlers">CommonJS Module Bundlers</h2>
+<p>Fluxxor is distributed <a href="https://www.npmjs.org/package/fluxxor">on npm</a>. You can install it with</p>
+<p><code>npm install [--save] fluxxor</code></p>
+<p>If you&#39;re using a client-side module bundler like <a href="http://browserify.org/">Browserify</a> or <a href="http://webpack.github.io/">Webpack</a>, you&#39;re done! Simply <code>require(&quot;fluxxor&quot;)</code> to get a reference to the library.</p>
+<h2 id="browser-builds">Browser Builds</h2>
+<p>Browser builds and corresponding source map files can be downloaded from <a href="https://github.com/BinaryMuse/fluxxor/releases">the Fluxxor releases page</a> or installed via <a href="http://bower.io/">Bower</a> via <code>bower install fluxxor</code>. Browser builds use a universal module definition, and should work in the following environments:</p>
+<h3 id="commonjs">CommonJS</h3>
+<pre><code class="lang-javascript"><span class="keyword">var</span> Fluxxor = <span class="built_in">require</span>(<span class="string">"path/to/fluxxor"</span>);
+</code></pre>
+<h3 id="amd">AMD</h3>
+<pre><code class="lang-javascript">define(<span class="string">"someModule"</span>, [<span class="string">"Fluxxor"</span>], <span class="function"><span class="keyword">function</span><span class="params">(Fluxxor)</span> {</span>
+  <span class="comment">// ...</span>
+});
+</code></pre>
+<h3 id="standalone">Standalone</h3>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"path/to/fluxxor.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre>
+<pre><code class="lang-javascript">window.Fluxxor.createStore({ ... });
+</code></pre>
+<h2 id="browser-compatibility">Browser Compatibility</h2>
+<p>Fluxxor is compatible with any <a href="http://kangax.github.io/compat-table/es5/">ES5-compliant browser</a> (IE 9+, FF 4+, Safari 5.1.4+, Chrome 19+, Opera 12.10+). You can use <a href="https://github.com/es-shims/es5-shim">es5-shim</a> for other browsers.</p>
+<h2 id="getting-started">Getting Started</h2>
+<p>Check out <a href="/guides/quick-start.html">the quick-start guide</a> to get up-to-speed building apps with Fluxxor in no time.</p>
 
     <hr>
     See a typo? Something still not clear?

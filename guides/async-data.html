@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+
+<meta charset="utf-8">
+<title>Fluxxor - Dealing with Asynchronous Data</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta property="og:image" content="http://fluxxor.com/fluxxor.png">
+<meta property="og:site_name" content="Fluxxor">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="">
+<meta name="twitter:title" content="Fluxxor">
+<meta name="twitter:description" content="Fluxxor is a set of tools to facilitate building JavaScript data layers using the Flux architecture.">
+<meta name="twitter:creator" content="BinaryMuse">
+<meta name="twitter:image:src" content="http://fluxxor.com/fluxxor.png">
+<meta name="twitter:domain" content="">
+<meta name="twitter:app:name:iphone" content="">
+<meta name="twitter:app:name:ipad" content="">
+<meta name="twitter:app:name:googleplay" content="">
+<meta name="twitter:app:url:iphone" content="">
+<meta name="twitter:app:url:ipad" content="">
+<meta name="twitter:app:url:googleplay" content="">
+<meta name="twitter:app:id:iphone" content="">
+<meta name="twitter:app:id:ipad" content="">
+<meta name="twitter:app:id:googleplay" content="">
+<link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css">
+<script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<link rel="stylesheet" type="text/css" href="/style/main.css">
+
+<a class="github-banner" href="https://github.com/BinaryMuse/fluxxor"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+
+<div class="wrapper">
+  <header>
+    <div class="logo-container-sidebar">
+      <a href="/"><img src="/fluxxor.svg" alt="Fluxxor" title="Fluxxor" class="logo-svg"></a>
+    </div>
+    <div class="show-hide-nav">
+      <a href="#" class="show-nav">Show Navigation</a>
+      <a href="#" class="hide-nav">Hide Navigation</a>
+    </div>
+    <div class="nav-list">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/what-is-flux.html">What is Flux?</a></li>
+        <li><a href="/guides/">Guides</a></li>
+        <ul>
+          <li><a href="/guides/installation.html">Installation</a></li>
+          <li><a href="/guides/quick-start.html">Quick-Start Guide</a></li>
+          <li><a href="/guides/async-data.html">Dealing with Asynchronous Data</a></li>
+        </ul>
+        <li><a href="/examples/">Examples</a></li>
+        <ul>
+          <li><a href="/guides/quick-start.html">Basic Todos</a></li>
+          <li><a href="/examples/carousel/">Image Carousel</a></li>
+          <li><a href="/guides/async-data.html">Asynchronous Data</a></li>
+        </ul>
+        <li><a href="/documentation/">Documentation</a></li>
+        <ul>
+          <li><a href="/documentation/flux.html">Fluxxor.Flux</a></li>
+          <li><a href="/documentation/stores.html">Stores</a></li>
+          <li><a href="/documentation/actions.html">Actions</a></li>
+          <li><a href="/documentation/flux-mixin.html">Fluxxor.FluxMixin</a></li>
+          <li><a href="/documentation/store-watch-mixin.html">Fluxxor.StoreWatchMixin</a></li>
+        </ul>
+        <li><a href="/faq.html">FAQ</a></li>
+        <li><a href="https://github.com/BinaryMuse/fluxxor">View on GitHub</a></li>
+      </ul>
+      <p>
+        <a href="https://gitter.im/BinaryMuse/fluxxor">Support and chat on Gitter</a><br>
+        <a href="https://gitter.im/BinaryMuse/fluxxor"><img src="https://badges.gitter.im/BinaryMuse/fluxxor.png"></a>
+      </p>
+    </div>
+    <div class="sidebar-info">
+      <hr>
+      <p>Copyright &copy; 2014 <a href="https://github.com/BinaryMuse/">Brandon Tilley</a><br>
+      Licensed under <a href="http://opensource.org/licenses/MIT">the MIT license</a></p>
+    </div>
+  </header>
+  <section>
+    <h1 id="dealing-with-asynchronous-data">Dealing with Asynchronous Data</h1>
+<p>In any decently complex JavaScript web application, you&#39;ll likely need to fetch data from an external source, and this means dealing with asynchronous data fetching. It&#39;s not always very obvious how to structure this activity in a flux application.</p>
+<p>The short answer is, in order to ensure that all the stores in your application have a chance to respond to the successful (or unsuccessful) loading of asynchronous data, you should fire additional actions from your asynchronous handlers to indicate when loading fails or succeeds. Let&#39;s look at an example.</p>
+<blockquote>
+<p>Note: The code for this example is <a href="https://github.com/BinaryMuse/fluxxor/tree/master/examples/async/">available in the GitHub repository</a>. Note that Faker and Lo-Dash are loaded via CDN in <code>index.html</code>.</p>
+</blockquote>
+<p>This application simulates an asynchronous API using <code>setTimeout</code> that performs two operations:</p>
+<ol>
+<li>Gets a list of catch phrases for your new startup</li>
+<li>Allows you to submit new catch phrases to the database</li>
+</ol>
+<p>To allow for testing error conditions, 50% of the time submitting a new phrase will fail with an error. Here&#39;s the app running:</p>
+<div id="app"></div>
+
+<p>Let&#39;s walk through building the app together.</p>
+<h2 id="the-client-api">The Client API</h2>
+<p>Since we&#39;re using a fake asynchronous API, we just have a dumb client object that waits for 1000 milliseconds before responding. It has two methods; <code>load</code> returns 10 buzzwords, and <code>submit</code> takes a buzzword and either reports a success or error (to simulate submitting a suggestion to a server).</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> BuzzwordClient = {
+  load: <span class="function"><span class="keyword">function</span><span class="params">(success, failure)</span> {</span>
+    setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+      success(_.range(<span class="number">10</span>).map(Faker.Company.catchPhrase));
+    }, <span class="number">1000</span>);
+  },
+
+  submit: <span class="function"><span class="keyword">function</span><span class="params">(word, success, failure)</span> {</span>
+    setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+      <span class="keyword">if</span> (<span class="built_in">Math</span>.random() &gt; <span class="number">0.5</span>) {
+        success(word);
+      } <span class="keyword">else</span> {
+        failure(<span class="string">"Failed to "</span> + Faker.Company.bs());
+      }
+    }, <span class="number">1000</span>);
+  }
+};
+</code></pre>
+<h2 id="actions">Actions</h2>
+<p>There are two application intents we&#39;ll capture via actions; one is to load the initial set of buzzwords, and the other is to submit a new buzzword. However, since we&#39;re dealing with asynchronous operations, we&#39;ll also define a <code>SUCCESS</code> and <code>FAIL</code> action type for each.</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> constants = {
+  LOAD_BUZZ: <span class="string">"LOAD_BUZZ"</span>,
+  LOAD_BUZZ_SUCCESS: <span class="string">"LOAD_BUZZ_SUCCESS"</span>,
+  LOAD_BUZZ_FAIL: <span class="string">"LOAD_BUZZ_FAIL"</span>,
+
+  ADD_BUZZ: <span class="string">"ADD_BUZZ"</span>,
+  ADD_BUZZ_SUCCESS: <span class="string">"ADD_BUZZ_SUCCESS"</span>,
+  ADD_BUZZ_FAIL: <span class="string">"ADD_BUZZ_FAIL"</span>
+};
+</code></pre>
+<p>The actions themselves will immediately dispatch the <code>LOAD_BUZZ</code> or <code>ADD_BUZZ</code> action types so that any stores that want to optimisically update the UI can do. They will then delegate to the <code>BuzzwordClient</code> and dispatch the appropriate success or failure action type depending on how it responds.</p>
+<p>We also generate a temporary client-side ID that we can use to track a specific word across the asynchronous operations, and include it in part of the payload when adding a new buzzword.</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> clientId = <span class="number">0</span>; <span class="comment">// simple helper var to generate temporary client-side IDs</span>
+<span class="keyword">var</span> actions = {
+  loadBuzz: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">this</span>.dispatch(constants.LOAD_BUZZ);
+
+    BuzzwordClient.load(<span class="function"><span class="keyword">function</span><span class="params">(words)</span> {</span>
+      <span class="keyword">this</span>.dispatch(constants.LOAD_BUZZ_SUCCESS, {words: words});
+    }.bind(<span class="keyword">this</span>), <span class="function"><span class="keyword">function</span><span class="params">(error)</span> {</span>
+      <span class="keyword">this</span>.dispatch(constants.LOAD_BUZZ_FAIL, {error: error});
+    }.bind(<span class="keyword">this</span>));
+  },
+
+  addBuzz: <span class="function"><span class="keyword">function</span><span class="params">(word)</span> {</span>
+    <span class="keyword">var</span> id = clientId++;
+    <span class="keyword">this</span>.dispatch(constants.ADD_BUZZ, {id: id, word: word});
+
+    BuzzwordClient.submit(word, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+      <span class="keyword">this</span>.dispatch(constants.ADD_BUZZ_SUCCESS, {id: id});
+    }.bind(<span class="keyword">this</span>), <span class="function"><span class="keyword">function</span><span class="params">(error)</span> {</span>
+      <span class="keyword">this</span>.dispatch(constants.ADD_BUZZ_FAIL, {id: id, error: error});
+    }.bind(<span class="keyword">this</span>));
+  }
+};
+</code></pre>
+<p>From here on out, it&#39;s pretty much the same game.</p>
+<h2 id="store">Store</h2>
+<p>Our store now needs to watch for the various actions and update appropriately. While the code looks a little more verbose than its synchronous counterparts (because, well, it is), it keeps the flow of data throughout the system explicit.</p>
+<pre><code>var BuzzwordStore = Fluxxor.createStore({
+  initialize: function() {
+    this.loading = false;
+    this.adding = false;
+    this.error = null;
+    this.words = [];
+    this.loadingWords = {};
+
+    this.bindActions(
+      constants.LOAD_BUZZ, this.onLoadBuzz,
+      constants.LOAD_BUZZ_SUCCESS, this.onLoadBuzzSuccess,
+      constants.LOAD_BUZZ_FAIL, this.onLoadBuzzFail,
+      constants.ADD_BUZZ, this.onAddBuzz,
+      constants.ADD_BUZZ_SUCCESS, this.onAddBuzzSuccess,
+      constants.ADD_BUZZ_FAIL, this.onAddBuzzFail
+    );
+  },
+
+  onLoadBuzz: function() {
+    this.loading = true;
+    this.words = [];
+    this.error = null;
+    this.emit(&quot;change&quot;);
+  },
+
+  onLoadBuzzSuccess: function(payload) {
+    this.loading = false;
+    this.words = payload.words.map(function(word) {
+      return {word: word, status: &quot;OK&quot;};
+    });
+    this.emit(&quot;change&quot;);
+  },
+
+  onLoadBuzzFail: function(payload) {
+    this.loading = false;
+    this.error = payload.error;
+    this.emit(&quot;change&quot;);
+  },
+
+  onAddBuzz: function(payload) {
+    var word = {word: payload.word, status: &quot;ADDING&quot;};
+    this.words.push(word);
+    this.loadingWords[payload.id] = word;
+    this.emit(&quot;change&quot;);
+  },
+
+  onAddBuzzSuccess: function(payload) {
+    this.loadingWords[payload.id].status = &quot;OK&quot;;
+    delete this.loadingWords[payload.id];
+    this.emit(&quot;change&quot;);
+  },
+
+  onAddBuzzFail: function(payload) {
+    this.loadingWords[payload.id].status = &quot;ERROR&quot;;
+    this.loadingWords[payload.id].error = payload.error;
+    delete this.loadingWords[payload.id];
+    this.emit(&quot;change&quot;);
+  }
+});
+</code></pre><p>The <code>BuzzwordStore</code> code is pretty straightforward; the most interesting portion is probably the last three methods. Notice we optimistically add the submitted word to the store in <code>onAddBuzz</code> even though we don&#39;t know if it will succeed or not. Later, in <code>onAddBuzzSuccess</code> and <code>onAddBuzzFail</code>, we track down the word in question and update its status accordingly. In another app, we might present an alert to the user upon failure, or remove the word from the store completely.</p>
+<h2 id="the-ui">The UI</h2>
+<p>For completeness, here is the UI for this application. Note that the <code>Word</code> component looks at the status for the word object to determine how to display it to the user. Also notice how the application can render itself even when the store is empty; this is an important property for flux apps that need to load data asynchronously.</p>
+<pre><code class="lang-javascript">var stores = {
+  BuzzwordStore: new BuzzwordStore()
+};
+
+var flux = new Fluxxor.Flux(stores, actions);
+
+var FluxMixin = Fluxxor.FluxMixin(React),
+    StoreWatchMixin = Fluxxor.StoreWatchMixin;
+
+var Application = React.createClass({
+  mixins: [FluxMixin, StoreWatchMixin("BuzzwordStore")],
+
+  getInitialState: function() {
+    return {
+      suggestBuzzword: ""
+    };
+  },
+
+  getStateFromFlux: function() {
+    var store = this.getFlux().store("BuzzwordStore");
+    return {
+      loading: store.loading,
+      error: store.error,
+      words: store.words
+    };
+  },
+
+  render: function() {
+    return (
+      &lt;div&gt;
+        &lt;h1&gt;All the Buzzwords&lt;/h1&gt;
+        {this.state.error ? "Error loading data" : null}
+        &lt;ul style={{lineHeight: "1.3em", minHeight: "13em"}}&gt;
+          {this.state.loading ? &lt;li&gt;Loading...&lt;/li&gt; : null}
+          {this.state.words.map(function(word) {
+            return &lt;Word word={word} /&gt;;
+          })}
+        &lt;/ul&gt;
+        &lt;h2&gt;Suggest a New Buzzword&lt;/h2&gt;
+        &lt;form onSubmit={this.handleSubmitForm}&gt;
+          &lt;input type="text" value={this.state.suggestBuzzword}
+                 onChange={this.handleSuggestedWordChange} /&gt;
+          &lt;input type="submit" value="Add" /&gt;
+        &lt;/form&gt;
+      &lt;/div&gt;
+    );
+  },
+
+  componentDidMount: function() {
+    this.getFlux().actions.loadBuzz();
+  },
+
+  handleSuggestedWordChange: function(e) {
+    this.setState({suggestBuzzword: e.target.value});
+  },
+
+  handleSubmitForm: function(e) {
+    e.preventDefault();
+    if (this.state.suggestBuzzword.trim()) {
+      this.getFlux().actions.addBuzz(this.state.suggestBuzzword);
+      this.setState({suggestBuzzword: ""});
+    }
+  }
+});
+
+var Word = React.createClass({
+  render: function() {
+    var statusText, statusStyle = {};
+    switch(this.props.word.status) {
+    case "OK":
+      statusText = "";
+      break;
+    case "ADDING":
+      statusText = "adding...";
+      statusStyle = { color: "#ccc" };
+      break;
+    case "ERROR":
+      statusText = "error: " + this.props.word.error;
+      statusStyle = { color: "red" };
+      break;
+    }
+
+    return (
+      &lt;li key={this.props.word.word}&gt;
+        {this.props.word.word} &lt;span style={statusStyle}&gt;{statusText}&lt;/span&gt;
+      &lt;/li&gt;
+    );
+  }
+});
+</code></pre>
+<p>And that&#39;s it! Be sure to check out <a href="https://github.com/BinaryMuse/fluxxor/tree/master/examples/async/">the full example in the GitHub repo</a>.</p>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/0.7.2/MinFaker.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+<script src="async-bundle.js"></script>
+
+    <hr>
+    See a typo? Something still not clear?
+    <a href="https://github.com/BinaryMuse/fluxxor/issues/new">Report an issue on GitHub</a>.
+  </section>
+
+  <div class="footer-info">
+    <hr>
+    <p>Copyright &copy; 2014 <a href="https://github.com/BinaryMuse/">Brandon Tilley</a><br>
+    Licensed under <a href="http://opensource.org/licenses/MIT">the MIT license</a><br>
+    <a href="https://github.com/BinaryMuse/fluxxor">Available on GitHub</a></p>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll(".show-nav")[0].addEventListener("click", function(ev) {
+  ev.preventDefault();
+  document.querySelectorAll(".nav-list")[0].style.display = 'block';
+  document.querySelectorAll(".show-nav")[0].style.display = 'none';
+  document.querySelectorAll(".hide-nav")[0].style.display = 'block';
+});
+
+document.querySelectorAll(".hide-nav")[0].addEventListener("click", function(ev) {
+  ev.preventDefault();
+  document.querySelectorAll(".nav-list")[0].style.display = 'none';
+  document.querySelectorAll(".show-nav")[0].style.display = 'block';
+  document.querySelectorAll(".hide-nav")[0].style.display = 'none';
+});
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-51086297-1', 'fluxxor.com');
+  ga('require', 'displayfeatures');
+  ga('require', 'linkid', 'linkid.js');
+  ga('send', 'pageview');
+</script>
+
+</html>

@@ -43,15 +43,17 @@
       <ul>
         <li><a href="/">Home</a></li>
         <li><a href="/what-is-flux.html">What is Flux?</a></li>
-        <li><a href="/getting-started/">Getting Started</a></li>
+        <li><a href="/guides/">Guides</a></li>
         <ul>
-          <li><a href="/getting-started/installation.html">Installation</a></li>
-          <li><a href="/getting-started/quick-start.html">Quick-Start Guide</a></li>
+          <li><a href="/guides/installation.html">Installation</a></li>
+          <li><a href="/guides/quick-start.html">Quick-Start Guide</a></li>
+          <li><a href="/guides/async-data.html">Dealing with Asynchronous Data</a></li>
         </ul>
         <li><a href="/examples/">Examples</a></li>
         <ul>
-          <li><a href="/getting-started/quick-start.html">Basic Todos</a></li>
+          <li><a href="/guides/quick-start.html">Basic Todos</a></li>
           <li><a href="/examples/carousel/">Image Carousel</a></li>
+          <li><a href="/guides/async-data.html">Asynchronous Data</a></li>
         </ul>
         <li><a href="/documentation/">Documentation</a></li>
         <ul>
@@ -88,8 +90,10 @@
 </ul>
 <p><code>spec</code> may contain any properties; functions will be automatically bound to the store instance and attached to it, and other properties will simply be attached to it. The following properties of <code>spec</code> behave specially:</p>
 <ul>
-<li><code>actions</code> - An object map of action types to method names. Actions dispatched to the store with the given type will automatically be handled by the method with the corresponding name. Dynamic action types can be bound with the <code>bindActions</code> method.</li>
-<li><code>initialize(options)</code> - A function that will be called right after a store is instantiated. <code>options</code> is an optional object passed from the constructor.</li>
+<li><p><code>actions</code> - An object map of action types to method names. Actions dispatched to the store with the given type will automatically be handled by the method with the corresponding name. Dynamic action types can be bound with the <code>bindActions</code> method. (<code>bindActions</code> is the recommended approach, since you can refer to constants defined elsewhere, which helps catch errors earlier and better supports minification.)</p>
+</li>
+<li><p><code>initialize(options)</code> - A function that will be called right after a store is instantiated. <code>options</code> is an optional object passed from the constructor.</p>
+</li>
 </ul>
 <p>Example:</p>
 <pre><code class="lang-javascript"><span class="keyword">var</span> MyStore = Fluxxor.createStore({
@@ -99,6 +103,11 @@
 
   initialize: <span class="function"><span class="keyword">function</span><span class="params">(options)</span> {</span>
     <span class="keyword">this</span>.value = options.value;
+
+    <span class="comment">// We could also use this in place of the `actions` hash, above:</span>
+    <span class="keyword">this</span>.bindActions(
+      <span class="string">"ACTION_TYPE"</span>, <span class="keyword">this</span>.handleActionType
+    );
   },
 
   handleActionType: <span class="function"><span class="keyword">function</span><span class="params">(payload, type)</span> {</span>
@@ -116,14 +125,17 @@
 <li><code>type</code> - The action type to bind to.</li>
 <li><code>handler</code> - A function reference or method name (as a string) to call when actions of that type are dispatched to the store.</li>
 </ul>
+<p>Using <code>bindActions</code> with constants defined elsewhere is less error prone and supports minification better than using the <code>actions</code> hash.</p>
 <p>Example:</p>
 <pre><code class="lang-javascript"><span class="keyword">var</span> ACTION_TYPE = <span class="string">"ACTION_TYPE_1"</span>,
     OTHER_ACTION_TYPE = <span class="string">"ACTION_TYPE_2"</span>;
 
 <span class="keyword">var</span> MyStore = Fluxxor.createStore({
   initialize: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-    <span class="keyword">this</span>.bindActions(ACTION_TYPE, <span class="keyword">this</span>.handleActionType,
-                     OTHER_ACTION_TYPE, <span class="string">"handleOtherActionType"</span>);
+    <span class="keyword">this</span>.bindActions(
+      ACTION_TYPE, <span class="keyword">this</span>.handleActionType,
+      OTHER_ACTION_TYPE, <span class="string">"handleOtherActionType"</span>
+    );
   },
 
   handleActionType: <span class="function"><span class="keyword">function</span><span class="params">(payload, type)</span> {</span>
