@@ -22,7 +22,8 @@ Create a new store constructor.
 
 `spec` may contain any properties; functions will be automatically bound to the store instance and attached to it, and other properties will simply be attached to it. The following properties of `spec` behave specially:
 
-* `actions` - An object map of action types to method names. Actions dispatched to the store with the given type will automatically be handled by the method with the corresponding name. Dynamic action types can be bound with the `bindActions` method.
+* `actions` - An object map of action types to method names. Actions dispatched to the store with the given type will automatically be handled by the method with the corresponding name. Dynamic action types can be bound with the `bindActions` method. (`bindActions` is the recommended approach, since you can refer to constants defined elsewhere, which helps catch errors earlier and better supports minification.)
+
 * `initialize(options)` - A function that will be called right after a store is instantiated. `options` is an optional object passed from the constructor.
 
 Example:
@@ -35,6 +36,11 @@ var MyStore = Fluxxor.createStore({
 
   initialize: function(options) {
     this.value = options.value;
+
+    // We could also use this in place of the `actions` hash, above:
+    this.bindActions(
+      "ACTION_TYPE", this.handleActionType
+    );
   },
 
   handleActionType: function(payload, type) {
@@ -56,6 +62,8 @@ Binds action types to methods on the store. `bindActions` takes any even number 
 * `type` - The action type to bind to.
 * `handler` - A function reference or method name (as a string) to call when actions of that type are dispatched to the store.
 
+Using `bindActions` with constants defined elsewhere is less error prone and supports minification better than using the `actions` hash.
+
 Example:
 
 ```javascript
@@ -64,8 +72,10 @@ var ACTION_TYPE = "ACTION_TYPE_1",
 
 var MyStore = Fluxxor.createStore({
   initialize: function() {
-    this.bindActions(ACTION_TYPE, this.handleActionType,
-                     OTHER_ACTION_TYPE, "handleOtherActionType");
+    this.bindActions(
+      ACTION_TYPE, this.handleActionType,
+      OTHER_ACTION_TYPE, "handleOtherActionType"
+    );
   },
 
   handleActionType: function(payload, type) {
