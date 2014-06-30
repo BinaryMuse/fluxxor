@@ -29,6 +29,32 @@ var flux = new Fluxxor.Flux(stores, actions);
 flux.actions.addUrl("http://google.com", 3);
 ```
 
+Namespaced Actions
+------------------
+
+Fluxxor will iterate over objets in your actions definition, allowing for namespaced actions:
+
+```javascript
+var actions = {
+  user: {
+    login: function() { this.dispatch(...); },
+    logout: function() { this.dispatch(...); }
+  },
+  post: {
+    add: function() { this.dispatch(...); },
+    remove: function() { this.dispatch(...); }
+  }
+};
+
+var flux = new Fluxxor.Flux(stores, actions);
+
+// somewhere later...
+flux.actions.user.login(...);
+```
+
+Responding to Actions
+---------------------
+
 [Stores](/documentation/stores.html) respond to specific action types via the `actions` object in their spec or via calls to `bindActions` during initialization.
 
 ```javascript
