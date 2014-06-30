@@ -125,7 +125,7 @@
   ADD_BUZZ_FAIL: <span class="string">"ADD_BUZZ_FAIL"</span>
 };
 </code></pre>
-<p>The actions themselves will immediately dispatch the <code>LOAD_BUZZ</code> or <code>ADD_BUZZ</code> action types so that any stores that want to optimisically update the UI can do. They will then delegate to the <code>BuzzwordClient</code> and dispatch the appropriate success or failure action type depending on how it responds.</p>
+<p>The actions themselves will immediately dispatch the <code>LOAD_BUZZ</code> or <code>ADD_BUZZ</code> action types so that any stores that want to optimisically update the UI can do so. They will then delegate to the <code>BuzzwordClient</code> and dispatch the appropriate success or failure action type depending on how it responds.</p>
 <p>We also generate a temporary client-side ID that we can use to track a specific word across the asynchronous operations, and include it in part of the payload when adding a new buzzword.</p>
 <pre><code class="lang-javascript"><span class="keyword">var</span> clientId = <span class="number">0</span>; <span class="comment">// simple helper var to generate temporary client-side IDs</span>
 <span class="keyword">var</span> actions = {
@@ -151,7 +151,7 @@
   }
 };
 </code></pre>
-<p>From here on out, it&#39;s pretty much the same game.</p>
+<p>From here on out, our app will look pretty similar to any other.</p>
 <h2 id="store">Store</h2>
 <p>Our store now needs to watch for the various actions and update appropriately. While the code looks a little more verbose than its synchronous counterparts (because, well, it is), it keeps the flow of data throughout the system explicit.</p>
 <pre><code>var BuzzwordStore = Fluxxor.createStore({
