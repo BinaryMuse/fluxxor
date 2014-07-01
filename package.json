@@ -42,7 +42,8 @@
     "wintersmith-less": "^0.2.2"
   },
   "dependencies": {
-    "lodash-node": "^2.4.1"
+    "lodash-node": "^2.4.1",
+    "lodash": "^2.4.1"
   },
   "jshintConfig": {
     "camelcase": true,
