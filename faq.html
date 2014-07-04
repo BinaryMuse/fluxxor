@@ -97,7 +97,7 @@ React.createClass({
 <hr>
 
 <p><strong>Q:</strong> How do I deal with asynchronous operations in stores?</p>
-<p><strong>A:</strong> Dispatches to stores are always synchronous, but stores can perform asynchronous operations. At the end of the async call, the store can dispatch a separate action that represents the <em>availability</em> of the asynchronously-obtained data.</p>
+<p><strong>A:</strong> Dispatches to stores are always synchronous, but stores can perform asynchronous operations. At the end of the async call, the store can dispatch a separate action that represents the <em>availability</em> of the asynchronously-obtained data. See <a href="/guides/async-data.html">Dealing with Asynchronous Data</a> for more details.</p>
 <hr>
 
 <p><strong>Q:</strong> Why does dispatching an action while another action is in progress throw an error?</p>
@@ -106,6 +106,10 @@ React.createClass({
 
 <p><strong>Q:</strong> Why is Fluxxor throwing an error saying an action is already being dispatched when I&#39;m sending an action from an asynchronous operation?</p>
 <p><strong>A:</strong> Some libraries will sometimes call callbacks on the same tick, for example if data is cached. You can wrap the action dispatch call in a <code>setTimeout</code> to ensure the function is asynchronous. For bonus points, notify the author of the offending library that <a href="http://blog.ometer.com/2011/07/24/callbacks-synchronous-and-asynchronous/">their asynchronous callbacks are sometimes synchronous</a>.</p>
+<hr>
+
+<p><strong>Q:</strong> Why do I see a warning that says &quot;possible EventEmitter memory leak detected&quot;?</p>
+<p><strong>A:</strong> This warning is built in to the Node.js <a href="http://nodejs.org/api/events.html#events_class_events_eventemitter">EventEmitter</a> to help avoid accidentally leaking handlers. If you know you&#39;re not actually leaking and you want to suppress this warning, you can call <a href="http://nodejs.org/api/events.html#events_emitter_setmaxlisteners_n"><code>setMaxListeners(n)</code></a> on your store (use can use a value of <code>0</code> for unlimited).</p>
 
     <hr>
     See a typo? Something still not clear?
