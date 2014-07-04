@@ -31,7 +31,7 @@ React.createClass({
 
 **Q:** How do I deal with asynchronous operations in stores?
 
-**A:** Dispatches to stores are always synchronous, but stores can perform asynchronous operations. At the end of the async call, the store can dispatch a separate action that represents the *availability* of the asynchronously-obtained data.
+**A:** Dispatches to stores are always synchronous, but stores can perform asynchronous operations. At the end of the async call, the store can dispatch a separate action that represents the *availability* of the asynchronously-obtained data. See [Dealing with Asynchronous Data](/guides/async-data.html) for more details.
 
 <hr>
 
@@ -44,3 +44,9 @@ React.createClass({
 **Q:** Why is Fluxxor throwing an error saying an action is already being dispatched when I'm sending an action from an asynchronous operation?
 
 **A:** Some libraries will sometimes call callbacks on the same tick, for example if data is cached. You can wrap the action dispatch call in a `setTimeout` to ensure the function is asynchronous. For bonus points, notify the author of the offending library that [their asynchronous callbacks are sometimes synchronous](http://blog.ometer.com/2011/07/24/callbacks-synchronous-and-asynchronous/).
+
+<hr>
+
+**Q:** Why do I see a warning that says "possible EventEmitter memory leak detected"?
+
+**A:** This warning is built in to the Node.js [EventEmitter](http://nodejs.org/api/events.html#events_class_events_eventemitter) to help avoid accidentally leaking handlers. If you know you're not actually leaking and you want to suppress this warning, you can call [`setMaxListeners(n)`](http://nodejs.org/api/events.html#events_emitter_setmaxlisteners_n) on your store (use can use a value of `0` for unlimited).
