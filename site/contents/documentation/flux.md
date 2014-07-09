@@ -3,8 +3,8 @@ title: Fluxxor.Flux
 template: page.ejs
 ---
 
-Flubox.Flux
-===========
+Fluxxor.Flux
+============
 
 `Fluxxor.Flux` is the main container object for a Flux application. It provides access to the [stores](/documentation/stores.html) and the [actions](/documentation/actions.html), and is responsible for managing the dispatcher internally.
 
