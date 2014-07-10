@@ -14,7 +14,7 @@ describe("FluxMixin", function() {
     global.document = window.document;
     global.navigator = window.navigator;
     for (var i in require.cache) {
-      if(true) {
+      if (require.cache.hasOwnProperty(i)) {
         delete require.cache[i];
       }
     }
@@ -96,7 +96,7 @@ describe("FluxMixin", function() {
     };
 
     flux = new Fluxxor.Flux(stores, actions);
-    
+
     Comp = createComponent(React);
   });
 
@@ -122,7 +122,7 @@ describe("FluxMixin", function() {
     });
   });
 
-  
+
   it("throws when attempting to mix in the function directly", function() {
     var Comp = React.createClass({
       mixins: [Fluxxor.StoreWatchMixin],
@@ -132,5 +132,5 @@ describe("FluxMixin", function() {
       React.renderComponentToString(Comp());
     }).to.throw(/StoreWatchMixin.*function/);
   });
-  
+
 });
