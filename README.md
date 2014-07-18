@@ -24,10 +24,40 @@ Bower:
 
     bower install fluxxor
 
-Fluxxor is compatible with any [ES5-compliant browser](http://kangax.github.io/compat-table/es5/) (IE 9+, FF 4+, Safari 5.1.4+, Chrome 19+, Opera 12.10+). You can use [es5-shim](https://github.com/es-shims/es5-shim) for other browsers.
-
 More detailed installation instructions can be found on
 [the Fluxxor website](http://fluxxor.com/guides/installation.html).
+
+### Third Party Releases
+
+The following releases are maintained by third parties, and support inquiries should be directed to their maintainers.
+
+#### WebJar
+
+For JVM languages, there are [WebJar](http://www.webjars.org) packages available on Maven Central and jsDelivr as the following:
+
+SBT/Play Framework 2:
+
+```scala
+"org.webjars" % "fluxxor" % fluxxorVersion
+```
+
+Maven:
+
+```xml
+<dependency>
+    <groupId>org.webjars</groupId>
+    <artifactId>fluxxor</artifactId>
+    <version>${fluxxor.version}</version>
+</dependency>
+```
+
+For detailed instructions, refer to the [WebJars documentation](http://www.webjars.org/documentation). For update requests, open a pull request on the [Fluxxor WebJar repository on Github](https://github.com/webjars/fluxxor).
+
+Browser Compatibility
+---------------------
+
+Fluxxor is compatible with any [ES5-compliant browser](http://kangax.github.io/compat-table/es5/) (IE 9+, FF 4+, Safari 5.1.4+, Chrome 19+, Opera 12.10+). You can use [es5-shim](https://github.com/es-shims/es5-shim) for other browsers.
+
 
 Documentation
 -------------
