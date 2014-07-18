@@ -13,6 +13,8 @@ architecture](http://facebook.github.io/react/docs/flux-overview.html).
 Installation
 ------------
 
+### Official releases
+
 Fluxxor is available on npm and works with module bundlers like
 [Browserify](http://browserify.org/) and [Webpack](http://webpack.github.io/).
 
@@ -23,6 +25,30 @@ Standalone browser builds can be downloaded from
 Bower:
 
     bower install fluxxor
+
+### WebJar releases
+
+For JVM languages, there's also [WebJar](http://www.webjars.org) packages available on Maven Central and jsDelivr as the following:
+
+SBT / Play framework 2:
+```scala
+"org.webjars" % "fluxxor" % fluxxorVersion
+```
+
+Maven:
+```xml
+<dependency>
+    <groupId>org.webjars</groupId>
+    <artifactId>fluxxor</artifactId>
+    <version>${fluxxor.version}</version>
+</dependency>
+```
+
+For detailed instructions, refer to the [WebJars documentation](http://www.webjars.org/documentation).
+
+__NOTE__: WebJar packages are not maintained by the author himself, so that the latest WebJar might be slightly outdated to the official release. To keep it up-to-date, you can open a pull request on [Fluxxor WebJar repository on Github](https://github.com/webjars/fluxxor).
+
+### Browser Compatibility
 
 Fluxxor is compatible with any [ES5-compliant browser](http://kangax.github.io/compat-table/es5/) (IE 9+, FF 4+, Safari 5.1.4+, Chrome 19+, Opera 12.10+). You can use [es5-shim](https://github.com/es-shims/es5-shim) for other browsers.
 
