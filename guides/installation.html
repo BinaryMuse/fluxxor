@@ -100,6 +100,21 @@
 </code></pre>
 <pre><code class="lang-javascript">window.Fluxxor.createStore({ ... });
 </code></pre>
+<h2 id="third-party-releases">Third-Party Releases</h2>
+<p>The following releases are maintained by third parties, and support inquiries should be directed to their maintainers.</p>
+<h3 id="webjar">WebJar</h3>
+<p>For JVM languages, there are <a href="http://www.webjars.org/">WebJar</a> packages available on Maven Central and jsDelivr as the following:</p>
+<p>SBT/Play Framework 2:</p>
+<pre><code class="lang-scala"><span class="string">"org.webjars"</span> % <span class="string">"fluxxor"</span> % fluxxorVersion
+</code></pre>
+<p>Maven:</p>
+<pre><code class="lang-xml"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.webjars<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>fluxxor<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">version</span>&gt;</span>${fluxxor.version}<span class="tag">&lt;/<span class="title">version</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span>
+</code></pre>
+<p>For detailed instructions, refer to the <a href="http://www.webjars.org/documentation">WebJars documentation</a>. For update requests, open a pull request on the <a href="https://github.com/webjars/fluxxor">Fluxxor WebJar repository on Github</a>.</p>
 <h2 id="browser-compatibility">Browser Compatibility</h2>
 <p>Fluxxor is compatible with any <a href="http://kangax.github.io/compat-table/es5/">ES5-compliant browser</a> (IE 9+, FF 4+, Safari 5.1.4+, Chrome 19+, Opera 12.10+). You can use <a href="https://github.com/es-shims/es5-shim">es5-shim</a> for other browsers.</p>
 <h2 id="getting-started">Getting Started</h2>
