@@ -49,7 +49,6 @@ describe("Dispatcher", function() {
 
     expect(function() {
       dispatcher.dispatch({type:"action"});
-      thrw = false;
     }).to.throw("omg");
 
     expect(function() {
