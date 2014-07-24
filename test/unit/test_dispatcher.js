@@ -47,14 +47,13 @@ describe("Dispatcher", function() {
       }
     };
 
-    try {
+    expect(function() {
       dispatcher.dispatch({type:"action"});
-    } catch (e) {
-      expect(e.message).to.equal("omg");
       thrw = false;
-    }
+    }).to.throw("omg");
 
     expect(function() {
+      thrw = false;
       dispatcher.dispatch({type:"action"});
     }).not.to.throw();
   });
