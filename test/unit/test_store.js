@@ -73,7 +73,7 @@ describe("Store", function() {
       handleAction2: function() {},
       handleAction3: function() {
         this.value = 42;
-      },
+      }
     });
     var store = new Store();
     store.handleAction = sinon.spy();
