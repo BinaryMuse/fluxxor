@@ -5,7 +5,7 @@ var Fluxxor = require("../../"),
 var chai = require("chai"),
     expect = chai.expect;
 
-describe("FluxMixin", function() {
+describe("StoreWatchMixin", function() {
   var SwappedComponent, createComponent, React, TestUtils, Comp, FluxMixin, FluxChildMixin, flux;
 
   beforeEach(function() {
@@ -26,41 +26,41 @@ describe("FluxMixin", function() {
     SwappedComponent = React.createClass({
       mixins: [FluxChildMixin, StoreWatchMixin("Store1")],
 
-        getStateFromFlux: function() {
-          return {
-            store1state: this.getFlux().store("Store1").getState(),
-          };
-        },
+      getStateFromFlux: function() {
+        return {
+          store1state: this.getFlux().store("Store1").getState(),
+        };
+      },
 
-        render: function() {
-          return React.DOM.div(null, [
-            React.DOM.span({key: 1}, String(this.state.store1state.value)),
-            ]);
-        }
+      render: function() {
+        return React.DOM.div(null, [
+          React.DOM.span({key: 1}, String(this.state.store1state.value)),
+        ]);
+      }
     });
 
     createComponent = function createComponent(React) {
       var Component = React.createClass({
         mixins: [FluxMixin, StoreWatchMixin("Store1", "Store2")],
 
-          getStateFromFlux: function() {
-            this.getStateCalls = this.getStateCalls || 0;
-            this.getStateCalls++;
-            return {
-              store1state: this.getFlux().store("Store1").getState(),
-              store2state: this.getFlux().store("Store2").getState()
-            };
-          },
+        getStateFromFlux: function() {
+          this.getStateCalls = this.getStateCalls || 0;
+          this.getStateCalls++;
+          return {
+            store1state: this.getFlux().store("Store1").getState(),
+            store2state: this.getFlux().store("Store2").getState()
+          };
+        },
 
-          render: function() {
-            if(this.state.store1state.value === 0) {
-              return React.DOM.div(null, SwappedComponent());
-            }
-            return React.DOM.div(null, [
-              React.DOM.span({key: 1}, String(this.state.store1state.value)),
-              React.DOM.span({key: 2}, String(this.state.store2state.value))
-              ]);
+        render: function() {
+          if(this.state.store1state.value === 0) {
+            return React.DOM.div(null, SwappedComponent());
           }
+          return React.DOM.div(null, [
+            React.DOM.span({key: 1}, String(this.state.store1state.value)),
+            React.DOM.span({key: 2}, String(this.state.store2state.value))
+          ]);
+        }
       });
 
       return Component;
@@ -71,18 +71,18 @@ describe("FluxMixin", function() {
         "ACTION": "handleAction"
       },
 
-        initialize: function() {
-          this.value = 0;
-        },
+      initialize: function() {
+        this.value = 0;
+      },
 
-        handleAction: function() {
-          this.value++;
-          this.emit("change");
-        },
+      handleAction: function() {
+        this.value++;
+        this.emit("change");
+      },
 
-        getState: function() {
-          return { value: this.value };
-        }
+      getState: function() {
+        return { value: this.value };
+      }
     });
 
     var stores = {
@@ -121,7 +121,6 @@ describe("FluxMixin", function() {
       done();
     });
   });
-
 
   it("throws when attempting to mix in the function directly", function() {
     var Comp = React.createClass({
