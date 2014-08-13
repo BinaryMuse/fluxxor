@@ -78,7 +78,7 @@ Get help with and chat about Fluxxor [on Gitter](https://gitter.im/BinaryMuse/fl
 License
 -------
 
-Fluxxor is licensed under the MIT license.
+Fluxxor is licensed under the [MIT license](LICENSE).
 
 > The MIT License (MIT)
 >
