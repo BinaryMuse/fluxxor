@@ -6,7 +6,7 @@ var chai = require("chai"),
     expect = chai.expect;
 
 describe("StoreWatchMixin", function() {
-  var SwappedComponent, createComponent, React, TestUtils, Comp, FluxMixin, FluxChildMixin, flux;
+  var SwappedComponent, createComponent, React, TestUtils, Comp, FluxMixin, flux;
 
   beforeEach(function() {
 
@@ -21,10 +21,9 @@ describe("StoreWatchMixin", function() {
     React = require("react/addons");
     TestUtils = React.addons.TestUtils;
     FluxMixin = Fluxxor.FluxMixin(React);
-    FluxChildMixin = Fluxxor.FluxChildMixin(React);
 
     SwappedComponent = React.createClass({
-      mixins: [FluxChildMixin, StoreWatchMixin("Store1")],
+      mixins: [FluxMixin, StoreWatchMixin("Store1")],
 
       getStateFromFlux: function() {
         return {
