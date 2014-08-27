@@ -29,6 +29,26 @@ var flux = new Fluxxor.Flux(stores, actions);
 flux.actions.addUrl("http://google.com", 3);
 ```
 
+Accessing the Flux Instance
+---------------------------
+
+The [Flux](/documentation/flux.html) instance the action generators are bound to is available via `this.flux` from inside the functions.
+
+```javascript
+var actions = {
+  addUrl: function(url) {
+    var someData = this.flux.store("someStore").getData();
+    this.dispatch("ADD_URL", {url: url, additionalData: someData});
+  }
+};
+
+var stores = {
+  someStore: new SomeStore(...);
+};
+
+var flux = new Fluxxor.Flux(stores, actions);
+```
+
 Namespaced Actions
 ------------------
 
