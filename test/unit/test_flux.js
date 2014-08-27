@@ -37,6 +37,19 @@ describe("Flux", function() {
     expect(flux.dispatcher.dispatch).to.have.been.calledWith(action);
   });
 
+  it("binds actions' `this.flux` to the flux instance", function(done) {
+    var flux,
+        actions = {
+          act: function() {
+            expect(this.flux).to.equal(flux);
+            done();
+          }
+        };
+
+    flux = new Fluxxor.Flux({}, actions);
+    flux.actions.act();
+  });
+
   it("allows namespaced actions", function() {
     var actions = {
       a: {
