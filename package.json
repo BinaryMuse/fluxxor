@@ -24,7 +24,6 @@
     "chai": "^1.9.1",
     "css-loader": "^0.6.12",
     "envify": "^1.2.1",
-    "inherits": "^2.0.1",
     "jsdom": "^0.10.5",
     "json-loader": "^0.5.0",
     "jsx-loader": "^0.10.2",
@@ -43,7 +42,8 @@
     "wintersmith-less": "^0.2.2"
   },
   "dependencies": {
-    "lodash-node": "^2.4.1"
+    "lodash-node": "^2.4.1",
+    "inherits": "^2.0.1"
   },
   "jshintConfig": {
     "camelcase": true,
