@@ -24,6 +24,7 @@
     "chai": "^1.9.1",
     "css-loader": "^0.6.12",
     "envify": "^1.2.1",
+    "inherits": "^2.0.1",
     "jsdom": "^0.10.5",
     "json-loader": "^0.5.0",
     "jsx-loader": "^0.10.2",
@@ -56,6 +57,11 @@
     "trailing": true,
     "node": true,
     "browser": true,
-    "predef": ["it", "describe", "beforeEach", "afterEach"]
+    "predef": [
+      "it",
+      "describe",
+      "beforeEach",
+      "afterEach"
+    ]
   }
 }
