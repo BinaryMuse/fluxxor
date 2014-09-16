@@ -9,8 +9,12 @@ chai.use(sinonChai);
 
 describe("Dispatcher", function() {
   var store1, store2, dispatcher;
+
   beforeEach(function() {
-    store1 = { __handleAction__: sinon.spy() };
+    var handleActionStub = sinon.stub();
+    handleActionStub.returns(true);
+
+    store1 = { __handleAction__: handleActionStub };
     store2 = { __handleAction__: sinon.spy() };
     dispatcher = new Fluxxor.Dispatcher({Store1: store1, Store2: store2});
   });
@@ -28,6 +32,7 @@ describe("Dispatcher", function() {
         dispatcher.dispatch({type:"action"});
       }).to.throw(/another action/);
       done();
+      return true;
     };
     dispatcher.dispatch({type:"action"});
   });
@@ -45,6 +50,7 @@ describe("Dispatcher", function() {
       if (thrw) {
         throw new Error("omg");
       }
+      return true;
     };
 
     expect(function() {
@@ -226,5 +232,42 @@ describe("Dispatcher", function() {
     expect(function() {
       dispatcher.dispatch({type: "ACTION"});
     }).to.throw(/circular.*Store1.*Store2.*Store3/i);
+  });
+
+  it("warns if a dispatched action is not handled by any store", function() {
+    /* jshint -W030 */
+    var warnStub = sinon.stub(console, "warn");
+
+    var Store1 = Fluxxor.createStore({});
+    var Store2 = Fluxxor.createStore({});
+
+    store1 = new Store1();
+    store2 = new Store2();
+    dispatcher = new Fluxxor.Dispatcher({Store1: store1, Store2: store2});
+    dispatcher.dispatch({type: "ACTION"});
+
+    expect(warnStub).to.have.been.calledOnce;
+
+    warnStub.restore();
+  });
+
+  it("doesn't warn if a dispatched action is handled by any store", function() {
+    /* jshint -W030 */
+    var warnStub = sinon.stub(console, "warn");
+
+    var Store1 = Fluxxor.createStore({
+      actions: { "ACTION": "handleAction" },
+      handleAction: function() {}
+    });
+    var Store2 = Fluxxor.createStore({});
+
+    store1 = new Store1();
+    store2 = new Store2();
+    dispatcher = new Fluxxor.Dispatcher({Store1: store1, Store2: store2});
+    dispatcher.dispatch({type: "ACTION"});
+
+    expect(warnStub).to.have.not.been.called;
+
+    warnStub.restore();
   });
 });
