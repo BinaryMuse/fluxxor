@@ -110,7 +110,7 @@ React.createClass({
 <hr>
 
 <p><strong>Q:</strong> Why do I see a warning that says &quot;possible EventEmitter memory leak detected&quot;?</p>
-<p><strong>A:</strong> This warning is built in to the Node.js <a href="http://nodejs.org/api/events.html#events_class_events_eventemitter">EventEmitter</a> to help avoid accidentally leaking handlers. If you know you&#39;re not actually leaking and you want to suppress this warning, you can call <a href="http://nodejs.org/api/events.html#events_emitter_setmaxlisteners_n"><code>setMaxListeners(n)</code></a> on your store (use can use a value of <code>0</code> for unlimited).</p>
+<p><strong>A:</strong> This warning is built in to the Node.js <a href="http://nodejs.org/api/events.html#events_class_events_eventemitter">EventEmitter</a> to help avoid accidentally leaking handlers. If you know you&#39;re not actually leaking and you want to suppress this warning, you can call <a href="http://nodejs.org/api/events.html#events_emitter_setmaxlisteners_n"><code>setMaxListeners(n)</code></a> on your store (you can use a value of <code>0</code> for unlimited).</p>
 
     <hr>
     See a typo? Something still not clear?

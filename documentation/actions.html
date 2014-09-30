@@ -82,7 +82,7 @@
     <h1 id="actions">Actions</h1>
 <p>Actions, which are simply combinations of a string <code>type</code> and an object <code>payload</code>, represent the intent to perform some manipulation of the data in a Flux application. They are dispatched via the aptly named dispatcher to every store the dispatcher knows about. The only way to update stores is to send them actions.</p>
 <p>To make programming with Flux more semantic, the <a href="/documentation/flux.html">Flux</a> constructor takes an object with function values; these functions can call <code>this.dispatch(type, payload)</code> to dispatch an action to the dispatcher. Dispatching an action then looks like a normal method call. As an example, imagine you want to dispatch a method to add a URL at a certain index. Dispatching manually, you would write</p>
-<pre><code class="lang-javascript">flux.dispatcher.dispatch(<span class="string">"ADD_URL"</span>, {url: <span class="string">"http://google.com"</span>, index: <span class="number">3</span>});
+<pre><code class="lang-javascript">flux.dispatcher.dispatch({type: <span class="string">"ADD_URL"</span>, payload: {url: <span class="string">"http://google.com"</span>, index: <span class="number">3</span>}});
 </code></pre>
 <p>By using the <code>actions</code> hash, it would look more like this:</p>
 <pre><code class="lang-javascript"><span class="keyword">var</span> actions = {
