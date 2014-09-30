@@ -49,4 +49,4 @@ React.createClass({
 
 **Q:** Why do I see a warning that says "possible EventEmitter memory leak detected"?
 
-**A:** This warning is built in to the Node.js [EventEmitter](http://nodejs.org/api/events.html#events_class_events_eventemitter) to help avoid accidentally leaking handlers. If you know you're not actually leaking and you want to suppress this warning, you can call [`setMaxListeners(n)`](http://nodejs.org/api/events.html#events_emitter_setmaxlisteners_n) on your store (use can use a value of `0` for unlimited).
+**A:** This warning is built in to the Node.js [EventEmitter](http://nodejs.org/api/events.html#events_class_events_eventemitter) to help avoid accidentally leaking handlers. If you know you're not actually leaking and you want to suppress this warning, you can call [`setMaxListeners(n)`](http://nodejs.org/api/events.html#events_emitter_setmaxlisteners_n) on your store (you can use a value of `0` for unlimited).
