@@ -234,40 +234,45 @@ describe("Dispatcher", function() {
     }).to.throw(/circular.*Store1.*Store2.*Store3/i);
   });
 
-  it("warns if a dispatched action is not handled by any store", function() {
-    /* jshint -W030 */
-    var warnStub = sinon.stub(console, "warn");
+  describe("unhandled dispatch warnings", function() {
+    var warnSpy;
 
-    var Store1 = Fluxxor.createStore({});
-    var Store2 = Fluxxor.createStore({});
-
-    store1 = new Store1();
-    store2 = new Store2();
-    dispatcher = new Fluxxor.Dispatcher({Store1: store1, Store2: store2});
-    dispatcher.dispatch({type: "ACTION"});
-
-    expect(warnStub).to.have.been.calledOnce;
-
-    warnStub.restore();
-  });
-
-  it("doesn't warn if a dispatched action is handled by any store", function() {
-    /* jshint -W030 */
-    var warnStub = sinon.stub(console, "warn");
-
-    var Store1 = Fluxxor.createStore({
-      actions: { "ACTION": "handleAction" },
-      handleAction: function() {}
+    beforeEach(function() {
+      warnSpy = sinon.stub(console, "warn");
     });
-    var Store2 = Fluxxor.createStore({});
 
-    store1 = new Store1();
-    store2 = new Store2();
-    dispatcher = new Fluxxor.Dispatcher({Store1: store1, Store2: store2});
-    dispatcher.dispatch({type: "ACTION"});
+    afterEach(function() {
+      warnSpy.restore();
+    });
 
-    expect(warnStub).to.have.not.been.called;
+    it("warns if a dispatched action is not handled by any store", function() {
+      /* jshint -W030 */
+      var Store1 = Fluxxor.createStore({});
+      var Store2 = Fluxxor.createStore({});
 
-    warnStub.restore();
+      store1 = new Store1();
+      store2 = new Store2();
+      dispatcher = new Fluxxor.Dispatcher({Store1: store1, Store2: store2});
+      dispatcher.dispatch({type: "ACTION_TYPE"});
+
+      expect(warnSpy).to.have.been.calledOnce;
+      expect(warnSpy).to.have.been.calledWithMatch(/ACTION_TYPE.*no store/);
+    });
+
+    it("doesn't warn if a dispatched action is handled by any store", function() {
+      /* jshint -W030 */
+      var Store1 = Fluxxor.createStore({
+        actions: { "ACTION_TYPE": "handleAction" },
+        handleAction: function() {}
+      });
+      var Store2 = Fluxxor.createStore({});
+
+      store1 = new Store1();
+      store2 = new Store2();
+      dispatcher = new Fluxxor.Dispatcher({Store1: store1, Store2: store2});
+      dispatcher.dispatch({type: "ACTION_TYPE"});
+
+      expect(warnSpy).to.have.not.been.called;
+    });
   });
 });
