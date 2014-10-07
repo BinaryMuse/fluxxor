@@ -86,4 +86,19 @@ describe("Store", function() {
     store.__handleAction__({type: "ACTION3", payload: payload});
     expect(store.value).to.equal(42);
   });
+
+  it("throws when binding to a falsy action type", function() {
+    var Store = Fluxxor.createStore({
+      initialize: function() {
+        this.bindActions(
+          "TYPE_ONE", "handleOne",
+          null, "handleTwo"
+        );
+      }
+    });
+
+    expect(function() {
+      new Store();
+    }).to.throw(/Argument 3.*bindActions.*falsy/);
+  });
 });
