@@ -29,12 +29,12 @@ describe("Dispatcher", function() {
   it("does not allow cascading dispatches", function(done) {
     store1.__handleAction__ = function() {
       expect(function() {
-        dispatcher.dispatch({type:"action"});
-      }).to.throw(/another action/);
+        dispatcher.dispatch({type:"action2"});
+      }).to.throw(/action2.*another action.*action1/);
       done();
       return true;
     };
-    dispatcher.dispatch({type:"action"});
+    dispatcher.dispatch({type:"action1"});
   });
 
   it("allows back-to-back dispatches on the same tick", function() {
