@@ -41,7 +41,9 @@ describe("Flux", function() {
     var store1 = {};
     var flux = new Fluxxor.Flux({}, {});
     flux.addStore("Store1", store1);
-    expect(function() { flux.addStore("Store1", {}); }).to.throw("already exists");
+    expect(function() {
+      flux.addStore("Store1", {});
+    }).to.throw(/store.*Store1.*already exists/);
     expect(flux.store("Store1")).to.equal(store1);
   });
 
