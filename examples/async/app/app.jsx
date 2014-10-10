@@ -19,7 +19,7 @@ var BuzzwordClient = {
       } else {
         failure("Failed to " + Faker.Company.bs());
       }
-    }, 1000);
+    }, Math.random() * 1000 + 500);
   }
 };
 
@@ -33,7 +33,6 @@ var constants = {
   ADD_BUZZ_FAIL: "ADD_BUZZ_FAIL"
 };
 
-var clientId = 0;
 var actions = {
   loadBuzz: function() {
     this.dispatch(constants.LOAD_BUZZ);
@@ -46,7 +45,7 @@ var actions = {
   },
 
   addBuzz: function(word) {
-    var id = clientId++;
+    var id = _.uniqueId();
     this.dispatch(constants.ADD_BUZZ, {id: id, word: word});
 
     BuzzwordClient.submit(word, function() {
@@ -60,15 +59,14 @@ var actions = {
 var BuzzwordStore = Fluxxor.createStore({
   initialize: function() {
     this.loading = false;
-    this.adding = false;
     this.error = null;
-    this.words = [];
-    this.loadingWords = {};
+    this.words = {};
 
     this.bindActions(
       constants.LOAD_BUZZ, this.onLoadBuzz,
       constants.LOAD_BUZZ_SUCCESS, this.onLoadBuzzSuccess,
       constants.LOAD_BUZZ_FAIL, this.onLoadBuzzFail,
+
       constants.ADD_BUZZ, this.onAddBuzz,
       constants.ADD_BUZZ_SUCCESS, this.onAddBuzzSuccess,
       constants.ADD_BUZZ_FAIL, this.onAddBuzzFail
@@ -77,16 +75,18 @@ var BuzzwordStore = Fluxxor.createStore({
 
   onLoadBuzz: function() {
     this.loading = true;
-    this.words = [];
-    this.error = null;
     this.emit("change");
   },
 
   onLoadBuzzSuccess: function(payload) {
     this.loading = false;
-    this.words = payload.words.map(function(word) {
-      return {word: word, status: "OK"};
-    });
+    this.error = null;
+
+    this.words = payload.words.reduce(function(acc, word) {
+      var clientId = _.uniqueId();
+      acc[clientId] = {id: clientId, word: word, status: "OK"};
+      return acc;
+    }, {});
     this.emit("change");
   },
 
@@ -97,22 +97,19 @@ var BuzzwordStore = Fluxxor.createStore({
   },
 
   onAddBuzz: function(payload) {
-    var word = {word: payload.word, status: "ADDING"};
-    this.words.push(word);
-    this.loadingWords[payload.id] = word;
+    var word = {id: payload.id, word: payload.word, status: "ADDING"};
+    this.words[payload.id] = word;
     this.emit("change");
   },
 
   onAddBuzzSuccess: function(payload) {
-    this.loadingWords[payload.id].status = "OK";
-    delete this.loadingWords[payload.id];
+    this.words[payload.id].status = "OK";
     this.emit("change");
   },
 
   onAddBuzzFail: function(payload) {
-    this.loadingWords[payload.id].status = "ERROR";
-    this.loadingWords[payload.id].error = payload.error;
-    delete this.loadingWords[payload.id];
+    this.words[payload.id].status = "ERROR";
+    this.words[payload.id].error = payload.error;
     this.emit("change");
   }
 });
@@ -142,7 +139,7 @@ var Application = React.createClass({
     return {
       loading: store.loading,
       error: store.error,
-      words: store.words
+      words: _.values(store.words)
     };
   },
 
@@ -154,7 +151,7 @@ var Application = React.createClass({
         <ul style={{lineHeight: "1.3em", minHeight: "13em"}}>
           {this.state.loading ? <li>Loading...</li> : null}
           {this.state.words.map(function(word) {
-            return <Word word={word} />;
+            return <Word key={word.id} word={word} />;
           })}
         </ul>
         <h2>Suggest a New Buzzword</h2>
