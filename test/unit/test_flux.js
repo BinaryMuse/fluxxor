@@ -153,11 +153,61 @@ describe("Flux", function() {
       }
     };
     var flux = new Fluxxor.Flux({}, actions);
-    expect(function() { flux.addAction("a", "b", function() { this.dispatch("action", {name: "a.z"}); }); }).to.throw("already exists");
+    expect(function() {
+      flux.addAction("a", "b", function() { this.dispatch("action", {name: "a.z"}); });
+    }).to.throw(/action.*a\.b.*already exists/);
 
     flux.dispatcher.dispatch = sinon.spy();
     flux.actions.a.b();
     expect(flux.dispatcher.dispatch).to.have.been.calledWith({type: "action", payload: {name: "a.b"}});
+  });
 
+  it("does not allow replacing namespaces with actions", function() {
+    var actions = {
+      a: {
+        b: function() { this.dispatch("action", {name: "a.b"}); }
+      }
+    };
+    var flux = new Fluxxor.Flux({}, actions);
+    expect(function() {
+      flux.addAction("a", function() { this.dispatch("action", {name: "a.z"}); });
+    }).to.throw(/Cannot replace namespace.*a.*action/);
+
+    flux.dispatcher.dispatch = sinon.spy();
+    flux.actions.a.b();
+    expect(flux.dispatcher.dispatch).to.have.been.calledWith({type: "action", payload: {name: "a.b"}});
+  });
+
+  it("does not allow replacing actions", function() {
+    var actions = {
+      a: {
+        b: function() { this.dispatch("action", {name: "a.b"}); }
+      }
+    };
+    var flux = new Fluxxor.Flux({}, actions);
+    expect(function() {
+      flux.addAction("a", "b", "c", function() { this.dispatch("action", {name: "a.b.c"}); });
+    }).to.throw(/Cannot replace action.*a\.b.*namespace/);
+    expect(function() {
+      flux.addAction("a", "b", function() { this.dispatch("action", {name: "a.b.c"}); });
+    }).to.throw(/action.*a\.b.*exists/);
+  });
+
+  it("deeply merges with existing actions", function() {
+    var actions = {
+      a: {
+        b: function() { this.dispatch("action", {name: "a.b"}); },
+        c: {
+          d: function() { this.dispatch("action", {name: "a.c.d"}); },
+        }
+      }
+    };
+    var flux = new Fluxxor.Flux({}, actions);
+
+    flux.addAction("a", "c", "e", function() { this.dispatch("action", {name: "a.c.e"}); });
+
+    flux.dispatcher.dispatch = sinon.spy();
+    flux.actions.a.c.e();
+    expect(flux.dispatcher.dispatch).to.have.been.calledWith({type: "action", payload: {name: "a.c.e"}});
   });
 });
