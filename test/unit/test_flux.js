@@ -210,4 +210,24 @@ describe("Flux", function() {
     flux.actions.a.c.e();
     expect(flux.dispatcher.dispatch).to.have.been.calledWith({type: "action", payload: {name: "a.c.e"}});
   });
+
+  it("throws when using addAction incorrectly", function() {
+    var flux = new Fluxxor.Flux({}, {});
+
+    expect(function() {
+      flux.addAction();
+    }).to.throw(/two arguments/);
+
+    expect(function() {
+      flux.addAction("a");
+    }).to.throw(/two arguments/);
+
+    expect(function() {
+      flux.addAction("a", "b");
+    }).to.throw(/last argument.*function/);
+
+    expect(function() {
+      flux.addAction("a", function(){}, "b");
+    }).to.throw(/Unexpected.*function.*index 2/);
+  });
 });
