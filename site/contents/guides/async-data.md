@@ -70,7 +70,6 @@ The actions themselves will immediately dispatch the `LOAD_BUZZ` or `ADD_BUZZ` a
 We also generate a temporary client-side ID that we can use to track a specific word across the asynchronous operations, and include it in part of the payload when adding a new buzzword.
 
 ```javascript
-var clientId = 0; // simple helper var to generate temporary client-side IDs
 var actions = {
   loadBuzz: function() {
     this.dispatch(constants.LOAD_BUZZ);
