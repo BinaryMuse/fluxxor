@@ -148,22 +148,6 @@ describe("Flux", function() {
     expect(flux.dispatcher.dispatch).to.have.been.calledWith({type: "action", payload: {name: "k.l.m"}});
   });
 
-  it("does not allow duplicate actions", function() {
-    var actions = {
-      a: {
-        b: function() { this.dispatch("action", {name: "a.b"}); }
-      }
-    };
-    var flux = new Fluxxor.Flux({}, actions);
-    expect(function() {
-      flux.addAction("a", "b", function() { this.dispatch("action", {name: "a.z"}); });
-    }).to.throw(/action.*a\.b.*already exists/);
-
-    flux.dispatcher.dispatch = sinon.spy();
-    flux.actions.a.b();
-    expect(flux.dispatcher.dispatch).to.have.been.calledWith({type: "action", payload: {name: "a.b"}});
-  });
-
   it("does not allow replacing namespaces with actions", function() {
     var actions = {
       a: {
@@ -173,7 +157,7 @@ describe("Flux", function() {
     var flux = new Fluxxor.Flux({}, actions);
     expect(function() {
       flux.addAction("a", function() { this.dispatch("action", {name: "a.z"}); });
-    }).to.throw(/Cannot replace namespace.*a.*action/);
+    }).to.throw(/namespace.*a.*already exists/);
 
     flux.dispatcher.dispatch = sinon.spy();
     flux.actions.a.b();
@@ -189,10 +173,14 @@ describe("Flux", function() {
     var flux = new Fluxxor.Flux({}, actions);
     expect(function() {
       flux.addAction("a", "b", "c", function() { this.dispatch("action", {name: "a.b.c"}); });
-    }).to.throw(/Cannot replace action.*a\.b.*namespace/);
+    }).to.throw(/action.*a\.b.*already exists/);
     expect(function() {
       flux.addAction("a", "b", function() { this.dispatch("action", {name: "a.b.c"}); });
     }).to.throw(/action.*a\.b.*exists/);
+
+    flux.dispatcher.dispatch = sinon.spy();
+    flux.actions.a.b();
+    expect(flux.dispatcher.dispatch).to.have.been.calledWith({type: "action", payload: {name: "a.b"}});
   });
 
   it("deeply merges with existing actions", function() {
@@ -230,6 +218,6 @@ describe("Flux", function() {
 
     expect(function() {
       flux.addAction("a", function(){}, "b");
-    }).to.throw(/Unexpected.*function.*index 2/);
+    }).to.throw(/last argument.*function/);
   });
 });
