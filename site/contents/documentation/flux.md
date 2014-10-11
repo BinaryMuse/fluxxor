@@ -67,3 +67,74 @@ var flux = new Fluxxor.Flux(stores, actions);
 
 flux.actions.processThing(myThing);
 ```
+
+## `Fluxxor.Flux#addStore(name, store)`
+
+Adds a new store to the `Flux` instance.
+
+* `name` - The name used to identify the store. Stores can be retrieved later by their name. See [Stores](/documentation/stores.html) for more information.
+* `store` - The store instance to add.
+
+```javascript
+flux.addStore("user", new UserStore());
+```
+
+## `Fluxxor.Flux#addStores(stores)`
+
+Adds stores to the `Flux` instance.
+
+* `stores` - A hash of stores to add, in the same format as the `Fluxxor.Flux` constructor.
+
+```javascript
+var newStores = {
+  user: new UserStore(),
+  post: new PostStore()
+};
+
+flux.addStores(newStores);
+```
+
+## `Fluxxor.Flux#addAction(path..., function)`
+
+Adds an action to the `Flux` instance's action hash. This function takes a path (either as an array of strings or as individual strings) followed by a function.
+
+* `path...` - The path in the actions object to add the action.
+* `function` - The action function to add.
+
+`path` can be specified either as an array of strings where each element is one part of the path, or as a free list of strings. For example:
+
+```javascript
+// The action hash we want to end up with:
+{
+  user: {
+    login: function() { ... }
+  }
+}
+
+// Path as an array
+flux.addAction(["user", "login"], function() { ... });
+
+// Path as free arguments
+flux.addAction("user", "login", function() { ... });
+```
+
+Fluxxor will automatically create any intermediary objects as necessary, and will intelligently merge the new action into the existing hash, but does not allow overwriting any existing functions.
+
+## `Fluxxor.Flux#addActions(actions)`
+
+Adds actions to the `Flux` instance's action hash.
+
+* `actions` - A hash of actions to add, in the same format as the `Fluxxor.Flux` constructor.
+
+```javascript
+var newActions = {
+  user: {
+    login: function() { ... },
+    logout: function() { ... }
+  }
+};
+
+flux.addActions(newActions);
+```
+
+Fluxxor will intelligently merge the new actions with the existing actions, but does not allow overwriting any existing functions.

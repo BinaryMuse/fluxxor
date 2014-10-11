@@ -29,6 +29,8 @@ var flux = new Fluxxor.Flux(stores, actions);
 flux.actions.addUrl("http://google.com", 3);
 ```
 
+Actions can be added to a `Flux` instance programmatically using `Flux#addAction` or `Flux#addActions`; see the [Flux documentation](/documentation/flux.html) for more details.
+
 Accessing the Flux Instance
 ---------------------------
 
