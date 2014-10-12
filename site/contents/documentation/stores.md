@@ -12,7 +12,9 @@ The *only* way to update stores is to send them an action by way of the dispatch
 
 Fluxxor supports dependencies between stores when necessary. If a store depends on data from other stores, it can wait for those stores to finish handling the currently dispatched action with the `waitFor` method.
 
-Action dispatches are synchronous; stores can perform asynchronous updates, but should fire new actions at the end of the asynchronous operation if the rest of the system should be notified of a change in state as a result of the async operation. Once a store returns anything (including `undefined`) from an action handler, that store is considered to be done with that action's dispatch (unless it calls `waitFor`).
+Action dispatches are synchronous; stores can perform asynchronous updates, but should fire new actions at the end of the asynchronous operation if the rest of the system should be notified of a change in state as a result of the async operation. (Alternatively, perform asynchronous operations in the action methods themselves.) Once a store returns anything (including `undefined`) from an action handler, that store is considered to be done with that action's dispatch (unless it calls `waitFor`).
+
+Stores can be added to a `Flux` instance programmatically using `Flux#addStore` or `Flux#addStores`; see the [Flux documentation](/documentation/flux.html) for more details.
 
 ## `Fluxxor.createStore(spec)`
 
