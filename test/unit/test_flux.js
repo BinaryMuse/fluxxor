@@ -234,19 +234,29 @@ describe("Flux", function() {
       /* jshint -W030 */
       var payload1 = {payload: "1", thing: [1, 2, 3]},
           payload2 = {payload: "2", thing: [1, 2, 3]},
+          payload3 = {payload: "3", thing: [1, 2, 3]},
           actions = {
             a: function() { this.dispatch("ACTION_1", payload1); },
-            b: function() { this.dispatch("ACTION_2", payload2); }
+            b: function() { this.dispatch("ACTION_2", payload2); },
+            c: function() { this.dispatch("ACTION_3", payload3); }
           };
-
-      var flux = new Fluxxor.Flux({}, actions);
 
       var spy1 = sinon.spy(),
           spy2 = sinon.spy(),
+          spy3 = sinon.spy(),
           callback = function(type, payload) {
             if (type === "ACTION_1") { spy1(payload); }
             if (type === "ACTION_2") { spy2(payload); }
+            if (type === "ACTION_3") { throw "ACTION_3"; }
           };
+
+      var store = {
+        __handleAction__: function(action) {
+          spy3(action);
+        }
+      };
+
+      var flux = new Fluxxor.Flux({store: store}, actions);
 
       flux.on("dispatch", callback);
 
@@ -256,6 +266,10 @@ describe("Flux", function() {
       flux.actions.b();
       expect(spy1).to.have.been.calledOnce;
       expect(spy2).to.have.been.calledWith(payload2);
+      expect(function() {
+        flux.actions.c();
+      }).to.throw;
+      expect(spy3).to.have.been.called;
     });
   });
 });
