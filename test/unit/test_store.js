@@ -136,4 +136,21 @@ describe("Store", function() {
       new Store();
     }).to.throw(/Argument 3.*bindActions.*falsy/);
   });
+
+  it("throws when using a non-function action handler", function() {
+    var Store = Fluxxor.createStore({
+      actions: {
+        "ACTION": "handleAction"
+      }
+    });
+
+    var store = new Store();
+    expect(function() {
+      store.__handleAction__({type: "ACTION"});
+    }).to.throw(/handler.*type ACTION.*not.*function/);
+
+    expect(function() {
+      store.__handleAction__({type: "ACTION2"});
+    }).not.to.throw();
+  });
 });
