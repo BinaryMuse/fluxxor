@@ -150,3 +150,5 @@ flux.on("dispatch", function(type, payload) {
   console.log("Dispatched", type, payload);
 }
 ```
+
+Note that the action will still be dispatched even if the `"dispatch"` event handler throws an exception.
