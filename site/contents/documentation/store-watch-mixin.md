@@ -11,7 +11,7 @@ Fluxxor.StoreWatchMixin
 `StoreWatchMixin` simply requires that you:
 
 1. Define a method on your component called `getStateFromFlux` that returns an object representing the part of the component's state that comes from the Flux stores.
-2. Have a `prop` or `context` property named `flux` that points to the `Flux` instance with the stores. This is automatic if you use [`FluxMixin` and `FluxChildMixin`](/documentation/flux-mixin.html).
+2. Have a `prop` or `context` property named `flux` that points to the `Flux` instance with the stores. This is automatic if you use [`FluxMixin`](/documentation/flux-mixin.html).
 
 The mixin will then automatically
 

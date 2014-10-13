@@ -45,7 +45,7 @@ Note that `ImageForm` has state outside of the data from the stores—however, i
 
 ---
 
-In this small application, only the top level `Application` component requires access to the Flux data. However, since `Application` mixes in `Fluxxor.FluxMixin`, any descendants of `Application` with the `Fluxxor.FluxChildMixin` would automatically have access to the `Fluxxor.Flux` instance via `this.getFlux()`.
+In this small application, only the top level `Application` component requires access to the Flux data. However, since `Application` mixes in `Fluxxor.FluxMixin`, any descendants of `Application` with the `Fluxxor.FluxMixin` would automatically have access to the `Fluxxor.Flux` instance via `this.getFlux()`.
 
 <script src="carousel-bundle.js"></script>
 <style>
