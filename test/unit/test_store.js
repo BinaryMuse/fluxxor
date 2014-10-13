@@ -57,34 +57,69 @@ describe("Store", function() {
     expect(store.handleAction).to.have.been.calledWith(payload, "ACTION");
   });
 
-  it("allows registering actions via bindActions", function() {
-    // also tests that methods are autobound to the store instance
-    var Store = Fluxxor.createStore({
-      actions: {
-        "ACTION": "handleAction"
-      },
+  describe("#bindActions", function() {
+    it("allows registering actions via an argument list", function() {
+      // also tests that methods are autobound to the store instance
+      var Store = Fluxxor.createStore({
+        actions: {
+          "ACTION": "handleAction"
+        },
 
-      initialize: function() {
-        this.bindActions("ACTION2", "handleAction2",
-                         "ACTION3", this.handleAction3);
-      },
+        initialize: function() {
+          this.bindActions("ACTION2", "handleAction2",
+                          "ACTION3", this.handleAction3);
+        },
 
-      handleAction: function() {},
-      handleAction2: function() {},
-      handleAction3: function() {
-        this.value = 42;
-      }
+        handleAction: function() {},
+        handleAction2: function() {},
+        handleAction3: function() {
+          this.value = 42;
+        }
+      });
+      var store = new Store();
+      store.handleAction = sinon.spy();
+      store.handleAction2 = sinon.spy();
+      var payload = {val: 42};
+      store.__handleAction__({type: "ACTION", payload: payload});
+      expect(store.handleAction).to.have.been.calledWith(payload, "ACTION");
+      store.__handleAction__({type: "ACTION2", payload: payload});
+      expect(store.handleAction2).to.have.been.calledWith(payload, "ACTION2");
+      store.__handleAction__({type: "ACTION3", payload: payload});
+      expect(store.value).to.equal(42);
     });
-    var store = new Store();
-    store.handleAction = sinon.spy();
-    store.handleAction2 = sinon.spy();
-    var payload = {val: 42};
-    store.__handleAction__({type: "ACTION", payload: payload});
-    expect(store.handleAction).to.have.been.calledWith(payload, "ACTION");
-    store.__handleAction__({type: "ACTION2", payload: payload});
-    expect(store.handleAction2).to.have.been.calledWith(payload, "ACTION2");
-    store.__handleAction__({type: "ACTION3", payload: payload});
-    expect(store.value).to.equal(42);
+
+    it("allows registering actions via a hash", function() {
+      var Store = Fluxxor.createStore({
+        actions: {
+          "ACTION": "handleAction"
+        },
+
+        initialize: function() {
+          this.bindActions({
+            "ACTION2": "handleAction2",
+            "ACTION3": this.handleAction3
+          });
+        },
+
+        handleAction: function() {},
+        handleAction2: function() {},
+        handleAction3: function() {
+          this.value = 42;
+        }
+      });
+
+      var store = new Store();
+      store.handleAction = sinon.spy();
+      store.handleAction2 = sinon.spy();
+
+      var payload = {val: 42};
+      store.__handleAction__({type: "ACTION", payload: payload});
+      expect(store.handleAction).to.have.been.calledWith(payload, "ACTION");
+      store.__handleAction__({type: "ACTION2", payload: payload});
+      expect(store.handleAction2).to.have.been.calledWith(payload, "ACTION2");
+      store.__handleAction__({type: "ACTION3", payload: payload});
+      expect(store.value).to.equal(42);
+    });
   });
 
   it("throws when binding to a falsy action type", function() {
