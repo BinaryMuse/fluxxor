@@ -113,13 +113,16 @@ describe("FluxMixin", function() {
   it("gives a deprecation warning when using FluxChildMixin", function() {
     var warned = false;
     console.warn = function(text) {
-      if (text.match(/FluxChildMixin.*deprecated/)) {
+      if (text.match(/FluxChildMixin.*CompName.*deprecated/)) {
         warned = true;
+      } else {
+        console._warn(text);
       }
     };
 
     var Comp = React.createClass({
       mixins: [Fluxxor.FluxChildMixin(React)],
+      displayName: "CompName",
       render: function() { return React.DOM.div(); }
     });
     React.renderComponentToString(Comp());
