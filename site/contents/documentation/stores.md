@@ -58,13 +58,18 @@ var myStore = new MyStore({value: 123});
 The [Flux](/documentation/flux.html) instance this store is contained within.
 
 ## `Store#bindActions(type, handler[, ...])`
+## `Store#bindActions(actions)`
 
-Binds action types to methods on the store. `bindActions` takes any even number of arguments.
+Binds action types to methods on the store.
+
+`bindActions(type, handler[, ...])` takes any even number of arguments:
 
 * `type` - The action type to bind to.
 * `handler` - A function reference or method name (as a string) to call when actions of that type are dispatched to the store.
 
-Using `bindActions` with constants defined elsewhere is less error prone and supports minification better than using the `actions` hash.
+`bindActions(actions)` takes an actions hash in the same format as `spec.actions` described in `createStore`, above.
+
+Using `bindActions` with constants defined elsewhere is less error prone and supports minification better than using the `actions` hash in the `createStore` spec or passing a hash to `bindActions`.
 
 Example:
 
@@ -78,6 +83,13 @@ var MyStore = Fluxxor.createStore({
       ACTION_TYPE, this.handleActionType,
       OTHER_ACTION_TYPE, "handleOtherActionType"
     );
+
+    // OR:
+
+    this.bindActions({
+      "ACTION_TYPE_1": "handleActionType",
+      "ACTION_TYPE_2": "handleOtherActionType"
+    });
   },
 
   handleActionType: function(payload, type) {
