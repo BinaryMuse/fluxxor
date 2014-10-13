@@ -153,4 +153,18 @@ describe("Store", function() {
       store.__handleAction__({type: "ACTION2"});
     }).not.to.throw();
   });
+
+  it("throws when binding an action type to a falsy handler", function() {
+    var Store = Fluxxor.createStore({
+      actions: {
+        "ACTION": this.handleAction
+      },
+
+      handleAction: function() {}
+    });
+
+    expect(function() {
+      new Store();
+    }).to.throw(/handler.*type ACTION.*falsy/);
+  });
 });
