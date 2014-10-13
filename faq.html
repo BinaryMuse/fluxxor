@@ -84,13 +84,12 @@
 <p><strong>A:</strong> Fluxxor works great with React, and if you want to use the mixins, you will of course need React, but Fluxxor has no dependency on React itself.</p>
 <hr>
 
-<p><strong>Q:</strong> Why does <code>Fluxxor.FluxMixin</code> and <code>Fluxxor.FluxChildMixin</code> constantly throw an error?</p>
-<p><strong>A:</strong> <code>Fluxxor.FluxMixin</code> and <code>Fluxxor.FluxChildMixin</code> are functions that take React as a parameter and return the associated mixin:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> FluxMixin = Fluxxor.FluxMixin(React),
-    FluxChildMixin = Fluxxor.FluxChildMixin(React);
+<p><strong>Q:</strong> Why does <code>Fluxxor.FluxMixin</code> constantly throw an error?</p>
+<p><strong>A:</strong> <code>Fluxxor.FluxMixin</code> is a function that takes React as a parameter and returns the associated mixin:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> FluxMixin = Fluxxor.FluxMixin(React);
 
 React.createClass({
-  mixins: [FluxMixin], <span class="comment">// or FluxChildMixin, as appropriate</span>
+  mixins: [FluxMixin],
 
   <span class="comment">// ...</span>
 });
@@ -111,6 +110,7 @@ React.createClass({
 
 <p><strong>Q:</strong> Why do I see a warning that says &quot;possible EventEmitter memory leak detected&quot;?</p>
 <p><strong>A:</strong> This warning is built in to the Node.js <a href="http://nodejs.org/api/events.html#events_class_events_eventemitter">EventEmitter</a> to help avoid accidentally leaking handlers. If you know you&#39;re not actually leaking and you want to suppress this warning, you can call <a href="http://nodejs.org/api/events.html#events_emitter_setmaxlisteners_n"><code>setMaxListeners(n)</code></a> on your store (you can use a value of <code>0</code> for unlimited).</p>
+<p>As of version 1.4.2, Fluxxor uses <a href="https://github.com/3rd-Eden/EventEmitter3">EventEmitter3</a> instead of the built-in Node.js EventEmitter, which should resolve this issue.</p>
 
     <hr>
     See a typo? Something still not clear?

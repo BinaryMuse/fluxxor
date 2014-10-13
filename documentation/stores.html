@@ -83,7 +83,8 @@
 <p>In a Flux application, the stores are responsible for managing business logic and data. They&#39;re akin to models or collections in MVC systems, but stores may manage more than a single piece of data or a single collection, as they are responsible for a <em>domain</em> of the application.</p>
 <p>The <em>only</em> way to update stores is to send them an action by way of the dispatcher; stores should not have setter methods or properties that allow users to manipulate the store directly. Stores register their intent to respond to certain action types and actions with those types are routed to the appropriate handlers in the stores. Handlers are called with the action&#39;s payload and type as parameters.</p>
 <p>Fluxxor supports dependencies between stores when necessary. If a store depends on data from other stores, it can wait for those stores to finish handling the currently dispatched action with the <code>waitFor</code> method.</p>
-<p>Action dispatches are synchronous; stores can perform asynchronous updates, but should fire new actions at the end of the asynchronous operation if the rest of the system should be notified of a change in state as a result of the async operation. Once a store returns anything (including <code>undefined</code>) from an action handler, that store is considered to be done with that action&#39;s dispatch (unless it calls <code>waitFor</code>).</p>
+<p>Action dispatches are synchronous; stores can perform asynchronous updates, but should fire new actions at the end of the asynchronous operation if the rest of the system should be notified of a change in state as a result of the async operation. (Alternatively, perform asynchronous operations in the action methods themselves.) Once a store returns anything (including <code>undefined</code>) from an action handler, that store is considered to be done with that action&#39;s dispatch (unless it calls <code>waitFor</code>).</p>
+<p>Stores can be added to a <code>Flux</code> instance programmatically using <code>Flux#addStore</code> or <code>Flux#addStores</code>; see the <a href="/documentation/flux.html">Flux documentation</a> for more details.</p>
 <h2 id="-fluxxor-createstore-spec-"><code>Fluxxor.createStore(spec)</code></h2>
 <p>Create a new store constructor.</p>
 <ul>
@@ -121,12 +122,15 @@
 <h2 id="-store-flux-"><code>Store#flux</code></h2>
 <p>The <a href="/documentation/flux.html">Flux</a> instance this store is contained within.</p>
 <h2 id="-store-bindactions-type-handler-"><code>Store#bindActions(type, handler[, ...])</code></h2>
-<p>Binds action types to methods on the store. <code>bindActions</code> takes any even number of arguments.</p>
+<h2 id="-store-bindactions-actions-"><code>Store#bindActions(actions)</code></h2>
+<p>Binds action types to methods on the store.</p>
+<p><code>bindActions(type, handler[, ...])</code> takes any even number of arguments:</p>
 <ul>
 <li><code>type</code> - The action type to bind to.</li>
 <li><code>handler</code> - A function reference or method name (as a string) to call when actions of that type are dispatched to the store.</li>
 </ul>
-<p>Using <code>bindActions</code> with constants defined elsewhere is less error prone and supports minification better than using the <code>actions</code> hash.</p>
+<p><code>bindActions(actions)</code> takes an actions hash in the same format as <code>spec.actions</code> described in <code>createStore</code>, above.</p>
+<p>Using <code>bindActions</code> with constants defined elsewhere is less error prone and supports minification better than using the <code>actions</code> hash in the <code>createStore</code> spec or passing a hash to <code>bindActions</code>.</p>
 <p>Example:</p>
 <pre><code class="lang-javascript"><span class="keyword">var</span> ACTION_TYPE = <span class="string">"ACTION_TYPE_1"</span>,
     OTHER_ACTION_TYPE = <span class="string">"ACTION_TYPE_2"</span>;
@@ -137,6 +141,13 @@
       ACTION_TYPE, <span class="keyword">this</span>.handleActionType,
       OTHER_ACTION_TYPE, <span class="string">"handleOtherActionType"</span>
     );
+
+    <span class="comment">// OR:</span>
+
+    <span class="keyword">this</span>.bindActions({
+      <span class="string">"ACTION_TYPE_1"</span>: <span class="string">"handleActionType"</span>,
+      <span class="string">"ACTION_TYPE_2"</span>: <span class="string">"handleOtherActionType"</span>
+    });
   },
 
   handleActionType: <span class="function"><span class="keyword">function</span><span class="params">(payload, type)</span> {</span>
@@ -168,8 +179,9 @@
   }
 });
 </code></pre>
+<p>Note that the callback is called synchronously.</p>
 <h2 id="-eventemitter-methods"><code>EventEmitter</code> methods</h2>
-<p>Stores inherit from Node.js&#39; <code>EventEmitter</code>, and thus <a href="http://nodejs.org/api/events.html#events_class_events_eventemitter">inherit all its methods</a>. Most notably, stores should <code>emit</code> an event to notify the views that their data has changed.</p>
+<p>Stores are instances of EventEmitters, and thus <a href="http://nodejs.org/api/events.html#events_class_events_eventemitter">inherit all the EventEmitter methods</a>. Most notably, stores should <code>emit</code> an event to notify the views that their data has changed.</p>
 <p>The <a href="/documentation/store-watch-mixin.html"><code>StoreWatchMixin</code></a> assists with attaching event handlers to store change events in React applications.</p>
 <p>Example:</p>
 <pre><code class="lang-javascript"><span class="keyword">var</span> MyStore = Fluxxor.createStore({

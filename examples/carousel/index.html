@@ -108,7 +108,7 @@
 </ul>
 <p>Note that <code>ImageForm</code> has state outside of the data from the stores—however, it&#39;s localized to the form, and isn&#39;t part of the larger &quot;application state.&quot; When the form is submitted, this local state is sent to the parent component through a property, where it is then sent to the dispatcher via the <code>addImage</code> action.</p>
 <hr>
-<p>In this small application, only the top level <code>Application</code> component requires access to the Flux data. However, since <code>Application</code> mixes in <code>Fluxxor.FluxMixin</code>, any descendants of <code>Application</code> with the <code>Fluxxor.FluxChildMixin</code> would automatically have access to the <code>Fluxxor.Flux</code> instance via <code>this.getFlux()</code>.</p>
+<p>In this small application, only the top level <code>Application</code> component requires access to the Flux data. However, since <code>Application</code> mixes in <code>Fluxxor.FluxMixin</code>, any descendants of <code>Application</code> with the <code>Fluxxor.FluxMixin</code> would automatically have access to the <code>Fluxxor.Flux</code> instance via <code>this.getFlux()</code>.</p>
 <p><script src="carousel-bundle.js"></script></p>
 <style>
 .application-container {
