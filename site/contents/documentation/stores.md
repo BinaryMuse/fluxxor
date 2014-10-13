@@ -127,6 +127,8 @@ Fluxxor.createStore({
 });
 ```
 
+Note that the callback is called synchronously.
+
 ## `EventEmitter` methods
 
 Stores are instances of EventEmitters, and thus [inherit all the EventEmitter methods](http://nodejs.org/api/events.html#events_class_events_eventemitter). Most notably, stores should `emit` an event to notify the views that their data has changed.
