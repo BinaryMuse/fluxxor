@@ -220,4 +220,42 @@ describe("Flux", function() {
       flux.addAction("a", function(){}, "b");
     }).to.throw(/last argument.*function/);
   });
+
+  describe("emitting dispatching", function() {
+    beforeEach(function() {
+      sinon.stub(console, "warn");
+    });
+
+    afterEach(function() {
+      console.warn.restore();
+    });
+
+    it("emits an event when dispatching an action", function() {
+      /* jshint -W030 */
+      var payload1 = {payload: "1", thing: [1, 2, 3]},
+          payload2 = {payload: "2", thing: [1, 2, 3]},
+          actions = {
+            a: function() { this.dispatch("ACTION_1", payload1); },
+            b: function() { this.dispatch("ACTION_2", payload2); }
+          };
+
+      var flux = new Fluxxor.Flux({}, actions);
+
+      var spy1 = sinon.spy(),
+          spy2 = sinon.spy(),
+          callback = function(type, payload) {
+            if (type === "ACTION_1") { spy1(payload); }
+            if (type === "ACTION_2") { spy2(payload); }
+          };
+
+      flux.on("dispatch", callback);
+
+      flux.actions.a();
+      expect(spy1).to.have.been.calledWith(payload1);
+      expect(spy2).not.to.have.been.called;
+      flux.actions.b();
+      expect(spy1).to.have.been.calledOnce;
+      expect(spy2).to.have.been.calledWith(payload2);
+    });
+  });
 });

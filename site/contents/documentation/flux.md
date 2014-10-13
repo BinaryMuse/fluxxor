@@ -138,3 +138,15 @@ flux.addActions(newActions);
 ```
 
 Fluxxor will intelligently merge the new actions with the existing actions, but does not allow overwriting any existing functions.
+
+## `EventEmitter` methods
+
+`Flux` instances are also instances of EventEmitters, and thus [inherit all the EventEmitter methods](http://nodejs.org/api/events.html#events_class_events_eventemitter). Most notably, `Flux` instances dispatch a `"dispatch"` event with `type` and `payload` arguments when `this.dispatch` is called from an action. This is useful for cross-cutting concerns (like logging), and should not be used for managing the flow of data in a Fluxxor application.
+
+Example:
+
+```javascript
+flux.on("dispatch", function(type, payload) {
+  console.log("Dispatched", type, payload);
+}
+```
