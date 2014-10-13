@@ -68,8 +68,13 @@ var flux = new Fluxxor.Flux(stores, actions);
 
 window.flux = flux;
 
+flux.on("dispatch", function(type, payload) {
+  if (console && console.log) {
+    console.log("[Dispatch]", type, payload);
+  }
+});
+
 var FluxMixin = Fluxxor.FluxMixin(React),
-    FluxChildMixin = Fluxxor.FluxChildMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var Application = React.createClass({
@@ -129,7 +134,7 @@ var Application = React.createClass({
 });
 
 var TodoItem = React.createClass({
-  mixins: [FluxChildMixin],
+  mixins: [FluxMixin],
 
   propTypes: {
     todo: React.PropTypes.object.isRequired

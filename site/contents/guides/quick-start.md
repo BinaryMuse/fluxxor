@@ -90,6 +90,16 @@ var stores = {
 var flux = new Fluxxor.Flux(stores, actions);
 ```
 
+Finally, let's use the `"dispatch"` event to add some logging:
+
+```javascript
+flux.on("dispatch", function(type, payload) {
+  if (console && console.log) {
+    console.log("[Dispatch]", type, payload);
+  }
+});
+```
+
 React Application
 -----------------
 
@@ -101,7 +111,6 @@ We'll also add a quick form for adding new todo items, and a button for clearing
 
 ```javascript
 var FluxMixin = Fluxxor.FluxMixin(React),
-    FluxChildMixin = Fluxxor.FluxChildMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var Application = React.createClass({
@@ -165,7 +174,7 @@ The `TodoItem` component will display and style itself based on the completion o
 
 ```javascript
 var TodoItem = React.createClass({
-  mixins: [FluxChildMixin],
+  mixins: [FluxMixin],
 
   propTypes: {
     todo: React.PropTypes.object.isRequired
