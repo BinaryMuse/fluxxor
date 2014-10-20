@@ -2,7 +2,7 @@
 <html lang="en">
 
 <meta charset="utf-8">
-<title>Fluxxor - What is Flux?</title>
+<title>Fluxxor - Changelog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 <meta property="og:image" content="http://fluxxor.com/fluxxor.png">
@@ -80,21 +80,87 @@
     </div>
   </header>
   <section>
-    <h1 id="what-is-flux-">What is Flux?</h1>
-<p>Flux is an architecture for creating data layers in JavaScript applications. It was designed at Facebook along with the <a href="http://facebook.github.io/react/">React</a> view library.</p>
-<p>Flux is an alternative to the &quot;M&quot; and &quot;C&quot; in the MVC architecture. In MVC, a user interaction triggers code in a controller, which then coordinates changes to one or more models. When the models change, they notify one or more views, which read the new data from the models and update themselves accordingly so that the user can see that new data.</p>
-<p><img src="/images/mvc-simple.png" alt="Simple MVC"></p>
-<p>As your application grows and you add more models and views, the dependencies between the models and views in your application become more complex.</p>
-<p><img src="/images/mvc-complex.png" alt="Complex MVC"></p>
-<p>It becomes difficult to trace the code paths any given user interaction event will trigger, making it hard to understand which models will update and, in turn, which views will update. Add in the desire to have granular view updates based on changes on certain properties of certain models (rather than just re-rendering the entire view), and you can quickly end up with a codebase that&#39;s hard to debug. Additionally, if changes in models can trigger handlers in the views which themselves trigger yet more changes in the models, you can end up with a cascading series of changes that is both error-prone and difficult to debug.</p>
-<p>Flux eschews this design in favor of a one-way data flow:</p></p>
-<p><img src="/images/flux-simple.png" alt="Simple Flux"></p>
-<p>All user interactions with a view trigger an <em>action</em> which flows through a singleton <em>dispatcher</em>. The dispatcher is a single-point-of-entry for all actions. The dispatcher also prevents cascading updates by ensuring that only one action can be dispatched at a time.</p>
-<p>In a React application, a top-level view (known as a &quot;controller-view&quot;) will read all the stores&#39; new data and pass it down to child components as appropriate. Child components that need to update the application data will either call a function passed to it by a parent component or dispatch an action to the dispatcher.</p>
-<p><img src="/images/flux-complex.png" alt="Complex Flux"></p>
-<p>The dispatcher sends every action to all the <em>stores</em>. Stores manage data and business logic in a Flux application; each store is responsible for a domain of the application (which may consist of more than a single piece or collection of data). Stores update themselves in response to actions—nothing outside the store has any knowledge of how the store manages its data. When they update, they emit an event that signals that their data has changed, allowing the views to fetch the new data and update accordingly.</p>
-<p>Since stores have no setter methods or public properties for managing their data, testing them becomes a matter of putting them in a starting state, sending them an action, and testing that they end up in the expected final state.</p>
-<p>For a more in-depth look at the Flux architecture, check out <a href="http://facebook.github.io/react/docs/flux-overview.html">Flux Application Architecture</a> on the React site, and be sure to check out <a href="https://www.youtube.com/watch?v=nYkdrAPrdcw">Rethinking Web App Development at Facebook</a> from F8 on YouTube to hear Jing Chen talk more about Flux.</p>
+    <h1 id="changelog">Changelog</h1>
+<h2 id="version-1-5-0">Version 1.5.0</h2>
+<p><strong>Additions/Non-Breaking Changes</strong></p>
+<ul>
+<li>You can add stores and actions to existing Flux instances via <code>addStore</code>, <code>addStores</code>, <code>addAction</code>, and <code>addActions</code> (#68, #71, #77)</li>
+<li><code>Flux</code> instances are now EventEmitters, and emit a <code>&quot;dispatch&quot;</code> event (with <code>type</code> and <code>payload</code> arguments) when an action calls <code>this.dispatch(type, payload)</code>, useful for cross-cutting concerns like logging</li>
+<li><code>Store#bindActions</code> now takes a hash (similar to the static <code>actions</code> hash) in addition to an argument list (#51, #78)</li>
+<li>Fluxxor will throw more descriptive errors in many situations that are obviously incorrect (for example, when an action handler is not defined, or an action type in <code>bindActions</code> is falsy)</li>
+</ul>
+<p><strong>Deprecations</strong></p>
+<ul>
+<li><code>Fluxxor.FluxChildMixin</code> is now deprecated; instead, use <code>FluxMixin</code> anywhere you want access to <code>getFlux()</code> (#59)</li>
+</ul>
+<h2 id="version-1-4-2">Version 1.4.2</h2>
+<ul>
+<li>Throw an error when binding to a falsy action type (#50)</li>
+<li>Reduce npm package size with <code>.npmignore</code> (#65)</li>
+<li>Warn if a dispatch is not handled by any store (#66)</li>
+<li>Reduce file size slightly by using <a href="https://github.com/3rd-Eden/EventEmitter3">EventEmitter3</a> instead of Node.js <code>events</code> module</li>
+</ul>
+<h2 id="version-1-4-1">Version 1.4.1</h2>
+<ul>
+<li>Reduce file size by generating a smaller version file (#63) and using inherits package (#64)</li>
+</ul>
+<h2 id="version-1-4-0">Version 1.4.0</h2>
+<ul>
+<li>Action generating methods (methods in the <code>actions</code> parameter to the <code>Fluxxor.Flux</code> constructor) can access the <code>Flux</code> instance via <code>this.flux</code>.</li>
+</ul>
+<h2 id="version-1-3-2">Version 1.3.2</h2>
+<ul>
+<li>Ensure component is mounted before setting state in in StoreWatchMixin</li>
+</ul>
+<h2 id="version-1-3-1">Version 1.3.1</h2>
+<ul>
+<li>Fix Bower versioning</li>
+</ul>
+<h2 id="version-1-3-0">Version 1.3.0</h2>
+<ul>
+<li>Add support for namespaced actions</li>
+</ul>
+<h2 id="version-1-2-2">Version 1.2.2</h2>
+<ul>
+<li>Maintain references to stores on Flux object</li>
+</ul>
+<h2 id="version-1-2-1">Version 1.2.1</h2>
+<ul>
+<li>Throw when dispatching a value without a <code>type</code> property</li>
+</ul>
+<h2 id="version-1-2-0">Version 1.2.0</h2>
+<ul>
+<li>Allow synchronous back-to-back dispatches</li>
+<li>Gracefully handle exceptions in action handlers</li>
+<li>Add hasOwnProperty(key) checks throughout codebase</li>
+</ul>
+<h2 id="version-1-1-3">Version 1.1.3</h2>
+<ul>
+<li>Add <a href="http://bower.io/">Bower</a> support</li>
+</ul>
+<h2 id="version-1-1-2">Version 1.1.2</h2>
+<ul>
+<li>Fix compilation when using webpack (#9)</li>
+</ul>
+<h2 id="version-1-1-1">Version 1.1.1</h2>
+<ul>
+<li>Reduce bundle size by 40%</li>
+</ul>
+<h2 id="version-1-1-0">Version 1.1.0</h2>
+<ul>
+<li>Add <code>FluxChildMixin</code> to access flux on child components</li>
+<li>Use <code>getFlux()</code> to access flux with either <code>FluxMixin</code> or <code>FluxChildMixin</code></li>
+</ul>
+<h2 id="version-1-0-2">Version 1.0.2</h2>
+<ul>
+<li>Documentation updates</li>
+</ul>
+<h2 id="version-1-0-1">Version 1.0.1</h2>
+<ul>
+<li>Throw when mixing <code>StoreWatchMixin</code> in without calling it as a function</li>
+</ul>
+<h2 id="version-1-0-0">Version 1.0.0</h2>
+<p>First stable release</p>
 
     <hr>
     See a typo? Something still not clear?
