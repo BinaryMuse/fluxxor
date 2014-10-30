@@ -32,4 +32,4 @@ The dispatcher sends every action to all the *stores*. Stores manage data and bu
 
 Since stores have no setter methods or public properties for managing their data, testing them becomes a matter of putting them in a starting state, sending them an action, and testing that they end up in the expected final state.
 
-For a more in-depth look at the Flux architecture, check out [Flux Application Architecture](http://facebook.github.io/react/docs/flux-overview.html) on the React site, and be sure to check out [Rethinking Web App Development at Facebook](https://www.youtube.com/watch?v=nYkdrAPrdcw) from F8 on YouTube to hear Jing Chen talk more about Flux.
+For a more in-depth look at the Flux architecture, check out [Flux Application Architecture](http://facebook.github.io/flux/docs/overview.html) on the React site, and be sure to check out [Rethinking Web App Development at Facebook](https://www.youtube.com/watch?v=nYkdrAPrdcw) from F8 on YouTube to hear Jing Chen talk more about Flux.
