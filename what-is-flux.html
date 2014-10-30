@@ -94,7 +94,7 @@
 <p><img src="/images/flux-complex.png" alt="Complex Flux"></p>
 <p>The dispatcher sends every action to all the <em>stores</em>. Stores manage data and business logic in a Flux application; each store is responsible for a domain of the application (which may consist of more than a single piece or collection of data). Stores update themselves in response to actions—nothing outside the store has any knowledge of how the store manages its data. When they update, they emit an event that signals that their data has changed, allowing the views to fetch the new data and update accordingly.</p>
 <p>Since stores have no setter methods or public properties for managing their data, testing them becomes a matter of putting them in a starting state, sending them an action, and testing that they end up in the expected final state.</p>
-<p>For a more in-depth look at the Flux architecture, check out <a href="http://facebook.github.io/react/docs/flux-overview.html">Flux Application Architecture</a> on the React site, and be sure to check out <a href="https://www.youtube.com/watch?v=nYkdrAPrdcw">Rethinking Web App Development at Facebook</a> from F8 on YouTube to hear Jing Chen talk more about Flux.</p>
+<p>For a more in-depth look at the Flux architecture, check out <a href="http://facebook.github.io/flux/docs/overview.html">Flux Application Architecture</a> on the React site, and be sure to check out <a href="https://www.youtube.com/watch?v=nYkdrAPrdcw">Rethinking Web App Development at Facebook</a> from F8 on YouTube to hear Jing Chen talk more about Flux.</p>
 
     <hr>
     See a typo? Something still not clear?
