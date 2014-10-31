@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 React = require("react");
 
 var ImageForm = React.createClass({

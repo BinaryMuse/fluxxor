@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require("react"),
     Fluxxor = require("../../../");
 
@@ -212,4 +210,4 @@ var Word = React.createClass({
   }
 });
 
-React.renderComponent(<Application flux={flux} />, document.getElementById("app"));
+React.render(<Application flux={flux} />, document.getElementById("app"));

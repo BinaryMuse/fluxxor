@@ -103,7 +103,7 @@ flux.on("dispatch", function(type, payload) {
 React Application
 -----------------
 
-Let's build out our UI with React. Don't forget `/** @jsx React.DOM */` at the top of the file if you're using JSX!
+Let's build out our UI with React.
 
 Our top-level `Application` component will use the [FluxMixin](/documentation/flux-mixin.html) as well as the [StoreWatchMixin](/documentation/store-watch-mixin.html) to make our lives a bit easier. The component will iterate over the array of todos and emit a `TodoItem` component for each one.
 
@@ -200,7 +200,7 @@ Bringing it Together
 Now that we have a `Flux` instance and all our components are defined, we can finally render our app. We'll put it inside a `div` in our HTML with an ID of "app".
 
 ```javascript
-React.renderComponent(<Application flux={flux} />, document.getElementById("app"));
+React.render(<Application flux={flux} />, document.getElementById("app"));
 ```
 
 And that's it! We've created a (super simple) Flux application with React and Fluxxor. You can find the full source code [on GitHub](https://github.com/BinaryMuse/fluxxor/tree/master/examples/todo-basic).

@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require("react"),
     Fluxxor = require("../../../../"),
     FluxMixin = Fluxxor.FluxMixin(React),

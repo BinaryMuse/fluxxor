@@ -22,7 +22,7 @@ describe("StoreWatchMixin", function() {
     TestUtils = React.addons.TestUtils;
     FluxMixin = Fluxxor.FluxMixin(React);
 
-    SwappedComponent = React.createClass({
+    SwappedComponent = React.createFactory(React.createClass({
       mixins: [FluxMixin, StoreWatchMixin("Store1")],
 
       getStateFromFlux: function() {
@@ -36,10 +36,10 @@ describe("StoreWatchMixin", function() {
           React.DOM.span({key: 1}, String(this.state.store1state.value)),
         ]);
       }
-    });
+    }));
 
     createComponent = function createComponent(React) {
-      var Component = React.createClass({
+      var Component = React.createFactory(React.createClass({
         mixins: [FluxMixin, StoreWatchMixin("Store1", "Store2")],
 
         getStateFromFlux: function() {
@@ -60,7 +60,7 @@ describe("StoreWatchMixin", function() {
             React.DOM.span({key: 2}, String(this.state.store2state.value))
           ]);
         }
-      });
+      }));
 
       return Component;
     };
@@ -122,12 +122,12 @@ describe("StoreWatchMixin", function() {
   });
 
   it("throws when attempting to mix in the function directly", function() {
-    var Comp = React.createClass({
+    var Comp = React.createFactory(React.createClass({
       mixins: [Fluxxor.StoreWatchMixin],
       render: function() { return React.DOM.div(); }
-    });
+    }));
     expect(function() {
-      React.renderComponentToString(Comp());
+      React.renderToString(Comp());
     }).to.throw(/StoreWatchMixin.*function/);
   });
 

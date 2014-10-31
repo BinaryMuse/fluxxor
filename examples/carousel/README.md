@@ -9,7 +9,7 @@ To run, simply open `app/index.html` in your web browser—`index.html`, `bundle
 
 Alternatively, check out the running example [on the Fluxxor website](http://fluxxor.com/examples/carousel/).
 
-The entry point of the application is `app/app.jsx`. `React` is exported to the `window` object so that the [React Chrome Developer Tools](http://facebook.github.io/react/blog/2014/01/02/react-chrome-developer-tools.html) will appear; the `Fluxxor.Flux` instance is exported to `window.flux` so that you can manipulate the application from the standard JavaScript console (e.g. the methods on `window.flux.actions`).
+The entry point of the application is `app/app.jsx`. The `Fluxxor.Flux` instance is exported to `window.flux` so that you can manipulate the application from the standard JavaScript console (e.g. the methods on `window.flux.actions`).
 
 Stores
 ------
