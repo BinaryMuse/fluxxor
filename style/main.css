@@ -23,6 +23,32 @@ h2,
 h3 {
   line-height: 1.1;
 }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  position: relative;
+}
+h1 .anchor-symbol,
+h2 .anchor-symbol,
+h3 .anchor-symbol,
+h4 .anchor-symbol,
+h5 .anchor-symbol,
+h6 .anchor-symbol {
+  visibility: hidden;
+  margin-left: 10px;
+  color: #999;
+}
+h1:hover .anchor-symbol,
+h2:hover .anchor-symbol,
+h3:hover .anchor-symbol,
+h4:hover .anchor-symbol,
+h5:hover .anchor-symbol,
+h6:hover .anchor-symbol {
+  visibility: visible;
+}
 a {
   color: #39c;
   text-decoration: none;
