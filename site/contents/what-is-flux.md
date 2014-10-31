@@ -44,7 +44,7 @@ Action dispatches and their handlers inside the stores are synchronous. All asyn
 
 ### Inversion of Control
 
-Since stores update *themselves* in response to actions, no other piece of the system has to know how to modify the application's state. All the logic for updating the state is contained within the store itself. And, since stores only ever update in response to actions, and only synchronously, testing stores simply becomes a matter of putting them in an initial state, sending them an action, and testing to see if they're in the correct final state.
+Since stores update themselves internally in response to actions (rather than being updated from outside by a controller or a similar module), no other piece of the system needs to know how to modify the application's state. All the logic for updating the state is contained within the store itself. And, since stores only ever update in response to actions, and only synchronously, testing stores simply becomes a matter of putting them in an initial state, sending them an action, and testing to see if they're in the correct final state.
 
 ### Semantic Actions
 
@@ -56,7 +56,12 @@ Because of this property, you rarely have to change your action types, only how 
 
 Flux disallows dispatching a second action as a result of dispatching an action. This helps prevent hard-to-debug cascading updates and helps you think about interactions in your application in terms of semantic actions.
 
-More Reading
-------------
+Further Reading
+---------------
 
-For a more in-depth look at the Flux architecture, check out [Flux Application Architecture](http://facebook.github.io/flux/docs/overview.html) on the React site, and be sure to check out [Rethinking Web App Development at Facebook](https://www.youtube.com/watch?v=nYkdrAPrdcw) from F8 on YouTube to hear Jing Chen talk more about Flux.
+For a more in-depth look at the Flux architecture, check out [Flux Application Architecture](http://facebook.github.io/flux/docs/overview.html) on the official Flux site, and be sure to check out [Rethinking Web App Development at Facebook](https://www.youtube.com/watch?v=nYkdrAPrdcw) from F8 on YouTube to hear Jing Chen talk more about Flux.
+
+Ready to Try it Out?
+--------------------
+
+Check out the [installation](/guides/installation.html) and [getting started](/guides/quick-start.html) guides to get up and running with Fluxxor!
