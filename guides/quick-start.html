@@ -162,7 +162,7 @@
 });
 </code></pre>
 <h2 id="react-application">React Application</h2>
-<p>Let&#39;s build out our UI with React. Don&#39;t forget <code>/** @jsx React.DOM */</code> at the top of the file if you&#39;re using JSX!</p>
+<p>Let&#39;s build out our UI with React.</p>
 <p>Our top-level <code>Application</code> component will use the <a href="/documentation/flux-mixin.html">FluxMixin</a> as well as the <a href="/documentation/store-watch-mixin.html">StoreWatchMixin</a> to make our lives a bit easier. The component will iterate over the array of todos and emit a <code>TodoItem</code> component for each one.</p>
 <p>We&#39;ll also add a quick form for adding new todo items, and a button for clearing completed todos.</p>
 <pre><code class="lang-javascript">var FluxMixin = Fluxxor.FluxMixin(React),
@@ -247,7 +247,7 @@ var Application = React.createClass({
 </code></pre>
 <h2 id="bringing-it-together">Bringing it Together</h2>
 <p>Now that we have a <code>Flux</code> instance and all our components are defined, we can finally render our app. We&#39;ll put it inside a <code>div</code> in our HTML with an ID of &quot;app&quot;.</p>
-<pre><code class="lang-javascript">React.renderComponent(<span class="xml"><span class="tag">&lt;<span class="title">Application</span> <span class="attribute">flux</span>=<span class="value">{flux}</span> /&gt;</span>, document.getElementById("app"));</span>
+<pre><code class="lang-javascript">React.render(<span class="xml"><span class="tag">&lt;<span class="title">Application</span> <span class="attribute">flux</span>=<span class="value">{flux}</span> /&gt;</span>, document.getElementById("app"));</span>
 </code></pre>
 <p>And that&#39;s it! We&#39;ve created a (super simple) Flux application with React and Fluxxor. You can find the full source code <a href="https://github.com/BinaryMuse/fluxxor/tree/master/examples/todo-basic">on GitHub</a>.</p>
 <script src="todo-bundle.js"></script>
