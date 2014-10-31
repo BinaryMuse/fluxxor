@@ -15,21 +15,33 @@ Overview
 
 To best describe flux, we will compare it to one of the leading client-side architectures: MVC. In a client-side MVC application, a user interaction triggers code in a controller. The controller knows how to coordinate changes to one or more models by calling methods on the models. When the models change, they notify one or more views, which in turn read the new data from the models and update themselves accordingly so that the user can see that new data.
 
+<figure>
 ![Simple MVC](/images/mvc-simple.png?1)
+<figcaption>A simple MVC flow</figcaption>
+</figure>
 
 As an MVC application grows and controllers, models, and views are added, the dependencies become more complex.
 
+<figure>
 ![Complex MVC](/images/mvc-complex.png?1)
+<figcaption>A more complex MVC flow</figcaption>
+</figure>
 
 With the addition of just three views, one controller, and one model, the dependency graph is already harder to trace. When the user interacts with the UI, multiple branching code paths are executed, and debugging problems in application state becomes an exercise in figuring out which module (or modules) in one (or more) of these potential code paths contains a bug. In the worst cases, a user interaction will trigger updates which in turn trigger additional updates, resulting in error-prone and difficult-to-debug cascading effects along several of these, sometimes overlapping, paths.
 
 Flux eschews this design in favor of a one-way data flow. All user interactions within a view call an *action creator*, which causes an *action* event to be emitted from a singleton *dispatcher*. The dispatcher is a single-point-of-emission for all actions in a flux application. The action is sent from the dispatcher to *stores*, which update themselves in response to the action.
 
+<figure>
 ![Simple Flux](/images/flux-simple.png?1)
+<figcaption>A simple flux flow</figcaption>
+</figure>
 
 The flow doesn't change significantly for additional stores or views. The dispatcher simply sends every action to *all* the stores in the application. Note that it does not contain knowledge about how to actually update the stores—the stores themselves contain this business logic. Each store is responsible for a domain of the application, and only update themselves in response to actions.
 
+<figure>
 ![Complex Flux](/images/flux-complex.png?1)
+<figcaption>A more complex flux flow</figcaption>
+</figure>
 
 When a store updates, it emits a change event. In many React applications, special views (known sometimes as "controller-views") are responsible for watching for this change event, reading the stores' new data, and passing that data through properties to child views. It's not uncommon in a React application for a store change event to trigger a re-render of the top-level view, effectively re-rendering the entire view hierarchy (which React handles in an efficient manner). This completely avoids complex bugs and performance problems that can arise out of trying to watch for specific property changes on models and modifying parts of views only slightly.
 
