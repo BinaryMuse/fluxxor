@@ -13,12 +13,14 @@ template: index.ejs
   <p>The Flux architecture...</p>
 
   <ul class="features">
-    <li>...eschews complex MVC hierarchies in favor of a one-way data flow</li>
     <li>...makes it easier to reason about changes to your application's data</li>
+    <li>...eschews complex MVC hierarchies in favor of a one-way data flow</li>
     <li>...helps improve data consistency</li>
     <li>...prevents hard-to-debug cascading updates</li>
     <li>...works great with React and complements its reactive data flow</li>
   </ul>
+
+  <p>**Want to learn more?** Start by checking out <strong><a href="/what-is-flux.html">What is Flux</a></strong>.</p>
 
   <div style="padding-top: 20px">
     <iframe src="http://ghbtns.com/github-btn.html?user=BinaryMuse&repo=fluxxor&type=watch&count=true&size=large"

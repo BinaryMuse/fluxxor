@@ -6,7 +6,7 @@ template: page.ejs
 What is Flux?
 =============
 
-Flux is an architecture for creating data layers in JavaScript applications. It was designed at Facebook along with the [React](http://facebook.github.io/react/) view library. It places a focus on explicit and understandable update paths for your application's state by enforcing synchrony, preventing cascading updates, and using inversion of control to drive separation of concerns.
+Flux is an architecture for creating data layers in JavaScript applications. It was designed at Facebook along with the [React](http://facebook.github.io/react/) view library. It places a focus on creating **explicit and understandable update paths** for your application's data, which makes **tracing changes during development simpler** and makes **bugs easier to track down and fix**.
 
 Fluxxor is an implementation of the flux architecture pattern.
 
