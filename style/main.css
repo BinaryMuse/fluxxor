@@ -54,14 +54,18 @@ a {
   text-decoration: none;
   font-weight: 400;
 }
+strong a {
+  font-weight: bold;
+}
 .logo-container {
   text-align: right;
   float: left;
-  padding-right: 50px;
-  width: 305px;
+  padding-right: 20px;
+  width: 335px;
 }
 .logo-container .logo-svg {
-  height: 350px;
+  margin-top: 3px;
+  height: 385px;
 }
 .logo-container-sidebar {
   padding-left: 15px;

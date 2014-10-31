@@ -81,7 +81,7 @@
   </header>
   <section>
     <h1 id="what-is-flux-">What is Flux?</h1>
-<p>Flux is an architecture for creating data layers in JavaScript applications. It was designed at Facebook along with the <a href="http://facebook.github.io/react/">React</a> view library. It places a focus on explicit and understandable update paths for your application&#39;s state by enforcing synchrony, preventing cascading updates, and using inversion of control to drive separation of concerns.</p>
+<p>Flux is an architecture for creating data layers in JavaScript applications. It was designed at Facebook along with the <a href="http://facebook.github.io/react/">React</a> view library. It places a focus on creating <strong>explicit and understandable update paths</strong> for your application&#39;s data, which makes <strong>tracing changes during development simpler</strong> and makes <strong>bugs easier to track down and fix</strong>.</p>
 <p>Fluxxor is an implementation of the flux architecture pattern.</p>
 <h2 id="overview">Overview</h2>
 <p>To best describe flux, we will compare it to one of the leading client-side architectures: MVC. In a client-side MVC application, a user interaction triggers code in a controller. The controller knows how to coordinate changes to one or more models by calling methods on the models. When the models change, they notify one or more views, which in turn read the new data from the models and update themselves accordingly so that the user can see that new data.</p>
