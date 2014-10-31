@@ -21,6 +21,22 @@ h1, h2, h3 {
   line-height: 1.1;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  position: relative;
+
+  .anchor-symbol {
+    visibility: hidden;
+    margin-left: 10px;
+    color: #999;
+  }
+
+  &:hover {
+    .anchor-symbol {
+      visibility: visible;
+    }
+  }
+}
+
 a {
   color: #39c;
   text-decoration: none;

@@ -121,5 +121,24 @@ document.querySelectorAll(".hide-nav")[0].addEventListener("click", function(ev)
   ga('require', 'linkid', 'linkid.js');
   ga('send', 'pageview');
 </script>
+<script>
+  function appendAnchorSymbol(el, id) {
+    var anchor = document.createElement("a");
+    anchor.setAttribute("href", "#" + id);
+    anchor.setAttribute("class", "anchor-symbol");
+    anchor.innerHTML = "&para;";
+    el.appendChild(anchor);
+  }
+
+  var hs = document.querySelectorAll("h1,h2,h3,h4,h5,h6"),
+      h, id;
+  for (var i in hs) {
+    h = hs[i];
+    id = h.getAttribute("id");
+    if (id) {
+      appendAnchorSymbol(h, id);
+    }
+  }
+</script>
 
 </html>
