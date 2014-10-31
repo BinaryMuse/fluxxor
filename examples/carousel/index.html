@@ -174,7 +174,7 @@ document.querySelectorAll(".hide-nav")[0].addEventListener("click", function(ev)
 
   var hs = document.querySelectorAll("h1,h2,h3,h4,h5,h6"),
       h, id;
-  for (var i in hs) {
+  for (var i = 0; i < hs.length; i++) {
     h = hs[i];
     id = h.getAttribute("id");
     if (id) {
