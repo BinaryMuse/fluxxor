@@ -1,5 +1,8 @@
 var React = require("react"),
-    Fluxxor = require("../../../");
+    Fluxxor = require("../../../"),
+    Immutable = require("immutable");
+
+window.I = Immutable;
 
 window.React = React;
 
@@ -71,6 +74,21 @@ var BuzzwordStore = Fluxxor.createStore({
     );
   },
 
+  dehydrate: function() {
+    return {
+      loading: this.loading,
+      error: this.error,
+      words: this.words
+    };
+  },
+
+  hydrate: function(state) {
+    this.loading = state.loading;
+    this.error = state.error;
+    this.words = state.words;
+    this.emit("change");
+  },
+
   onLoadBuzz: function() {
     this.loading = true;
     this.emit("change");
@@ -120,10 +138,88 @@ var flux = new Fluxxor.Flux(stores, actions);
 
 window.flux = flux;
 
+var fluxHistory = Immutable.List();
+
+window.exportActions = function() {
+  var serialized = JSON.stringify(fluxHistory.map(function(item) {
+    return {
+      type: item.actionType,
+      payload: item.payload
+    };
+  }).toJS());
+  console.log(serialized);
+};
+
+window.importActions = function(actions) {
+  var action;
+  for (idx in actions) {
+    action = actions[idx];
+    flux.dispatcher.dispatch(action);
+    flux.emit("postDispatch", action.type, action.payload);
+  }
+};
+
+var HistoryVisualizer = React.createClass({
+  render: function() {
+    // return (
+    //   <div>
+    //     {this.props.history.map(this.renderHistoryItem).toJS()}
+    //   </div>
+    // );
+    return (
+      <div>
+        <input type="range"
+               min={0} max={this.props.history.size - 1}
+               onChange={this.handleSliderChange} />
+      </div>
+    );
+  },
+
+  handleSliderChange: function(evt) {
+    var num = ~~evt.target.value,
+        state = this.props.history.get(num).state;
+
+    this.hydrateState(state);
+  },
+
+  // renderHistoryItem: function(item) {
+  //   return (
+  //     <div key={item.id}>
+  //       {item.actionType}
+  //       <button onClick={this.hydrateState.bind(null, item.state)}>
+  //         Hydrate
+  //       </button>
+  //       <hr/>
+  //     </div>
+  //   );
+  // },
+
+  hydrateState: function(state) {
+    flux.store("BuzzwordStore").hydrate(state);
+  }
+});
+
+var historyId = 0;
+
 flux.on("dispatch", function(type, payload) {
   if (console && console.log) {
     console.log("[Dispatch]", type, payload);
   }
+});
+
+flux.on("postDispatch", function(type, payload) {
+  var nextState = flux.store("BuzzwordStore").dehydrate();
+  fluxHistory = fluxHistory.push({
+    id: historyId++,
+    actionType: type,
+    payload: payload,
+    state: JSON.parse(JSON.stringify(nextState))
+  });
+
+  React.render(
+    <HistoryVisualizer history={fluxHistory} />,
+    document.getElementById("history")
+  );
 });
 
 var FluxMixin = Fluxxor.FluxMixin(React),
@@ -169,7 +265,7 @@ var Application = React.createClass({
   },
 
   componentDidMount: function() {
-    this.getFlux().actions.loadBuzz();
+    // this.getFlux().actions.loadBuzz();
   },
 
   handleSuggestedWordChange: function(e) {
