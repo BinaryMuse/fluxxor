@@ -62,7 +62,7 @@ Since stores update themselves internally in response to actions (rather than be
 
 Since the stores need to update themselves in response to actions, the actions tend to be semantically descriptive. For example, in a flux forum application, to mark a thread as read, you might dispatch an action with a type of `MARK_THREAD_READ`. The action (and the component generating the action) doesn't know *how* to perform the update, but *describes* what it wants to happen.
 
-Because of this property, you rarely have to change your action types, only how the stores respond to them. As long as your application has a concept of a "thread" and you have a have a button or other interaction that should mark a thread as read, the `MARK_THREAD_READ` action type is semantically valid.
+Because of this property, you rarely have to change your action types, only how the stores respond to them. As long as your application has a concept of a "thread" and you have a button or other interaction that should mark a thread as read, the `MARK_THREAD_READ` action type is semantically valid.
 
 ### No Cascading Actions
 
