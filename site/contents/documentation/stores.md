@@ -104,7 +104,7 @@ var MyStore = Fluxxor.createStore({
 
 ## `Store#waitFor(stores, callback)`
 
-Waits for other stores to finish dispatching the current action, executing `callback` afterwards.
+Waits for other stores to finish dispatching the current action, executing `callback` afterwards. Since action handlers are synchronous, a store is "finished" handling an action when the handler function returns.
 
 * `stores` - An array of names of stores to wait for.
 * `callback(stores)` - A function to call after all the specified stores have handled the current dispatch. The function is called with the store instances (corresponding to the array of names).
