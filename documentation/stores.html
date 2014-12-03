@@ -161,7 +161,7 @@
 });
 </code></pre>
 <h2 id="-store-waitfor-stores-callback-"><code>Store#waitFor(stores, callback)</code></h2>
-<p>Waits for other stores to finish dispatching the current action, executing <code>callback</code> afterwards.</p>
+<p>Waits for other stores to finish dispatching the current action, executing <code>callback</code> afterwards. Since action handlers are synchronous, a store is &quot;finished&quot; handling an action when the handler function returns.</p>
 <ul>
 <li><code>stores</code> - An array of names of stores to wait for.</li>
 <li><code>callback(stores)</code> - A function to call after all the specified stores have handled the current dispatch. The function is called with the store instances (corresponding to the array of names).</li>
