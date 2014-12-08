@@ -1,3 +1,8 @@
+Version 1.5.1
+=============
+
+* Watch stores in `componentDidMount` instead of `componentWillMount` to make it harder to leak memory on the server
+
 Version 1.5.0
 =============
 
