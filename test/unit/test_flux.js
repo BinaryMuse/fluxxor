@@ -21,7 +21,7 @@ describe("Flux", function() {
     var store1 = {};
     var store2 = {};
     var stores = { Store1: store1, Store2: store2 };
-    var flux = new Fluxxor.Flux({}, {});
+    var flux = new Fluxxor.Flux();
     flux.addStores(stores);
     expect(flux.store("Store1")).to.equal(store1);
     expect(flux.store("Store2")).to.equal(store2);
@@ -30,7 +30,7 @@ describe("Flux", function() {
   it("allows retrieval of stores added by addStore", function() {
     var store1 = {};
     var store2 = {};
-    var flux = new Fluxxor.Flux({}, {});
+    var flux = new Fluxxor.Flux();
     flux.addStore("Store1", store1);
     flux.addStore("Store2", store2);
     expect(flux.store("Store1")).to.equal(store1);
@@ -39,7 +39,7 @@ describe("Flux", function() {
 
   it("does not allow duplicate stores", function() {
     var store1 = {};
-    var flux = new Fluxxor.Flux({}, {});
+    var flux = new Fluxxor.Flux();
     flux.addStore("Store1", store1);
     expect(function() {
       flux.addStore("Store1", {});
@@ -110,7 +110,7 @@ describe("Flux", function() {
       },
       e: function() { this.dispatch("action", {name: "e"}); }
     };
-    var flux = new Fluxxor.Flux({}, {});
+    var flux = new Fluxxor.Flux();
     flux.addActions(actions);
     flux.dispatcher.dispatch = sinon.spy();
     flux.actions.e();
@@ -202,7 +202,7 @@ describe("Flux", function() {
   });
 
   it("throws when using addAction incorrectly", function() {
-    var flux = new Fluxxor.Flux({}, {});
+    var flux = new Fluxxor.Flux();
 
     expect(function() {
       flux.addAction();
