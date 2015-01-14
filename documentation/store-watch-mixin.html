@@ -81,7 +81,7 @@
   </header>
   <section>
     <h1 id="fluxxor-storewatchmixin">Fluxxor.StoreWatchMixin</h1>
-<p><code>Fluxxor.StoreWatchMixin</code> is a simple React mixin that assists with watching for <code>&quot;change&quot;</code> events on one or more stores. Normally, you&#39;d need to bind to store change events in <code>componentWillMount</code> and unbind them in <code>componentWillUnmount</code> to keep from leaking memory. Additionally, you&#39;d need to set up handlers to pull data from the stores during change events and lifecycle hooks (such as <code>getInitialState</code>).</p>
+<p><code>Fluxxor.StoreWatchMixin</code> is a simple React mixin that assists with watching for <code>&quot;change&quot;</code> events on one or more stores. Normally, you&#39;d need to bind to store change events in <code>componentDidMount</code> and unbind them in <code>componentWillUnmount</code> to keep from leaking memory. Additionally, you&#39;d need to set up handlers to pull data from the stores during change events and lifecycle hooks (such as <code>getInitialState</code>).</p>
 <p><code>StoreWatchMixin</code> simply requires that you:</p>
 <ol>
 <li>Define a method on your component called <code>getStateFromFlux</code> that returns an object representing the part of the component&#39;s state that comes from the Flux stores.</li>
@@ -94,6 +94,7 @@
 <li>Automatically call <code>setState</code> with the return value of <code>getStateFromFlux</code> when a store emits a <code>&quot;change&quot;</code> event</li>
 <li>Automatically set the component&#39;s initial state based on the return value of <code>getStateFromFlux</code> when the component mounts (note that this object is merged with any other <code>getInitialState</code> functions defined on the component or other mixins)</li>
 </ol>
+<p>Note that <code>StoreWatchMixin</code> binds events in <code>componentDidMount</code> and not <code>componentWillMount</code> in order to prevent memory leaks when rendering React components that use Fluxxor on the server using Node.js. This means that actions fired from <code>componentWillMount</code> that result in <code>&quot;change&quot;</code> events in your stores will not update the component; consider moving such actions to <code>componentDidMount</code> instead.</p>
 <p>Example:</p>
 <pre><code class="lang-javascript"><span class="keyword">var</span> React = <span class="built_in">require</span>(<span class="string">"react"</span>),
     Fluxxor = <span class="built_in">require</span>(<span class="string">"fluxxor"</span>),
