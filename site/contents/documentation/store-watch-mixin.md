@@ -6,7 +6,7 @@ template: page.ejs
 Fluxxor.StoreWatchMixin
 =======================
 
-`Fluxxor.StoreWatchMixin` is a simple React mixin that assists with watching for `"change"` events on one or more stores. Normally, you'd need to bind to store change events in `componentWillMount` and unbind them in `componentWillUnmount` to keep from leaking memory. Additionally, you'd need to set up handlers to pull data from the stores during change events and lifecycle hooks (such as `getInitialState`).
+`Fluxxor.StoreWatchMixin` is a simple React mixin that assists with watching for `"change"` events on one or more stores. Normally, you'd need to bind to store change events in `componentDidMount` and unbind them in `componentWillUnmount` to keep from leaking memory. Additionally, you'd need to set up handlers to pull data from the stores during change events and lifecycle hooks (such as `getInitialState`).
 
 `StoreWatchMixin` simply requires that you:
 
@@ -19,6 +19,8 @@ The mixin will then automatically
 2. Unbind from `"change"` events when the component unmounts
 3. Automatically call `setState` with the return value of `getStateFromFlux` when a store emits a `"change"` event
 4. Automatically set the component's initial state based on the return value of `getStateFromFlux` when the component mounts (note that this object is merged with any other `getInitialState` functions defined on the component or other mixins)
+
+Note that `StoreWatchMixin` binds events in `componentDidMount` and not `componentWillMount` in order to prevent memory leaks when rendering React components that use Fluxxor on the server using Node.js. This means that actions fired from `componentWillMount` that result in `"change"` events in your stores will not update the component; consider moving such actions to `componentDidMount` instead.
 
 Example:
 
