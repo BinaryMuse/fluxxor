@@ -1,5 +1,5 @@
-Basic Todos Example
-===================
+Asynchronous Data Example
+=========================
 
 This is a very simple Fluxxor application demonstrating how to deal with asynchronous data. It fakes an asynchronous API that returns suggested catch phrases for your new startup and allows you to submit new suggested catch phrases (50% of the time it simulates an error instead). The Fluxxor website describes the technique in more detail in [the asynchronous data guide](http://fluxxor.com/guides/async-data.html).
 
