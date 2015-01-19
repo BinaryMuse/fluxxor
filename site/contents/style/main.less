@@ -71,10 +71,6 @@ strong a {
   float: left;
   width: 520px;
   padding-top: 0;
-
-  > p {
-    max-width: 490px;
-  }
 }
 
 code.install {
@@ -210,6 +206,12 @@ pre {
 
 .footer-info {
   display: none;
+}
+
+@media screen and (max-width: 1060px) {
+  .github-banner {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 940px) {
