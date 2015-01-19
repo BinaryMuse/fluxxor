@@ -1,6 +1,6 @@
-var Fluxxor = require("../../../");
+var Fluxxor = require("../../../../");
 
-var actions = require("./actions.jsx");
+var actions = require("../actions.jsx");
 
 var NOT_FOUND_TOKEN = {};
 
@@ -10,9 +10,9 @@ var RecipeStore = Fluxxor.createStore({
     this.recipes = {};
 
     this.bindActions(
-      actions.constants.ADD_RECIPE, this.handleAddRecipe,
-      actions.constants.EDIT_RECIPE, this.handleEditRecipe,
-      actions.constants.REMOVE_RECIPE, this.handleRemoveRecipe
+      actions.constants.RECIPE.ADD, this.handleAddRecipe,
+      actions.constants.RECIPE.EDIT, this.handleEditRecipe,
+      actions.constants.RECIPE.REMOVE, this.handleRemoveRecipe
     );
   },
 
@@ -35,11 +35,17 @@ var RecipeStore = Fluxxor.createStore({
     };
     recipe.id = ++this.recipeId;
     this.recipes[recipe.id] = recipe;
-    this.emit("change");
 
-    if (payload.callback) {
-      payload.callback(recipe);
-    }
+    // Normally an API call to save a new item would be asynchronous,
+    // but we're faking a back-end store here, so we'll fake the
+    // asynchrony too.
+    setTimeout(function() {
+      if (!payload.preventTransition) {
+        this.flux.actions.routes.transition("recipe", {id: recipe.id});
+      }
+    }.bind(this));
+
+    this.emit("change");
   },
 
   handleEditRecipe: function(payload) {

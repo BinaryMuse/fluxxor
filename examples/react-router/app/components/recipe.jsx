@@ -4,7 +4,7 @@ var React = require("react"),
     State = Router.State,
     Fluxxor = require("../../../../");
 
-var RecipeStore = require("../recipe_store.jsx");
+var RecipeStore = require("../stores/recipe_store.jsx");
 
 var Recipe = React.createClass({
   mixins: [

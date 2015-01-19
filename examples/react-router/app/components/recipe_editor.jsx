@@ -7,7 +7,7 @@ var React = require("react"),
     Fluxxor = require("../../../../");
 
 var RecipeForm = require("../forms/recipe_form.jsx"),
-    RecipeStore = require("../recipe_store.jsx");
+    RecipeStore = require("../stores/recipe_store.jsx");
 
 var RecipeEditor = React.createClass({
   mixins: [

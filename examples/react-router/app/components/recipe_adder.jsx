@@ -2,7 +2,6 @@ var React = require("react"),
     Router = require("react-router"),
     RouteHandler = Router.RouteHandler,
     Link = Router.Link,
-    Navigation = Router.Navigation,
     State = Router.State,
     Fluxxor = require("../../../../");
 
@@ -11,8 +10,7 @@ var RecipeForm = require("../forms/recipe_form.jsx");
 var RecipeAdder = React.createClass({
   mixins: [
     Fluxxor.FluxMixin(React),
-    State,
-    Navigation
+    State
   ],
 
   render: function() {
@@ -46,10 +44,7 @@ var RecipeAdder = React.createClass({
         newRecipe.name,
         newRecipe.description,
         newRecipe.ingredients,
-        newRecipe.directions,
-        function(recipe) {
-          this.transitionTo("recipe", {id: recipe.id});
-        }.bind(this)
+        newRecipe.directions
       );
     }
   },

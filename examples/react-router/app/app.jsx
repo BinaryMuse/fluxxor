@@ -4,15 +4,22 @@ var React = require("react"),
 
 var actions = require("./actions.jsx"),
     routes = require("./routes.jsx"),
-    RecipeStore = require("./recipe_store.jsx");
+    RecipeStore = require("./stores/recipe_store.jsx");
+    RouteStore = require("./stores/route_store.jsx");
 
 require("./style.less");
 
+var router = Router.create({routes: routes});
+
 var stores = {
-  recipe: new RecipeStore()
+  recipe: new RecipeStore(),
+  route: new RouteStore({router: router})
 };
 
 var flux = new Fluxxor.Flux(stores, actions.methods);
+flux.on("dispatch", function(type, payload) {
+  console.log("Dispatch:", type, payload);
+});
 
 flux.actions.recipes.add(
   "Strawberry Smoothie",
@@ -25,10 +32,11 @@ flux.actions.recipes.add(
     { quantity: "2 tsp",   item: "vanilla extract" },
     { quantity: "6",       item: "ice cubes, crushed" }
   ],
-  "In a blender combine strawberries, milk, yogurt, sugar and vanilla. Toss in the ice. Blend until smooth and creamy. Pour into glasses and serve."
+  "In a blender combine strawberries, milk, yogurt, sugar and vanilla. Toss in the ice. Blend until smooth and creamy. Pour into glasses and serve.",
+  true
 );
 
-Router.run(routes, function(Handler) {
+router.run(function(Handler) {
   React.render(
     <Handler flux={flux} />,
     document.getElementById("app")

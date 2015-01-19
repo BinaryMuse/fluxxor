@@ -1,23 +1,29 @@
 var c = {
-  ADD_RECIPE: "ADD_RECIPE",
-  EDIT_RECIPE: "EDIT_RECIPE",
-  REMOVE_RECIPE: "REMOVE_RECIPE"
+  RECIPE: {
+    ADD: "RECIPE:ADD",
+    EDIT: "RECIPE:EDIT",
+    REMOVE: "RECIPE:REMOVE",
+  },
+
+  ROUTE: {
+    TRANSITION: "ROUTE:TRANSITION"
+  }
 };
 
 var methods = {
   recipes: {
-    add: function(name, desc, ingredients, directions, callback) {
-      this.dispatch(c.ADD_RECIPE, {
+    add: function(name, desc, ingredients, directions, preventTransition) {
+      this.dispatch(c.RECIPE.ADD, {
         name: name,
         description: desc,
         ingredients: ingredients,
         directions: directions,
-        callback: callback
+        preventTransition: preventTransition
       });
     },
 
     edit: function(id, name, desc, ingredients, directions) {
-      this.dispatch(c.EDIT_RECIPE, {
+      this.dispatch(c.RECIPE.EDIT, {
         id: id,
         name: name,
         description: desc,
@@ -27,7 +33,13 @@ var methods = {
     },
 
     remove: function(id) {
-      this.dispatch(c.REMOVE_RECIPE, id);
+      this.dispatch(c.RECIPE.REMOVE, id);
+    }
+  },
+
+  routes: {
+    transition: function(path, params) {
+      this.dispatch(c.ROUTE.TRANSITION, {path: path, params: params});
     }
   }
 };
