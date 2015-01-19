@@ -1,0 +1,46 @@
+fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+fieldset legend {
+  display: none;
+}
+
+.form-group {
+  padding-bottom: 10px;
+}
+
+input[name="name"] {
+  font-size: 18pt;
+  width: 400px;
+}
+
+textarea[name="description"], textarea[name="directions"] {
+  height: 75px;
+  width: 400px;
+  font-size: 10pt;
+}
+
+.form-group.has-error input {
+  border-color: red;
+}
+
+.form-row.ingredients {
+  padding-top: 10px;
+  padding-bottom: 20px;
+
+  label {
+    display: inline-block;
+    padding-bottom: 5px;
+  }
+
+  input {
+    font-size: 10pt;
+  }
+
+  .form-row.quantity, .form-row.item, .form-list-buttons, .form-struct {
+    display: inline-block;
+  }
+}

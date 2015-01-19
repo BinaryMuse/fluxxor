@@ -1,7 +1,9 @@
 cd examples/todo-basic && ../../node_modules/.bin/webpack -p && cd -
 cd examples/carousel && ../../node_modules/.bin/webpack -p && cd -
 cd examples/async && ../../node_modules/.bin/webpack -p && cd -
+cd examples/react-router && ../../node_modules/.bin/webpack -p && cd -
 
 cp examples/carousel/app/bundle.js site/contents/examples/carousel/carousel-bundle.js
 cp examples/todo-basic/app/bundle.js site/contents/guides/todo-bundle.js
 cp examples/async/app/bundle.js site/contents/guides/async-bundle.js
+cp examples/react-router/app/bundle.js site/contents/examples/react-router-bundle.js
