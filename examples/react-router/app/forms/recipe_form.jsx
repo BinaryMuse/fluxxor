@@ -22,7 +22,6 @@ var struct = function(locals) {
   if (locals.config.type === "ingredients") return ingredients(locals);
 
   var inputs = locals.inputs;
-  console.log(locals);
 
   return (
     <fieldset className="form-struct recipe">
