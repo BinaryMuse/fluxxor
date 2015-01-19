@@ -17,10 +17,10 @@ The route definition and run block for this app looks like this:
 
 ```javascript
 var routes = (
-  <Route handler={RouteHandler} name="home" path="/">
+  <Route handler={EmptyView} name="home" path="/">
     <Route handler={RecipeAdder} name="add-recipe" path="/recipe/add" />
 
-    <Route handler={RouteHandler} path="/recipe/:id">
+    <Route handler={EmptyView} path="/recipe/:id">
       <Route handler={RecipeEditor} name="edit-recipe" path="edit" />
       <DefaultRoute handler={Recipe} name="recipe" />
     </Route>
