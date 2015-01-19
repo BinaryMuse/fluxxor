@@ -22,6 +22,8 @@ template: index.ejs
 
   <p>**Want to learn more?** Start by checking out <strong><a href="/what-is-flux.html">What is Flux</a></strong>.</p>
 
+  <p>To get started, <code class="install">npm install fluxxor</code> or see <a href="/guides/installation.html">other ways to install</a>.</p>
+
   <div style="padding-top: 20px">
     <iframe src="http://ghbtns.com/github-btn.html?user=BinaryMuse&repo=fluxxor&type=watch&count=true&size=large"
     allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe>
