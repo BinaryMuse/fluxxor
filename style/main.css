@@ -265,3 +265,13 @@ pre {
     display: block;
   }
 }
+#react-router-example-section {
+  margin-top: 25px;
+  margin-bottom: 50px;
+  padding-left: 10px;
+  border-left: 10px solid #ccc;
+}
+#react-router-example-section #app h1 {
+  padding-top: 0;
+  margin-top: 0;
+}

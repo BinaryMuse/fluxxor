@@ -2,7 +2,7 @@
 <html lang="en">
 
 <meta charset="utf-8">
-<title>Fluxxor - StoreWatchMixin</title>
+<title>Fluxxor - Routing</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 <meta property="og:image" content="http://fluxxor.com/fluxxor.png">
@@ -82,54 +82,30 @@
     </div>
   </header>
   <section>
-    <h1 id="fluxxor-storewatchmixin">Fluxxor.StoreWatchMixin</h1>
-<p><code>Fluxxor.StoreWatchMixin</code> is a simple React mixin that assists with watching for <code>&quot;change&quot;</code> events on one or more stores. Normally, you&#39;d need to bind to store change events in <code>componentDidMount</code> and unbind them in <code>componentWillUnmount</code> to keep from leaking memory. Additionally, you&#39;d need to set up handlers to pull data from the stores during change events and lifecycle hooks (such as <code>getInitialState</code>).</p>
-<p><code>StoreWatchMixin</code> simply requires that you:</p>
-<ol>
-<li>Define a method on your component called <code>getStateFromFlux</code> that returns an object representing the part of the component&#39;s state that comes from the Flux stores.</li>
-<li>Have a <code>prop</code> or <code>context</code> property named <code>flux</code> that points to the <code>Flux</code> instance with the stores. This is automatic if you use <a href="/documentation/flux-mixin.html"><code>FluxMixin</code></a>.</li>
-</ol>
-<p>The mixin will then automatically</p>
-<ol>
-<li>Bind to <code>&quot;change&quot;</code> events for each store when the component mounts</li>
-<li>Unbind from <code>&quot;change&quot;</code> events when the component unmounts</li>
-<li>Automatically call <code>setState</code> with the return value of <code>getStateFromFlux</code> when a store emits a <code>&quot;change&quot;</code> event</li>
-<li>Automatically set the component&#39;s initial state based on the return value of <code>getStateFromFlux</code> when the component mounts (note that this object is merged with any other <code>getInitialState</code> functions defined on the component or other mixins)</li>
-</ol>
-<p>Note that <code>StoreWatchMixin</code> binds events in <code>componentDidMount</code> and not <code>componentWillMount</code> in order to prevent memory leaks when rendering React components that use Fluxxor on the server using Node.js. This means that actions fired from <code>componentWillMount</code> that result in <code>&quot;change&quot;</code> events in your stores will not update the component; consider moving such actions to <code>componentDidMount</code> instead.</p>
-<p>Example:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> React = <span class="built_in">require</span>(<span class="string">"react"</span>),
-    Fluxxor = <span class="built_in">require</span>(<span class="string">"fluxxor"</span>),
-    FluxMixin = Fluxxor.FluxMixin(React), <span class="comment">// or window.React, etc.</span>
-    StoreWatchMixin = Fluxxor.StoreWatchMixin;
+    <h1 id="routing">Routing</h1>
+<p>When using a client-side router with Fluxxor, you need to find a way to get your <code>Flux</code> instance into the instantiated component. The <a href="https://github.com/rackt/react-router">React Router project</a> makes this a cinch.</p>
+<p>First, define your routes:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> routes = (
+  <span class="xml"><span class="tag">&lt;<span class="title">Route</span> <span class="attribute">handler</span>=<span class="value">{App}</span>&gt;</span>
 
-<span class="keyword">var</span> MyStore = Fluxxor.createStore({ ... }),
-    OtherStore = Fluxxor.createStore({ ... });
+    <span class="tag">&lt;<span class="title">Route</span> <span class="attribute">name</span>=<span class="value">"inbox"</span> <span class="attribute">handler</span>=<span class="value">{Inbox}</span>&gt;</span>
+      <span class="tag">&lt;<span class="title">Route</span> <span class="attribute">name</span>=<span class="value">"message"</span> <span class="attribute">path</span>=<span class="value">":messageId"</span> <span class="attribute">handler</span>=<span class="value">{Message}</span> /&gt;</span>
+      <span class="tag">&lt;<span class="title">DefaultRoute</span> <span class="attribute">handler</span>=<span class="value">{InboxStats}</span> /&gt;</span>
+    <span class="tag">&lt;/<span class="title">Route</span>&gt;</span>
 
-<span class="keyword">var</span> stores = {
-  MyStore: <span class="keyword">new</span> MyStore(),
-  OtherStore: <span class="keyword">new</span> OtherStore()
-};
-<span class="keyword">var</span> actions = { ... };
+    <span class="tag">&lt;<span class="title">Route</span> <span class="attribute">name</span>=<span class="value">"calendar"</span> <span class="attribute">handler</span>=<span class="value">{Calendar}</span> /&gt;</span>
+    <span class="tag">&lt;<span class="title">DefaultRoute</span> <span class="attribute">handler</span>=<span class="value">{Dashboard}</span> /&gt;</span>
 
-<span class="keyword">var</span> flux = <span class="keyword">new</span> Fluxxor.Flux(stores, actions);
-
-<span class="keyword">var</span> MyComponent = React.createClass({
-  mixins: [FluxMixin, StoreWatchMixin(<span class="string">"MyStore"</span>, <span class="string">"OtherStore"</span>)],
-
-  getStateFromFlux: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-    <span class="keyword">var</span> flux = <span class="keyword">this</span>.getFlux();
-    <span class="keyword">return</span> {
-      stateFromMyStore: flux.store(<span class="string">"MyStore"</span>).getSomeData(),
-      stateFromOtherStore: flux.store(<span class="string">"OtherStore"</span>).getMoreData(),
-    };
-  },
-
-  render: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-    <span class="comment">// ...</span>
-  }
-});
+  <span class="tag">&lt;/<span class="title">Route</span>&gt;</span>
+);</span>
 </code></pre>
+<p>For each component you list as a route handler (<code>App</code>, <code>Inbox</code>, <code>Message</code>, <code>InboxStats</code>, <code>Calendar</code>, and <code>Dashboard</code> in this example), be sure to mix in <a href="/documentation/flux-mixin.html">Fluxxor&#39;s <code>FluxMixin</code></a>.</p>
+<p>Finally, run your router, and when you instantiate your component, pass in <code>flux</code> as a property. Since each defined route handler uses <code>FluxMixin</code>, the flux object will be propagated throughout your application.</p>
+<pre><code class="lang-javascript">Router.run(routes, <span class="function"><span class="keyword">function</span><span class="params">(Handler)</span> {</span>
+  React.render(<span class="xml"><span class="tag">&lt;<span class="title">Handler</span> <span class="attribute">flux</span>=<span class="value">{flux}</span> /&gt;</span>, document.body);
+});</span>
+</code></pre>
+<p>Be sure to check out <a href="/examples/react-router.html">the React Router example</a> for a working demonstration of this technique.</p>
 
     <hr>
     See a typo? Something still not clear?
