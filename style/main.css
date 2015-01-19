@@ -61,11 +61,11 @@ strong a {
   text-align: right;
   float: left;
   padding-right: 20px;
-  width: 335px;
+  width: 350px;
 }
 .logo-container .logo-svg {
   margin-top: 3px;
-  height: 385px;
+  height: 420px;
 }
 .logo-container-sidebar {
   padding-left: 15px;
@@ -77,6 +77,15 @@ strong a {
   float: left;
   width: 520px;
   padding-top: 0;
+}
+.homepage-callout > p {
+  max-width: 490px;
+}
+code.install {
+  border: 1px solid #ccc;
+  background-color: #eee;
+  padding: 5px;
+  border-radius: 5px;
 }
 .wrapper {
   width: 910px;
@@ -203,6 +212,9 @@ pre {
     float: none;
     text-align: center;
     padding-right: 0;
+  }
+  .logo-container .logo-svg {
+    max-width: 100%;
   }
   .logo-container-sidebar {
     text-align: left;
