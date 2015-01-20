@@ -15,4 +15,6 @@ var Fluxbox = {
   version: require("./package.json").version
 };
 
+console && console.log && console.log("Fluxbox has been renamed to Fluxxor. Please `npm install fluxxor` or see fluxxor.com");
+
 module.exports = Fluxbox;
