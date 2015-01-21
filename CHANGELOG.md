@@ -1,3 +1,5 @@
+* Fix minor typo in mixin warnings
+
 Version 1.5.1
 =============
 
