@@ -54,7 +54,7 @@ var flux = new Fluxxor.Flux(stores, actions);
 Namespaced Actions
 ------------------
 
-Fluxxor will iterate over objets in your actions definition, allowing for namespaced actions:
+Fluxxor will iterate over objects in your actions definition, allowing for namespaced actions:
 
 ```javascript
 var actions = {
