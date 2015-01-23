@@ -88,26 +88,26 @@
 <h2 id="overview">Overview</h2>
 <p>To best describe flux, we will compare it to one of the leading client-side architectures: MVC. In a client-side MVC application, a user interaction triggers code in a controller. The controller knows how to coordinate changes to one or more models by calling methods on the models. When the models change, they notify one or more views, which in turn read the new data from the models and update themselves accordingly so that the user can see that new data.</p>
 <figure>
-<img src="/images/mvc-simple.png?1" alt="Simple MVC">
+<img src="/images/mvc-simple.png" alt="Simple MVC">
 <figcaption>A simple MVC flow</figcaption>
 </figure>
 
 <p>As an MVC application grows and controllers, models, and views are added, the dependencies become more complex.</p>
 <figure>
-<img src="/images/mvc-complex.png?1" alt="Complex MVC">
+<img src="/images/mvc-complex.png" alt="Complex MVC">
 <figcaption>A more complex MVC flow</figcaption>
 </figure>
 
 <p>With the addition of just three views, one controller, and one model, the dependency graph is already harder to trace. When the user interacts with the UI, multiple branching code paths are executed, and debugging problems in application state becomes an exercise in figuring out which module (or modules) in one (or more) of these potential code paths contains a bug. In the worst cases, a user interaction will trigger updates which in turn trigger additional updates, resulting in error-prone and difficult-to-debug cascading effects along several of these, sometimes overlapping, paths.</p>
 <p>Flux eschews this design in favor of a one-way data flow. All user interactions within a view call an <em>action creator</em>, which causes an <em>action</em> event to be emitted from a singleton <em>dispatcher</em>. The dispatcher is a single-point-of-emission for all actions in a flux application. The action is sent from the dispatcher to <em>stores</em>, which update themselves in response to the action.</p>
 <figure>
-<img src="/images/flux-simple.png?1" alt="Simple Flux">
+<img src="/images/flux-simple.png" alt="Simple Flux">
 <figcaption>A simple flux flow</figcaption>
 </figure>
 
 <p>The flow doesn&#39;t change significantly for additional stores or views. The dispatcher simply sends every action to <em>all</em> the stores in the application. Note that it does not contain knowledge about how to actually update the stores—the stores themselves contain this business logic. Each store is responsible for a domain of the application, and only update themselves in response to actions.</p>
 <figure>
-<img src="/images/flux-complex.png?1" alt="Complex Flux">
+<img src="/images/flux-complex.png" alt="Complex Flux">
 <figcaption>A more complex flux flow</figcaption>
 </figure>
 
