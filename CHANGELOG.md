@@ -1,3 +1,7 @@
+Version 1.5.2
+=============
+
+* Upgrade to Lo-Dash 3.x
 * Fix minor typo in mixin warnings
 
 Version 1.5.1
