@@ -6,6 +6,17 @@ template: page.ejs
 Changelog
 =========
 
+Version 1.5.2
+-------------
+
+* Upgrade to Lo-Dash 3.x
+* Fix minor typo in mixin warnings
+
+Version 1.5.1
+-------------
+
+* Watch stores in `componentDidMount` instead of `componentWillMount` to make it harder to leak memory on the server
+
 Version 1.5.0
 -------------
 
