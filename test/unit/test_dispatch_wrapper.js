@@ -43,7 +43,7 @@ var actions = {
   }
 };
 
-describe("Batching updates", function() {
+describe("Dispatch wrapper", function() {
   var React, TestUtils;
   var flux, App, ComponentA, ComponentB;
 
@@ -117,7 +117,7 @@ describe("Batching updates", function() {
     }
   });
 
-  it("doesn't batch by default", function(done) {
+  it("doesn't wrap by default", function(done) {
     /* jshint expr:true */
     TestUtils.renderIntoDocument(React.createElement(App, {flux: flux}));
     flux.actions.activate(function(err) {
@@ -126,9 +126,9 @@ describe("Batching updates", function() {
     });
   });
 
-  it("allows batching", function(done) {
+  it("allows wrapping", function(done) {
     /* jshint expr:true */
-    flux.setBatchingFunction(React.addons.batchedUpdates);
+    flux.setDispatchWrapper(React.addons.batchedUpdates);
 
     TestUtils.renderIntoDocument(React.createElement(App, {flux: flux}));
     flux.actions.activate(function(err) {
