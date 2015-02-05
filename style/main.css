@@ -54,6 +54,9 @@ a {
   text-decoration: none;
   font-weight: 400;
 }
+a:visited {
+  color: #7D33CC;
+}
 strong a {
   font-weight: bold;
 }
