@@ -28,7 +28,8 @@ var constants = {
 
 var TodoStore = Fluxxor.createStore({
   initialize: function() {
-    this.todos = [];
+    this.todoId = 0;
+    this.todos = {};
 
     this.bindActions(
       constants.ADD_TODO, this.onAddTodo,
@@ -38,19 +39,30 @@ var TodoStore = Fluxxor.createStore({
   },
 
   onAddTodo: function(payload) {
-    this.todos.push({text: payload.text, complete: false});
+    var todo = {
+      id: this.todoId,
+      text: payload.text,
+      complete: false
+    };
+    this.todos[this.todoId] = todo;
+    ++this.todoId;
     this.emit("change");
   },
 
-  onToggleTodo: function(payload) {
-    payload.todo.complete = !payload.todo.complete;
+  onToggleTodo: function(id) {
+    this.todos[id].complete = !this.todos[id].complete;
     this.emit("change");
   },
 
   onClearTodos: function() {
-    this.todos = this.todos.filter(function(todo) {
-      return !todo.complete;
+    var keys = Object.keys(this.todos);
+    var todos = this.todos;
+    keys.forEach(function(key) {
+      if(todos[key].complete) {
+        delete todos[key];
+      }
     });
+
     this.emit("change");
   },
 
@@ -70,8 +82,8 @@ var actions = {
     this.dispatch(constants.ADD_TODO, {text: text});
   },
 
-  toggleTodo: function(todo) {
-    this.dispatch(constants.TOGGLE_TODO, {todo: todo});
+  toggleTodo: function(id) {
+    this.dispatch(constants.TOGGLE_TODO, id);
   },
 
   clearTodos: function() {
@@ -134,11 +146,13 @@ var Application = React.createClass({
   },
 
   render: function() {
+    var self = this;
+    var keys = Object.keys(this.state.todos);
     return (
       <div>
         <ul>
-          {this.state.todos.map(function(todo, i) {
-            return <li key={i}><TodoItem todo={todo} /></li>;
+          {keys.map(function(key) {
+            return <li key={key}><TodoItem todo={self.state.todos[key]} /></li>;
           })}
         </ul>
         <form onSubmit={this.onSubmitForm}>
@@ -189,7 +203,7 @@ var TodoItem = React.createClass({
   },
 
   onClick: function() {
-    this.getFlux().actions.toggleTodo(this.props.todo);
+    this.getFlux().actions.toggleTodo(this.props.todo.id);
   }
 });
 ```
