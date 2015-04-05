@@ -22,25 +22,26 @@ var TodoStore = Fluxxor.createStore({
   },
 
   onAddTodo: function(payload) {
+    var id = this._nextTodoId();
     var todo = {
-      id: this.todoId,
+      id: id,
       text: payload.text,
       complete: false
     };
-    this.todos[this.todoId] = todo;
-    ++this.todoId;
+    this.todos[id] = todo;
     this.emit("change");
   },
 
-  onToggleTodo: function(id) {
+  onToggleTodo: function(payload) {
+    var id = payload.id;
     this.todos[id].complete = !this.todos[id].complete;
     this.emit("change");
   },
 
   onClearTodos: function() {
-    var keys = Object.keys(this.todos);
     var todos = this.todos;
-    keys.forEach(function(key) {
+
+    Object.keys(todos).forEach(function(key) {
       if(todos[key].complete) {
         delete todos[key];
       }
@@ -53,6 +54,10 @@ var TodoStore = Fluxxor.createStore({
     return {
       todos: this.todos
     };
+  },
+
+  _nextTodoId: function() {
+    return ++this.todoId;
   }
 });
 
@@ -62,7 +67,7 @@ var actions = {
   },
 
   toggleTodo: function(id) {
-    this.dispatch(constants.TOGGLE_TODO, id);
+    this.dispatch(constants.TOGGLE_TODO, {id: id});
   },
 
   clearTodos: function() {
@@ -108,13 +113,12 @@ var Application = React.createClass({
   },
 
   render: function() {
-    var self = this;
-    var keys = Object.keys(this.state.todos);
+    var todos = this.state.todos;
     return (
       <div>
         <ul>
-          {keys.map(function(key) {
-            return <li key={key}><TodoItem todo={self.state.todos[key]} /></li>;
+          {Object.keys(todos).map(function(id) {
+            return <li key={id}><TodoItem todo={todos[id]} /></li>;
           })}
         </ul>
         <form onSubmit={this.onSubmitForm}>
