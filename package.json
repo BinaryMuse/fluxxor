@@ -36,7 +36,7 @@
     "sinon": "^1.9.1",
     "sinon-chai": "^2.5.0",
     "style-loader": "^0.6.3",
-    "tcomb-form": "^0.4.4",
+    "tcomb-form": "^0.4.8",
     "webpack": "^1.1.11",
     "webpack-dev-server": "^1.2.7",
     "wintersmith": "^2.0.10",
