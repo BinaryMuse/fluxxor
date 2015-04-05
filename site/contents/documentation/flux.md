@@ -169,7 +169,7 @@ You can even bypass the original dispatch function entirely for testing or more 
 
 ```javascript
 flux.setDispatchInterceptor(function(action, dispatch) {
-  // Ignore the `dispatch` argument and do our own thing with the action
+  // Ignore the `dispatch` argument and do our own thing with the action, for example:
   window.postMessage({ type: "myCustomThing", action: action });
 });
 ```
