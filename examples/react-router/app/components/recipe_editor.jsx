@@ -5,10 +5,9 @@ var t = require("tcomb-form"),
     Link = Router.Link,
     Fluxxor = require("../../../../");
 
-
 var Recipe = require("../schemas/recipe.jsx"),
     RecipeForm = require("../forms/recipe_form.jsx"),
-    RecipeStore = require("../recipe_store.jsx");
+    RecipeStore = require("../stores/recipe_store.jsx");
 
 var RecipeEditor = React.createClass({
   mixins: [

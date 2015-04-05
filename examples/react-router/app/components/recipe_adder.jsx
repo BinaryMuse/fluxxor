@@ -48,10 +48,7 @@ var RecipeAdder = React.createClass({
         newRecipe.name,
         newRecipe.description,
         newRecipe.ingredients,
-        newRecipe.directions,
-        function(recipe) {
-          this.context.router.transitionTo("recipe", {id: recipe.id});
-        }.bind(this)
+        newRecipe.directions
       );
     }
   },
