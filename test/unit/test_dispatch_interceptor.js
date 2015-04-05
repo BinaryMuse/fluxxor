@@ -33,7 +33,11 @@ var actions = {
         this.dispatch("ACTIVATE");
         callback();
       } catch (ex) {
-        callback(ex);
+        if (ex instanceof chai.AssertionError) {
+          throw ex;
+        } else {
+          callback(ex);
+        }
       }
     }.bind(this));
   },
@@ -43,12 +47,13 @@ var actions = {
   }
 };
 
-describe("Dispatch wrapper", function() {
+describe("Dispatch interceptor", function() {
   var React, TestUtils;
   var flux, App, ComponentA, ComponentB;
 
   beforeEach(function() {
-    global.window = jsdom.jsdom().createWindow("<html><body></body></html>");
+    var doc = jsdom.jsdom("<html><body></body></html>");
+    global.window = doc.defaultView;
     global.document = window.document;
     global.navigator = window.navigator;
     React = require("react/addons");
@@ -56,7 +61,8 @@ describe("Dispatch wrapper", function() {
 
     flux = new Fluxxor.Flux({store: new Store()}, actions);
 
-    App = React.createClass({
+    App = React.createFactory(React.createClass({
+      displayName: "App",
       mixins: [Fluxxor.FluxMixin(React), Fluxxor.StoreWatchMixin("store")],
 
       getStateFromFlux: function() {
@@ -66,15 +72,20 @@ describe("Dispatch wrapper", function() {
       },
 
       render: function() {
+        return React.DOM.div({}, this.renderChild());
+      },
+
+      renderChild: function() {
         if (!this.state.activated) {
-          return React.createElement(ComponentA);
+          return ComponentA();
         } else {
-          return React.createElement(ComponentB);
+          return ComponentB();
         }
       }
-    });
+    }));
 
-    ComponentA = React.createClass({
+    ComponentA = React.createFactory(React.createClass({
+      displayName: "ComponentA",
       mixins: [
         Fluxxor.FluxMixin(React)
       ],
@@ -82,9 +93,10 @@ describe("Dispatch wrapper", function() {
       render: function() {
         return React.DOM.div();
       }
-    });
+    }));
 
-    ComponentB = React.createClass({
+    ComponentB = React.createFactory(React.createClass({
+      displayName: "ComponentB",
       mixins: [
         Fluxxor.FluxMixin(React),
         Fluxxor.StoreWatchMixin("store")
@@ -103,7 +115,7 @@ describe("Dispatch wrapper", function() {
       render: function() {
         return React.DOM.div();
       },
-    });
+    }));
   });
 
   afterEach(function() {
@@ -117,22 +129,59 @@ describe("Dispatch wrapper", function() {
     }
   });
 
-  it("doesn't wrap by default", function(done) {
+  it("doesn't intercept by default", function(done) {
     /* jshint expr:true */
-    TestUtils.renderIntoDocument(React.createElement(App, {flux: flux}));
+    TestUtils.renderIntoDocument(App({flux: flux}));
     flux.actions.activate(function(err) {
       expect(err).to.match(/dispatch.*another action/);
       done();
     });
   });
 
-  it("allows wrapping", function(done) {
+  it("allows intercepting", function(done) {
     /* jshint expr:true */
-    flux.setDispatchWrapper(React.addons.batchedUpdates);
+    flux.setDispatchInterceptor(function(action, dispatch) {
+      React.addons.batchedUpdates(function() {
+        dispatch(action);
+      });
+    });
 
-    TestUtils.renderIntoDocument(React.createElement(App, {flux: flux}));
+    TestUtils.renderIntoDocument(App({flux: flux}));
     flux.actions.activate(function(err) {
       expect(err).to.be.undefined;
+      done();
+    });
+  });
+
+  it("allows nested interceptors", function(done) {
+    var dispatches = 0;
+    /* jshint expr:true */
+    flux.setDispatchInterceptor(function(action, dispatch) {
+      dispatches++;
+      React.addons.batchedUpdates(function() {
+        dispatch(action);
+      });
+    });
+
+    TestUtils.renderIntoDocument(App({flux: flux}));
+    flux.actions.activate(function(err) {
+      expect(err).to.be.undefined;
+      expect(dispatches).to.eql(2);
+      done();
+    });
+  });
+
+  it("allows completely custom interceptors", function(done) {
+    var dispatches = 0;
+    /* jshint expr:true */
+    flux.setDispatchInterceptor(function() {
+      dispatches++;
+    });
+
+    TestUtils.renderIntoDocument(App({flux: flux}));
+    flux.actions.activate(function(err) {
+      expect(err).to.be.defined;
+      expect(dispatches).to.eql(1);
       done();
     });
   });
