@@ -34,6 +34,12 @@ React.createClass({
 
 <hr>
 
+**Q:** Why am I getting an error saying that I can't dispatch an action while another action is being dispatched if I'm dispatching an action from `componentWillMount` or `componentDidMount`?
+
+**A:** React automatically batches updates when they're triggered from inside its synthetic event system (e.g. from an `onKeyPress` or `onClick` handler), but otherwise you have to batch them yourself. See the "Batched Updates" section of [Using with React](/guides/react.html) page for a solution to this problem.
+
+<hr>
+
 **Q:** Why does dispatching an action while another action is in progress throw an error?
 
 **A:** Fluxxor prevents cascading updates where one action triggers another, and so on. See [What is Flux](/what-is-flux.html) and [Flux Application Architecture](http://facebook.github.io/react/docs/flux-overview.html) for more information on Flux.
