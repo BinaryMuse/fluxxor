@@ -84,7 +84,8 @@ var list = function(locals) {
   );
 };
 
-module.exports = t.form.create(Recipe, {
+module.exports = {
+  auto: 'none',
   templates: {
     struct: struct,
     list: list
@@ -100,4 +101,5 @@ module.exports = t.form.create(Recipe, {
       config: { type: "ingredients" }
     }
   }
-});
+};
+

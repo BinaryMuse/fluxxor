@@ -1,7 +1,6 @@
 var React = require("react"),
     Router = require("react-router"),
     Link = Router.Link,
-    State = Router.State,
     Fluxxor = require("../../../../");
 
 var RecipeStore = require("../recipe_store.jsx");
@@ -9,12 +8,15 @@ var RecipeStore = require("../recipe_store.jsx");
 var Recipe = React.createClass({
   mixins: [
     Fluxxor.FluxMixin(React),
-    Fluxxor.StoreWatchMixin("recipe"),
-    State
+    Fluxxor.StoreWatchMixin("recipe")
   ],
 
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+
   getStateFromFlux: function() {
-    var params = this.getParams();
+    var params = this.context.router.getCurrentParams();
 
     return {
       recipe: this.getFlux().store("recipe").getRecipe(params.id)
