@@ -40,6 +40,12 @@ React.createClass({
 
 <hr>
 
+**Q:** Why am I getting an error saying that I can't dispatch an action while another action is being dispatched if I'm dispatching an action from `componentWillMount` or `componentDidMount`?
+
+**A:** React automatically batches updates when they're triggered from inside its synthetic event system (e.g. from an `onKeyPress` or `onClick` handler), but otherwise you have to batch them yourself. See the "Batched Updates" section of [Using with React](/guides/react.html) page for a solution to this problem.
+
+<hr>
+
 **Q:** Why is Fluxxor throwing an error saying an action is already being dispatched when I'm sending an action from an asynchronous operation?
 
 **A:** Some libraries will sometimes call callbacks on the same tick, for example if data is cached. You can wrap the action dispatch call in a `setTimeout` to ensure the function is asynchronous. For bonus points, notify the author of the offending library that [their asynchronous callbacks are sometimes synchronous](http://blog.ometer.com/2011/07/24/callbacks-synchronous-and-asynchronous/).

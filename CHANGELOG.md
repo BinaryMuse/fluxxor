@@ -1,3 +1,5 @@
+* Add `Flux#setDispatchInterceptor` to wrap or replace dispatch functionality (#100, #92)
+
 Version 1.5.2
 =============
 
