@@ -10,7 +10,8 @@ describe("StoreWatchMixin", function() {
 
   beforeEach(function() {
 
-    global.window = jsdom.jsdom().createWindow("<html><body></body></html>");
+    var doc = jsdom.jsdom('<html><body></body></html>');
+    global.window = doc.defaultView;
     global.document = window.document;
     global.navigator = window.navigator;
     for (var i in require.cache) {

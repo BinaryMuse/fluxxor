@@ -55,7 +55,8 @@ describe("FluxMixin", function() {
     console._warn = console.warn;
     console.warn = function() {};
 
-    global.window = jsdom.jsdom().createWindow("<html><body></body></html>");
+    var doc = jsdom.jsdom('<html><body></body></html>');
+    global.window = doc.defaultView;
     global.document = window.document;
     global.navigator = window.navigator;
     React = require("react/addons");
