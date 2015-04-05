@@ -3,7 +3,6 @@ var t = require("tcomb-form"),
     Router = require("react-router"),
     RouteHandler = Router.RouteHandler,
     Link = Router.Link,
-    Navigation = Router.Navigation,
     Fluxxor = require("../../../../");
 
 var Recipe = require("../schemas/recipe.jsx"),
