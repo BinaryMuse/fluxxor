@@ -1,3 +1,8 @@
+Version 1.5.3
+=============
+
+* Use built-in inherits instead of npm package (#116)
+
 Version 1.5.2
 =============
 
