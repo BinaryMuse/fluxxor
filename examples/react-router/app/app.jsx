@@ -3,13 +3,11 @@ var React = require("react"),
     Fluxxor = require("../../../");
 
 var actions = require("./actions.jsx"),
-    routes = require("./routes.jsx"),
+    router = require("./router.jsx"),
     RecipeStore = require("./stores/recipe_store.jsx");
     RouteStore = require("./stores/route_store.jsx");
 
 require("./style.less");
-
-var router = Router.create({routes: routes});
 
 var stores = {
   recipe: new RecipeStore(),
