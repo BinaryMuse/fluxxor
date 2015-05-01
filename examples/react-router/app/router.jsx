@@ -57,12 +57,11 @@ RecipeAdderWrapped = wrap(RecipeAdder, [], (flux) => {
 // This example shows how you could provide extra context to
 // the props function (in this case, we want access to the router.
 RecipeWrapped = wrap(Recipe, ["recipe"], (flux, props, extraContext) => {
-  console.log(flux.actions);
   var params = extraContext.router.getCurrentParams();
 
   return {
     recipe: flux.store("recipe").getRecipe(params.id),
-    deleteRecipe: (recipeId) => {
+    onDeleteRecipe: (recipeId) => {
       flux.actions.recipes.remove(recipeId);
     }
   };

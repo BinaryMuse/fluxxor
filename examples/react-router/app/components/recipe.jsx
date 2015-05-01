@@ -7,7 +7,7 @@ var RecipeStore = require("../stores/recipe_store.jsx");
 class Recipe extends React.Component {
   constructor() {
     super();
-    this.onDeleteRecipe = this.onDeleteRecipe.bind(this);
+    this.deleteRecipe = this.deleteRecipe.bind(this);
   }
 
   render() {
@@ -31,7 +31,7 @@ class Recipe extends React.Component {
 
         <p>
           <Link to="edit-recipe" params={{id: recipe.id}}>Edit Recipe</Link>
-          {" | "}<Link to="home" onClick={this.onDeleteRecipe}>Delete Recipe</Link>
+          {" | "}<Link to="home" onClick={this.deleteRecipe}>Delete Recipe</Link>
         </p>
       </div>
     );
@@ -62,14 +62,19 @@ class Recipe extends React.Component {
     );
   }
 
-  onDeleteRecipe(e) {
+  deleteRecipe(e) {
     if (confirm("Really delete this recipe?")) {
-      this.props.deleteRecipe(this.props.recipe.id);
+      this.props.onDeleteRecipe(this.props.recipe.id);
     } else {
       e.preventDefault();
     }
   }
 }
+
+Recipe.propTypes = {
+  recipe: React.PropTypes.object.isRequired,
+  onDeleteRecipe: React.PropTypes.func.isRequired
+};
 
 Recipe.contextTypes = {
   router: React.PropTypes.func

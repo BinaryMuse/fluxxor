@@ -79,6 +79,12 @@ class RecipeEditor extends React.Component {
   }
 };
 
+RecipeEditor.propTypes = {
+  recipe: React.PropTypes.object.isRequired,
+  onEditRecipe: React.PropTypes.func.isRequired,
+  onDeleteRecipe: React.PropTypes.func.isRequired
+};
+
 RecipeEditor.contextTypes = {
   router: React.PropTypes.func
 };
