@@ -1,34 +1,17 @@
 var React = require("react"),
     Router = require("react-router"),
-    Link = Router.Link,
-    Fluxxor = require("../../../../");
+    Link = Router.Link;
 
 var RecipeStore = require("../stores/recipe_store.jsx");
 
-var Recipe = React.createClass({
-  mixins: [
-    Fluxxor.FluxMixin(React),
-    Fluxxor.StoreWatchMixin("recipe")
-  ],
+class Recipe extends React.Component {
+  constructor() {
+    super();
+    this.onDeleteRecipe = this.onDeleteRecipe.bind(this);
+  }
 
-  contextTypes: {
-    router: React.PropTypes.func
-  },
-
-  getStateFromFlux: function() {
-    var params = this.context.router.getCurrentParams();
-
-    return {
-      recipe: this.getFlux().store("recipe").getRecipe(params.id)
-    };
-  },
-
-  componentWillReceiveProps: function(nextProps) {
-    this.setState(this.getStateFromFlux());
-  },
-
-  render: function() {
-    var recipe = this.state.recipe;
+  render() {
+    var recipe = this.props.recipe;
 
     if (recipe === RecipeStore.NOT_FOUND_TOKEN) {
       return this.renderNotFound();
@@ -48,27 +31,27 @@ var Recipe = React.createClass({
 
         <p>
           <Link to="edit-recipe" params={{id: recipe.id}}>Edit Recipe</Link>
-          {" | "}<Link to="home" onClick={this.deleteRecipe}>Delete Recipe</Link>
+          {" | "}<Link to="home" onClick={this.onDeleteRecipe}>Delete Recipe</Link>
         </p>
       </div>
     );
-  },
+  }
 
-  renderIngredient: function(ingredient, idx) {
+  renderIngredient(ingredient, idx) {
     return (
       <li key={idx}>
         <strong>{ingredient.quantity}</strong> {ingredient.item}
       </li>
     );
-  },
+  }
 
-  renderNotFound: function() {
+  renderNotFound() {
     return this.renderWithLayout(
       <div>That recipe was not found.</div>
     );
-  },
+  }
 
-  renderWithLayout: function(content) {
+  renderWithLayout(content) {
     return (
       <div>
         {content}
@@ -77,15 +60,19 @@ var Recipe = React.createClass({
         {" | "}<Link to="add-recipe">Add New Recipe</Link>
       </div>
     );
-  },
+  }
 
-  deleteRecipe: function(e) {
+  onDeleteRecipe(e) {
     if (confirm("Really delete this recipe?")) {
-      this.getFlux().actions.recipes.remove(this.state.recipe.id);
+      this.props.deleteRecipe(this.props.recipe.id);
     } else {
       e.preventDefault();
     }
   }
-});
+}
+
+Recipe.contextTypes = {
+  router: React.PropTypes.func
+};
 
 module.exports = Recipe;

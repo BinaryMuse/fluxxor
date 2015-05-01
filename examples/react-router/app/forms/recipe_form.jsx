@@ -85,7 +85,7 @@ var list = function(locals) {
 };
 
 module.exports = {
-  auto: 'none',
+  auto: 'placeholders',
   templates: {
     struct: struct,
     list: list

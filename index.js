@@ -12,7 +12,9 @@ var Fluxxor = {
   FluxChildMixin: FluxChildMixin,
   StoreWatchMixin: StoreWatchMixin,
   createStore: createStore,
-  version: require("./version")
+  version: require("./version"),
+
+  FluxController: require("./lib/flux_controller")
 };
 
 module.exports = Fluxxor;
