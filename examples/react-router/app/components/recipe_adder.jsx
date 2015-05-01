@@ -8,8 +8,8 @@ var Recipe = require("../schemas/recipe.jsx"),
     RecipeForm = require("../forms/recipe_form.jsx");
 
 class RecipeAdder extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -48,18 +48,10 @@ class RecipeAdder extends React.Component {
       );
     }
   }
-
-  deleteRecipe(e) {
-    if (confirm("Really delete this recipe?")) {
-      this.props.onDeleteRecipe(this.state.recipe.id);
-    } else {
-      e.preventDefault();
-    }
-  }
 };
 
 RecipeAdder.propTypes = {
-  onAddRecipe: React.PropTypes.func
+  onAddRecipe: React.PropTypes.func.isRequired
 };
 
 RecipeAdder.contextTypes = {

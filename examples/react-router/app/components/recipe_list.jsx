@@ -23,6 +23,10 @@ class RecipeList extends React.Component {
       </li>
     );
   }
+}
+
+RecipeList.propTypes = {
+  recipes: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
 };
 
 module.exports = RecipeList;
