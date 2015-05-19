@@ -1,3 +1,8 @@
+Version 1.5.4
+=============
+
+* Fix incompatibility with Lodash 3.9.0
+
 Version 1.5.3
 =============
 
