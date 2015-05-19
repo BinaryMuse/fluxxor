@@ -1,5 +1,10 @@
 * Add `Flux#setDispatchInterceptor` to wrap or replace dispatch functionality (#100, #92)
 
+Version 1.5.4
+=============
+
+* Fix incompatibility with Lodash 3.9.0
+
 Version 1.5.3
 =============
 

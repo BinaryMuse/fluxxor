@@ -1,6 +1,6 @@
 {
   "name": "fluxxor",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "Flux architecture tools for React",
   "repository": {
     "type": "git",
@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "eventemitter3": "^0.1.5",
-    "lodash-node": "^3.0.1",
+    "lodash": "~3.8.0",
     "object-path": "^0.6.0"
   },
   "jshintConfig": {
