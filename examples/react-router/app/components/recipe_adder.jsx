@@ -2,22 +2,18 @@ var t = require("tcomb-form"),
     React = require("react"),
     Router = require("react-router"),
     RouteHandler = Router.RouteHandler,
-    Link = Router.Link,
-    Fluxxor = require("../../../../");
+    Link = Router.Link;
 
 var Recipe = require("../schemas/recipe.jsx"),
     RecipeForm = require("../forms/recipe_form.jsx");
 
-var RecipeAdder = React.createClass({
-  mixins: [
-    Fluxxor.FluxMixin(React)
-  ],
+class RecipeAdder extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
 
-  contextTypes: {
-    router: React.PropTypes.func
-  },
-
-  render: function() {
+  render() {
     return this.renderWithLayout(
       <div>
         <form onSubmit={this.onSubmit}>
@@ -26,9 +22,9 @@ var RecipeAdder = React.createClass({
         </form>
       </div>
     );
-  },
+  }
 
-  renderWithLayout: function(content) {
+  renderWithLayout(content) {
     return (
       <div>
         {content}
@@ -37,29 +33,30 @@ var RecipeAdder = React.createClass({
         {" | "}<Link to="add-recipe">Add New Recipe</Link>
       </div>
     );
-  },
+  }
 
-  onSubmit: function(e) {
+  onSubmit(e) {
     e.preventDefault();
 
     var newRecipe = this.refs.form.getValue();
     if (newRecipe) {
-      this.getFlux().actions.recipes.add(
+      this.props.onAddRecipe(
         newRecipe.name,
         newRecipe.description,
         newRecipe.ingredients,
         newRecipe.directions
       );
     }
-  },
-
-  deleteRecipe: function(e) {
-    if (confirm("Really delete this recipe?")) {
-      this.getFlux().actions.recipes.remove(this.state.recipe.id);
-    } else {
-      e.preventDefault();
-    }
   }
-});
+};
+
+RecipeAdder.propTypes = {
+  onAddRecipe: React.PropTypes.func.isRequired
+};
+
+RecipeAdder.contextTypes = {
+  router: React.PropTypes.func
+};
+
 
 module.exports = RecipeAdder;
