@@ -97,7 +97,7 @@
 };
 
 <span class="keyword">var</span> actions = {
-  processThing: <span class="function"><span class="keyword">function</span><span class="params">(thing)</span> {</span>
+  processThing: <span class="function"><span class="keyword">function</span><span class="params">(thing)</span> </span>{
     <span class="keyword">this</span>.dispatch(<span class="string">"PROCESS_THING"</span>, {thing: thing});
   }
 };
@@ -122,7 +122,7 @@
 <p>Retrieves the map of actions.</p>
 <p>Example:</p>
 <pre><code class="lang-javascript"><span class="keyword">var</span> actions = {
-  processThing: <span class="function"><span class="keyword">function</span><span class="params">(thing)</span> {</span>
+  processThing: <span class="function"><span class="keyword">function</span><span class="params">(thing)</span> </span>{
     <span class="keyword">this</span>.dispatch(<span class="string">"PROCESS_THING"</span>, {thing: thing});
   }
 };
@@ -161,15 +161,15 @@ flux.addStores(newStores);
 <pre><code class="lang-javascript"><span class="comment">// The action hash we want to end up with:</span>
 {
   user: {
-    login: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span> ... }
+    login: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{ ... }
   }
 }
 
 <span class="comment">// Path as an array</span>
-flux.addAction([<span class="string">"user"</span>, <span class="string">"login"</span>], <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span> ... });
+flux.addAction([<span class="string">"user"</span>, <span class="string">"login"</span>], <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{ ... });
 
 <span class="comment">// Path as free arguments</span>
-flux.addAction(<span class="string">"user"</span>, <span class="string">"login"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span> ... });
+flux.addAction(<span class="string">"user"</span>, <span class="string">"login"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{ ... });
 </code></pre>
 <p>Fluxxor will automatically create any intermediary objects as necessary, and will intelligently merge the new action into the existing hash, but does not allow overwriting any existing functions.</p>
 <h2 id="-fluxxor-flux-addactions-actions-"><code>Fluxxor.Flux#addActions(actions)</code></h2>
@@ -179,8 +179,8 @@ flux.addAction(<span class="string">"user"</span>, <span class="string">"login"<
 </ul>
 <pre><code class="lang-javascript"><span class="keyword">var</span> newActions = {
   user: {
-    login: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span> ... },
-    logout: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span> ... }
+    login: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{ ... },
+    logout: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{ ... }
   }
 };
 
@@ -190,8 +190,8 @@ flux.addActions(newActions);
 <h2 id="-eventemitter-methods"><code>EventEmitter</code> methods</h2>
 <p><code>Flux</code> instances are also instances of EventEmitters, and thus <a href="http://nodejs.org/api/events.html#events_class_events_eventemitter">inherit all the EventEmitter methods</a>. Most notably, <code>Flux</code> instances dispatch a <code>&quot;dispatch&quot;</code> event with <code>type</code> and <code>payload</code> arguments when <code>this.dispatch</code> is called from an action. This is useful for cross-cutting concerns (like logging), and should not be used for managing the flow of data in a Fluxxor application.</p>
 <p>Example:</p>
-<pre><code class="lang-javascript">flux.on(<span class="string">"dispatch"</span>, <span class="function"><span class="keyword">function</span><span class="params">(type, payload)</span> {</span>
-  console.log(<span class="string">"Dispatched"</span>, type, payload);
+<pre><code class="lang-javascript">flux.on(<span class="string">"dispatch"</span>, <span class="function"><span class="keyword">function</span><span class="params">(type, payload)</span> </span>{
+  <span class="built_in">console</span>.log(<span class="string">"Dispatched"</span>, type, payload);
 }
 </code></pre>
 <p>Note that the action will still be dispatched even if the <code>&quot;dispatch&quot;</code> event handler throws an exception.</p>

@@ -100,8 +100,9 @@
 };
 
 <span class="keyword">var</span> TodoStore = Fluxxor.createStore({
-  initialize: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-    <span class="keyword">this</span>.todos = [];
+  initialize: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
+    <span class="keyword">this</span>.todoId = <span class="number">0</span>;
+    <span class="keyword">this</span>.todos = {};
 
     <span class="keyword">this</span>.bindActions(
       constants.ADD_TODO, <span class="keyword">this</span>.onAddTodo,
@@ -110,41 +111,57 @@
     );
   },
 
-  onAddTodo: <span class="function"><span class="keyword">function</span><span class="params">(payload)</span> {</span>
-    <span class="keyword">this</span>.todos.push({text: payload.text, complete: <span class="literal">false</span>});
+  onAddTodo: <span class="function"><span class="keyword">function</span><span class="params">(payload)</span> </span>{
+    <span class="keyword">var</span> id = <span class="keyword">this</span>._nextTodoId();
+    <span class="keyword">var</span> todo = {
+      id: id,
+      text: payload.text,
+      complete: <span class="literal">false</span>
+    };
+    <span class="keyword">this</span>.todos[id] = todo;
     <span class="keyword">this</span>.emit(<span class="string">"change"</span>);
   },
 
-  onToggleTodo: <span class="function"><span class="keyword">function</span><span class="params">(payload)</span> {</span>
-    payload.todo.complete = !payload.todo.complete;
+  onToggleTodo: <span class="function"><span class="keyword">function</span><span class="params">(payload)</span> </span>{
+    <span class="keyword">var</span> id = payload.id;
+    <span class="keyword">this</span>.todos[id].complete = !<span class="keyword">this</span>.todos[id].complete;
     <span class="keyword">this</span>.emit(<span class="string">"change"</span>);
   },
 
-  onClearTodos: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-    <span class="keyword">this</span>.todos = <span class="keyword">this</span>.todos.filter(<span class="function"><span class="keyword">function</span><span class="params">(todo)</span> {</span>
-      <span class="keyword">return</span> !todo.complete;
+  onClearTodos: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
+    <span class="keyword">var</span> todos = <span class="keyword">this</span>.todos;
+
+    <span class="built_in">Object</span>.keys(todos).forEach(<span class="function"><span class="keyword">function</span><span class="params">(key)</span> </span>{
+      <span class="keyword">if</span>(todos[key].complete) {
+        <span class="keyword">delete</span> todos[key];
+      }
     });
+
     <span class="keyword">this</span>.emit(<span class="string">"change"</span>);
   },
 
-  getState: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  getState: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
     <span class="keyword">return</span> {
       todos: <span class="keyword">this</span>.todos
     };
+  },
+
+  _nextTodoId: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
+    <span class="keyword">return</span> ++<span class="keyword">this</span>.todoId;
   }
 });
 </code></pre>
 <p>Let&#39;s create a few semantic actions to go along with our action types.</p>
 <pre><code class="lang-javascript"><span class="keyword">var</span> actions = {
-  addTodo: <span class="function"><span class="keyword">function</span><span class="params">(text)</span> {</span>
+  addTodo: <span class="function"><span class="keyword">function</span><span class="params">(text)</span> </span>{
     <span class="keyword">this</span>.dispatch(constants.ADD_TODO, {text: text});
   },
 
-  toggleTodo: <span class="function"><span class="keyword">function</span><span class="params">(todo)</span> {</span>
-    <span class="keyword">this</span>.dispatch(constants.TOGGLE_TODO, {todo: todo});
+  toggleTodo: <span class="function"><span class="keyword">function</span><span class="params">(id)</span> </span>{
+    <span class="keyword">this</span>.dispatch(constants.TOGGLE_TODO, {id: id});
   },
 
-  clearTodos: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  clearTodos: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
     <span class="keyword">this</span>.dispatch(constants.CLEAR_TODOS);
   }
 };
@@ -157,9 +174,9 @@
 <span class="keyword">var</span> flux = <span class="keyword">new</span> Fluxxor.Flux(stores, actions);
 </code></pre>
 <p>Finally, let&#39;s use the <code>&quot;dispatch&quot;</code> event to add some logging:</p>
-<pre><code class="lang-javascript">flux.on(<span class="string">"dispatch"</span>, <span class="function"><span class="keyword">function</span><span class="params">(type, payload)</span> {</span>
-  <span class="keyword">if</span> (console &amp;&amp; console.log) {
-    console.log(<span class="string">"[Dispatch]"</span>, type, payload);
+<pre><code class="lang-javascript">flux.on(<span class="string">"dispatch"</span>, <span class="function"><span class="keyword">function</span><span class="params">(type, payload)</span> </span>{
+  <span class="keyword">if</span> (<span class="built_in">console</span> &amp;&amp; <span class="built_in">console</span>.log) {
+    <span class="built_in">console</span>.log(<span class="string">"[Dispatch]"</span>, type, payload);
   }
 });
 </code></pre>
@@ -191,11 +208,12 @@ var Application = React.createClass({
   },
 
   render: function() {
+    var todos = this.state.todos;
     return (
       &lt;div&gt;
         &lt;ul&gt;
-          {this.state.todos.map(function(todo, i) {
-            return &lt;li key={i}&gt;&lt;TodoItem todo={todo} /&gt;&lt;/li&gt;;
+          {Object.keys(todos).map(function(id) {
+            return &lt;li key={id}&gt;&lt;TodoItem todo={todos[id]} /&gt;&lt;/li&gt;;
           })}
         &lt;/ul&gt;
         &lt;form onSubmit={this.onSubmitForm}&gt;
@@ -234,7 +252,7 @@ var Application = React.createClass({
     todo: React.PropTypes.object.isRequired
   },
 
-  render: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  render: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
     <span class="keyword">var</span> style = {
       textDecoration: <span class="keyword">this</span>.props.todo.complete ? <span class="string">"line-through"</span> : <span class="string">""</span>
     };
@@ -242,8 +260,8 @@ var Application = React.createClass({
     <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="title">span</span> <span class="attribute">style</span>=<span class="value">{style}</span> <span class="attribute">onClick</span>=<span class="value">{this.onClick}</span>&gt;</span>{this.props.todo.text}<span class="tag">&lt;/<span class="title">span</span>&gt;</span>;</span>
   },
 
-  onClick: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-    <span class="keyword">this</span>.getFlux().actions.toggleTodo(<span class="keyword">this</span>.props.todo);
+  onClick: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
+    <span class="keyword">this</span>.getFlux().actions.toggleTodo(<span class="keyword">this</span>.props.todo.id);
   }
 });
 </code></pre>

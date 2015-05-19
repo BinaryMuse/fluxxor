@@ -97,11 +97,11 @@
     <span class="tag">&lt;<span class="title">DefaultRoute</span> <span class="attribute">handler</span>=<span class="value">{Dashboard}</span> /&gt;</span>
 
   <span class="tag">&lt;/<span class="title">Route</span>&gt;</span>
-);</span>
+)</span>;
 </code></pre>
 <p>For each component you list as a route handler (<code>App</code>, <code>Inbox</code>, <code>Message</code>, <code>InboxStats</code>, <code>Calendar</code>, and <code>Dashboard</code> in this example), be sure to mix in <a href="/documentation/flux-mixin.html">Fluxxor&#39;s <code>FluxMixin</code></a>.</p>
 <p>Finally, run your router, and when you instantiate your component, pass in <code>flux</code> as a property. Since each defined route handler uses <code>FluxMixin</code>, the flux object will be propagated throughout your application.</p>
-<pre><code class="lang-javascript">Router.run(routes, <span class="function"><span class="keyword">function</span><span class="params">(Handler)</span> {</span>
+<pre><code class="lang-javascript">Router.run(routes, <span class="function"><span class="keyword">function</span><span class="params">(Handler)</span> </span>{
   React.render(<span class="xml"><span class="tag">&lt;<span class="title">Handler</span> <span class="attribute">flux</span>=<span class="value">{flux}</span> /&gt;</span>, document.body);
 });</span>
 </code></pre>

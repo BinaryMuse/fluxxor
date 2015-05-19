@@ -100,14 +100,14 @@
 <h2 id="the-client-api">The Client API</h2>
 <p>Since we&#39;re using a fake asynchronous API, we just have a dumb client object that waits for a couple seconds before &quot;responding.&quot; It has two methods; <code>load</code> returns 10 buzzwords, and <code>submit</code> takes a buzzword and either reports a success or error (to simulate submitting a suggestion to a server).</p>
 <pre><code class="lang-javascript"><span class="keyword">var</span> BuzzwordClient = {
-  load: <span class="function"><span class="keyword">function</span><span class="params">(success, failure)</span> {</span>
-    setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  load: <span class="function"><span class="keyword">function</span><span class="params">(success, failure)</span> </span>{
+    setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
       success(_.range(<span class="number">10</span>).map(Faker.Company.catchPhrase));
     }, <span class="number">1000</span>);
   },
 
-  submit: <span class="function"><span class="keyword">function</span><span class="params">(word, success, failure)</span> {</span>
-    setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  submit: <span class="function"><span class="keyword">function</span><span class="params">(word, success, failure)</span> </span>{
+    setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
       <span class="keyword">if</span> (<span class="built_in">Math</span>.random() &gt; <span class="number">0.5</span>) {
         success(word);
       } <span class="keyword">else</span> {
@@ -132,23 +132,23 @@
 <p>The actions themselves will immediately dispatch the <code>LOAD_BUZZ</code> or <code>ADD_BUZZ</code> action types so that any stores that want to optimisically update the UI can do so. They will then delegate to the <code>BuzzwordClient</code> and dispatch the appropriate success or failure action type depending on how it responds.</p>
 <p>We also generate a temporary client-side ID that we can use to track a specific word across the asynchronous operations, and include it in part of the payload when adding a new buzzword.</p>
 <pre><code class="lang-javascript"><span class="keyword">var</span> actions = {
-  loadBuzz: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  loadBuzz: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
     <span class="keyword">this</span>.dispatch(constants.LOAD_BUZZ);
 
-    BuzzwordClient.load(<span class="function"><span class="keyword">function</span><span class="params">(words)</span> {</span>
+    BuzzwordClient.load(<span class="function"><span class="keyword">function</span><span class="params">(words)</span> </span>{
       <span class="keyword">this</span>.dispatch(constants.LOAD_BUZZ_SUCCESS, {words: words});
-    }.bind(<span class="keyword">this</span>), <span class="function"><span class="keyword">function</span><span class="params">(error)</span> {</span>
+    }.bind(<span class="keyword">this</span>), <span class="function"><span class="keyword">function</span><span class="params">(error)</span> </span>{
       <span class="keyword">this</span>.dispatch(constants.LOAD_BUZZ_FAIL, {error: error});
     }.bind(<span class="keyword">this</span>));
   },
 
-  addBuzz: <span class="function"><span class="keyword">function</span><span class="params">(word)</span> {</span>
+  addBuzz: <span class="function"><span class="keyword">function</span><span class="params">(word)</span> </span>{
     <span class="keyword">var</span> id = _.uniqueId();
     <span class="keyword">this</span>.dispatch(constants.ADD_BUZZ, {id: id, word: word});
 
-    BuzzwordClient.submit(word, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    BuzzwordClient.submit(word, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
       <span class="keyword">this</span>.dispatch(constants.ADD_BUZZ_SUCCESS, {id: id});
-    }.bind(<span class="keyword">this</span>), <span class="function"><span class="keyword">function</span><span class="params">(error)</span> {</span>
+    }.bind(<span class="keyword">this</span>), <span class="function"><span class="keyword">function</span><span class="params">(error)</span> </span>{
       <span class="keyword">this</span>.dispatch(constants.ADD_BUZZ_FAIL, {id: id, error: error});
     }.bind(<span class="keyword">this</span>));
   }

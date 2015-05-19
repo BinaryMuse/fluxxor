@@ -94,14 +94,14 @@
 <pre><code class="lang-javascript"><span class="keyword">var</span> Fluxxor = <span class="built_in">require</span>(<span class="string">"path/to/fluxxor"</span>);
 </code></pre>
 <h3 id="amd">AMD</h3>
-<pre><code class="lang-javascript">define(<span class="string">"someModule"</span>, [<span class="string">"Fluxxor"</span>], <span class="function"><span class="keyword">function</span><span class="params">(Fluxxor)</span> {</span>
+<pre><code class="lang-javascript">define(<span class="string">"someModule"</span>, [<span class="string">"Fluxxor"</span>], <span class="function"><span class="keyword">function</span><span class="params">(Fluxxor)</span> </span>{
   <span class="comment">// ...</span>
 });
 </code></pre>
 <h3 id="standalone">Standalone</h3>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"path/to/fluxxor.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"path/to/fluxxor.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
 </code></pre>
-<pre><code class="lang-javascript">window.Fluxxor.createStore({ ... });
+<pre><code class="lang-javascript"><span class="built_in">window</span>.Fluxxor.createStore({ ... });
 </code></pre>
 <h2 id="third-party-releases">Third-Party Releases</h2>
 <p>The following releases are maintained by third parties, and support inquiries should be directed to their maintainers.</p>
