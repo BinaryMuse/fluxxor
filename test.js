@@ -176,7 +176,7 @@ var MyStore = Store.create({
   }
 });
 
-// Actios
+// Actions
 // ============================================================================
 
 // TODO: It would be nice if a fully realized actionSet could have its dispatch
@@ -245,6 +245,9 @@ actionSet.setDispatchFunction((dispatcher) => {
 });
 
 var actions = actionSet.dispatchTo(dispatcher);
+
+// TODO: will using arrow functions make dynamic binding
+// solutions untenable?
 
 
 
