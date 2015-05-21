@@ -6,6 +6,7 @@
 // NOTES:
 // * Better abstraction around actions and the `flux` object being passed around.
 //   See for example http://stackoverflow.com/questions/27745113/pass-an-instance-of-flux-fluxxor-from-actions-hash-to-a-proxy-object
+//   See also https://github.com/BinaryMuse/fluxxor/issues/119#issuecomment-103612974
 //
 // Main Package
 // ============================================================================
@@ -27,9 +28,9 @@ var dispatcher = new Dispatcher();
 // TODO: options...
 // Behaviors can be Dispatcher.Behaviors.WARN, Dispatcher.Behaviors.THROW, Dispatcher.Behaviors.IGNORE
 // custom behaviors? Should be a function that takes a message and does something.
-// * unhandledActionBehavior - if no callback returns `true`
-// * cascadingDispatchBehavior - if detects cascading dispatches
-// * circularDependencyBehavior - if detects circular waitFor dependencies
+// * unhandledAction - if no store callback returns `true`
+// * cascadingDispatch - if detects cascading dispatches
+// * circularDependency - if detects circular waitFor dependencies
 
 // getting a store ID for `waitFor` - unique per registration per dispatcher
 storeId = dispatcher.register(myStore.callback);
@@ -52,6 +53,12 @@ dispatcher.unregister(storeId);
 // wrapping `this.dispatch` in action creators. Allows for alternative
 // dispatcher implementations when not using action creators.
 // See fluxxor #100
+
+// TODO: give dispatcher a way to specify which extra props to
+// pass to the store callback. Useful for (when using Fluxxor.Flux)
+// providing the `flux` instance, can also provide the `dispatcher`
+// instance by default, or allow the user to specify any number of
+// extra objects (e.g. router?)
 
 class MyCustomStore {
   callback(action, dispatcher) { // TODO: consider first-class dispatch object?? or is that too complex
