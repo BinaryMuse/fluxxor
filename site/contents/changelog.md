@@ -6,6 +6,11 @@ template: page.ejs
 Changelog
 =========
 
+Version 1.6.0
+-------------
+
+* Add `Flux#setDispatchInterceptor` to wrap or replace dispatch functionality (#100, #92)
+
 Version 1.5.4
 -------------
 
