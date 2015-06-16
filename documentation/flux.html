@@ -47,6 +47,7 @@
         <li><a href="/guides/">Guides</a></li>
         <ul>
           <li><a href="/guides/installation.html">Installation</a></li>
+          <li><a href="/guides/react.html">Using with React</a></li>
           <li><a href="/guides/quick-start.html">Quick-Start Guide</a></li>
           <li><a href="/guides/async-data.html">Dealing with Asynchronous Data</a></li>
           <li><a href="/guides/routing.html">Routing</a></li>
@@ -187,6 +188,30 @@ flux.addAction(<span class="string">"user"</span>, <span class="string">"login"<
 flux.addActions(newActions);
 </code></pre>
 <p>Fluxxor will intelligently merge the new actions with the existing actions, but does not allow overwriting any existing functions.</p>
+<h2 id="-fluxxor-flux-setdispatchinterceptor-interceptor-"><code>Fluxxor.Flux#setDispatchInterceptor(interceptor)</code></h2>
+<p>Sets <code>interceptor</code> as the <code>Flux</code> instance&#39;s dispatch interceptor. The dispatch interceptor allows you to surround or replace the action dispatch with custom functionality.</p>
+<ul>
+<li><code>interceptor</code> - A function with the signature <code>function(action, dispatch)</code> where <code>action</code> is the action being dispatched and <code>dispatch</code> is the original (non-intercepted) dispatch function. If a falsy value, resets the dispatch interceptor to the default (no-op) interceptor.</li>
+</ul>
+<p>Sometimes it&#39;s useful to inject custom logic into the normal dispatch flow. <code>setDispatchInterceptor</code> allows you to wrap or replace the original dispatch function with your own logic. The default dispatch interceptor is essentially a no-op:</p>
+<pre><code class="lang-javascript">flux.setDispatchInterceptor(<span class="function"><span class="keyword">function</span><span class="params">(action, dispatch)</span> </span>{
+  dispatch(action);
+});
+</code></pre>
+<p>In particular, it can be very useful to wrap action dispatches in React&#39;s batched updates (if you&#39;re using React). To do so, wrap the dispatch in <code>React.addons.batchedUpdates</code>:</p>
+<pre><code class="lang-javascript">flux.setDispatchInterceptor(<span class="function"><span class="keyword">function</span><span class="params">(action, dispatch)</span> </span>{
+  React.addons.batchedUpdates(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
+    dispatch(action);
+  });
+});
+</code></pre>
+<p>(See the <a href="/guides/react.html">Using with React page</a> for more information on how <code>batchedUpdates</code> can help.)</p>
+<p>You can even bypass the original dispatch function entirely for testing or more exotic implementations:</p>
+<pre><code class="lang-javascript">flux.setDispatchInterceptor(<span class="function"><span class="keyword">function</span><span class="params">(action, dispatch)</span> </span>{
+  <span class="comment">// Ignore the `dispatch` argument and do our own thing with the action, for example:</span>
+  <span class="built_in">window</span>.postMessage({ type: <span class="string">"myCustomThing"</span>, action: action });
+});
+</code></pre>
 <h2 id="-eventemitter-methods"><code>EventEmitter</code> methods</h2>
 <p><code>Flux</code> instances are also instances of EventEmitters, and thus <a href="http://nodejs.org/api/events.html#events_class_events_eventemitter">inherit all the EventEmitter methods</a>. Most notably, <code>Flux</code> instances dispatch a <code>&quot;dispatch&quot;</code> event with <code>type</code> and <code>payload</code> arguments when <code>this.dispatch</code> is called from an action. This is useful for cross-cutting concerns (like logging), and should not be used for managing the flow of data in a Fluxxor application.</p>
 <p>Example:</p>

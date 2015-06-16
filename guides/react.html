@@ -2,7 +2,7 @@
 <html lang="en">
 
 <meta charset="utf-8">
-<title>Fluxxor - FAQ</title>
+<title>Fluxxor - Using with React</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 <meta property="og:image" content="http://fluxxor.com/fluxxor.png">
@@ -83,42 +83,23 @@
     </div>
   </header>
   <section>
-    <h1 id="faq">FAQ</h1>
-<p><strong>Q:</strong> Does Fluxxor require React?</p>
-<p><strong>A:</strong> Fluxxor works great with React, and if you want to use the mixins, you will of course need React, but Fluxxor has no dependency on React itself.</p>
-<hr>
+    <h1 id="using-with-react">Using with React</h1>
+<p>Fluxxor can be used with any JavaScript framework (or no framework at all!), but it&#39;s designed to work well with <a href="http://facebook.github.io/react/">React</a>.</p>
+<h2 id="batched-updates">Batched Updates</h2>
+<p>Starting in React v0.12, React exposes an addon called <code>batchedUpdates</code> that allows you to manually batch React updates when outside of the normal React synthetic event lifecycle. This can be useful to ensure you don&#39;t get cascading dispatch errors with Fluxxor if you dispatch actions from within <code>componentWillMount</code> or <code>componentDidMount</code>.</p>
+<p>As of Fluxxor v1.6.0, there is a new method available you can use to tie Fluxxor action dispatches to the React batched update addon. To use <code>batchedUpdates</code> with Fluxxor, use <code>Flux#setDispatchInterceptor</code> with <code>React.addons.batchedUpdates</code>; for example:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> React = <span class="built_in">require</span>(<span class="string">"react/addons"</span>),
+    Fluxxor = <span class="built_in">require</span>(<span class="string">"fluxxor"</span>);
 
-<p><strong>Q:</strong> Why does <code>Fluxxor.FluxMixin</code> constantly throw an error?</p>
-<p><strong>A:</strong> <code>Fluxxor.FluxMixin</code> is a function that takes React as a parameter and returns the associated mixin:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> FluxMixin = Fluxxor.FluxMixin(React);
-
-React.createClass({
-  mixins: [FluxMixin],
-
-  <span class="comment">// ...</span>
+<span class="keyword">var</span> flux = <span class="keyword">new</span> Fluxxor.Flux(stores, actions);
+flux.setDispatchInterceptor(<span class="function"><span class="keyword">function</span><span class="params">(action, dispatch)</span> </span>{
+  React.addons.batchedUpdates(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
+    dispatch(action);
+  });
 });
 </code></pre>
-<hr>
-
-<p><strong>Q:</strong> How do I deal with asynchronous operations in stores?</p>
-<p><strong>A:</strong> Dispatches to stores are always synchronous, but stores can perform asynchronous operations. At the end of the async call, the store can dispatch a separate action that represents the <em>availability</em> of the asynchronously-obtained data. See <a href="/guides/async-data.html">Dealing with Asynchronous Data</a> for more details.</p>
-<hr>
-
-<p><strong>Q:</strong> Why does dispatching an action while another action is in progress throw an error?</p>
-<p><strong>A:</strong> Fluxxor prevents cascading updates where one action triggers another, and so on. See <a href="/what-is-flux.html">What is Flux</a> and <a href="http://facebook.github.io/react/docs/flux-overview.html">Flux Application Architecture</a> for more information on Flux.</p>
-<hr>
-
-<p><strong>Q:</strong> Why am I getting an error saying that I can&#39;t dispatch an action while another action is being dispatched if I&#39;m dispatching an action from <code>componentWillMount</code> or <code>componentDidMount</code>?</p>
-<p><strong>A:</strong> React automatically batches updates when they&#39;re triggered from inside its synthetic event system (e.g. from an <code>onKeyPress</code> or <code>onClick</code> handler), but otherwise you have to batch them yourself. See the &quot;Batched Updates&quot; section of <a href="/guides/react.html">Using with React</a> page for a solution to this problem.</p>
-<hr>
-
-<p><strong>Q:</strong> Why is Fluxxor throwing an error saying an action is already being dispatched when I&#39;m sending an action from an asynchronous operation?</p>
-<p><strong>A:</strong> Some libraries will sometimes call callbacks on the same tick, for example if data is cached. You can wrap the action dispatch call in a <code>setTimeout</code> to ensure the function is asynchronous. For bonus points, notify the author of the offending library that <a href="http://blog.ometer.com/2011/07/24/callbacks-synchronous-and-asynchronous/">their asynchronous callbacks are sometimes synchronous</a>.</p>
-<hr>
-
-<p><strong>Q:</strong> Why do I see a warning that says &quot;possible EventEmitter memory leak detected&quot;?</p>
-<p><strong>A:</strong> This warning is built in to the Node.js <a href="http://nodejs.org/api/events.html#events_class_events_eventemitter">EventEmitter</a> to help avoid accidentally leaking handlers. If you know you&#39;re not actually leaking and you want to suppress this warning, you can call <a href="http://nodejs.org/api/events.html#events_emitter_setmaxlisteners_n"><code>setMaxListeners(n)</code></a> on your store (you can use a value of <code>0</code> for unlimited).</p>
-<p>As of version 1.4.2, Fluxxor uses <a href="https://github.com/3rd-Eden/EventEmitter3">EventEmitter3</a> instead of the built-in Node.js EventEmitter, which should resolve this issue.</p>
+<h2 id="mixins">Mixins</h2>
+<p>Fluxxor includes a couple mixins to make interop with React easier; check out the documentation on <a href="/documentation/flux-mixin.html">Fluxxor.FluxMixin</a> and <a href="/documentation/store-watch-mixin.html">Fluxxor.StoreWatchMixin</a> for more information.</p>
 
     <hr>
     See a typo? Something still not clear?
