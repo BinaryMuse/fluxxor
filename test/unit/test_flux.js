@@ -45,6 +45,16 @@ describe("Flux", function() {
     expect(flux.getAllStores()).to.eql({store1: store1, store2: store2, store3: store3});
   });
 
+  it("allows removing stores", function() {
+    var store1 = {};
+    var store2 = {};
+    var store3 = {};
+    var flux = new Fluxxor.Flux({store1: store1, store2: store2, store3: store3});
+    flux.removeStore("store2");
+    flux.removeStore("store4");
+    expect(flux.getAllStores()).to.eql({store1: store1, store3: store3});
+  });
+
   it("does not allow duplicate stores", function() {
     var store1 = {};
     var flux = new Fluxxor.Flux();

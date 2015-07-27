@@ -37,6 +37,25 @@ describe("Dispatcher", function() {
     dispatcher.dispatch({type:"action1"});
   });
 
+  it("doesn't dispatch to removed stores", function(done) {
+    var store1dispatch = false;
+    var store2dispatch = false;
+    dispatcher.removeStore("Store2");
+    dispatcher.removeStore("Store3");
+    store1.__handleAction__ = function() {
+      store1dispatch = true;
+      return true;
+    };
+    store2.__handleAction__ = function() {
+      store2dispatch = true;
+      return true;
+    };
+    dispatcher.dispatch({type: "action"});
+    expect(store1dispatch).to.be.true();
+    expect(store2dispatch).to.be.false();
+    done();
+  });
+
   it("allows back-to-back dispatches on the same tick", function() {
     dispatcher.dispatch({type:"action"});
     expect(function() {
