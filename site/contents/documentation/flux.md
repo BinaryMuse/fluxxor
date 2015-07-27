@@ -50,6 +50,12 @@ var flux = new Fluxxor.Flux(stores, actions);
 var myStore = flux.store("MyStore");
 ```
 
+## `Fluxxor.Flux#getAllStores()`
+
+Retrieves all stores. The return value is an object where the keys are the names of the stores and the values are the stores themselves.
+
+**Note:** This is a reference to the underlying stores implementation, and should not be modified.
+
 ## `Fluxxor.Flux#actions`
 
 Retrieves the map of actions.
