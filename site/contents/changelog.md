@@ -6,6 +6,11 @@ template: page.ejs
 Changelog
 =========
 
+Version 1.7.0
+-------------
+
+* Add `Flux#getAllStores()` to retrieve all currently registered stores (#127)
+
 Version 1.6.0
 -------------
 
