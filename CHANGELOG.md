@@ -1,3 +1,8 @@
+Version 1.7.1
+=============
+
+* Relax restrictions on Lodash version (#128)
+
 Version 1.7.0
 =============
 
