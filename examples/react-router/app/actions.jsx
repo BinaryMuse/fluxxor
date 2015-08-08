@@ -2,7 +2,7 @@ var c = {
   RECIPE: {
     ADD: "RECIPE:ADD",
     EDIT: "RECIPE:EDIT",
-    REMOVE: "RECIPE:REMOVE",
+    REMOVE: "RECIPE:REMOVE"
   },
 
   ROUTE: {
