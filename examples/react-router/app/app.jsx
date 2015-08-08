@@ -4,7 +4,7 @@ var React = require("react"),
 
 var actions = require("./actions.jsx"),
     routes = require("./routes.jsx"),
-    RecipeStore = require("./stores/recipe_store.jsx");
+    RecipeStore = require("./stores/recipe_store.jsx"),
     RouteStore = require("./stores/route_store.jsx");
 
 require("./style.less");
