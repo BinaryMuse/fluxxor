@@ -41,6 +41,8 @@ var RecipeStore = Fluxxor.createStore({
     // asynchrony too.
     setTimeout(function() {
       if (!payload.preventTransition) {
+        // See https://github.com/BinaryMuse/fluxxor/pull/95#discussion_r23178351
+        // for the reason for this dispatch from the store.
         this.flux.actions.routes.transition("recipe", {id: recipe.id});
       }
     }.bind(this));
