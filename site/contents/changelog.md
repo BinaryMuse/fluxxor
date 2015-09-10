@@ -6,6 +6,31 @@ template: page.ejs
 Changelog
 =========
 
+Version 1.7.1
+-------------
+
+* Relax restrictions on Lodash version (#128)
+
+Version 1.7.0
+-------------
+
+* Add `Flux#getAllStores()` to retrieve all currently registered stores (#127)
+
+Version 1.6.0
+-------------
+
+* Add `Flux#setDispatchInterceptor` to wrap or replace dispatch functionality (#100, #92)
+
+Version 1.5.4
+-------------
+
+* Fix incompatibility with Lodash 3.9.0
+
+Version 1.5.3
+-------------
+
+* Use built-in inherits instead of npm package (#116)
+
 Version 1.5.2
 -------------
 

@@ -1,6 +1,6 @@
 {
   "name": "fluxxor",
-  "version": "1.5.2",
+  "version": "1.7.1",
   "description": "Flux architecture tools for React",
   "repository": {
     "type": "git",
@@ -24,19 +24,19 @@
     "chai": "^1.9.1",
     "css-loader": "^0.6.12",
     "envify": "^1.2.1",
-    "jsdom": "^0.10.5",
+    "jsdom": "~3.1.2",
     "json-loader": "^0.5.0",
     "jsx-loader": "^0.12.0",
     "jsxhint": "^0.5.0",
     "less": "^1.7.0",
     "less-loader": "^0.7.3",
-    "mocha": "^1.18.2",
-    "react": "^0.12.0",
-    "react-router": "^0.11.6",
+    "mocha": "^2.2.1",
+    "react": "^0.13.0",
+    "react-router": "^0.13.0",
     "sinon": "^1.9.1",
     "sinon-chai": "^2.5.0",
     "style-loader": "^0.6.3",
-    "tcomb-form": "^0.3.0-rc2",
+    "tcomb-form": "^0.4.8",
     "webpack": "^1.1.11",
     "webpack-dev-server": "^1.2.7",
     "wintersmith": "^2.0.10",
@@ -45,8 +45,7 @@
   },
   "dependencies": {
     "eventemitter3": "^0.1.5",
-    "inherits": "^2.0.1",
-    "lodash-node": "^3.0.1",
+    "lodash": "^3.8.0",
     "object-path": "^0.6.0"
   },
   "jshintConfig": {

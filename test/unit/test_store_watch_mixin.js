@@ -10,7 +10,8 @@ describe("StoreWatchMixin", function() {
 
   beforeEach(function() {
 
-    global.window = jsdom.jsdom().createWindow("<html><body></body></html>");
+    var doc = jsdom.jsdom('<html><body></body></html>');
+    global.window = doc.defaultView;
     global.document = window.document;
     global.navigator = window.navigator;
     for (var i in require.cache) {
@@ -122,13 +123,12 @@ describe("StoreWatchMixin", function() {
   });
 
   it("throws when attempting to mix in the function directly", function() {
-    var Comp = React.createFactory(React.createClass({
-      mixins: [Fluxxor.StoreWatchMixin],
-      render: function() { return React.DOM.div(); }
-    }));
     expect(function() {
-      React.renderToString(Comp());
-    }).to.throw(/StoreWatchMixin.*function/);
+      React.createFactory(React.createClass({
+        mixins: [Fluxxor.StoreWatchMixin],
+        render: function() { return React.DOM.div(); }
+      }));
+    }).to.throw(/attempting to use a component class as a mixin/);
   });
 
 });

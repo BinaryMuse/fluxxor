@@ -1,6 +1,10 @@
+sudo: false
 language: node_js
 node_js:
   - 0.10
+  - 0.12
+  - iojs-v1.8.4
+  - iojs-v2.5.0
 notifications:
   webhooks:
     urls:

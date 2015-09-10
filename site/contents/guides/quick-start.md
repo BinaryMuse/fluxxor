@@ -28,7 +28,8 @@ var constants = {
 
 var TodoStore = Fluxxor.createStore({
   initialize: function() {
-    this.todos = [];
+    this.todoId = 0;
+    this.todos = {};
 
     this.bindActions(
       constants.ADD_TODO, this.onAddTodo,
@@ -38,19 +39,31 @@ var TodoStore = Fluxxor.createStore({
   },
 
   onAddTodo: function(payload) {
-    this.todos.push({text: payload.text, complete: false});
+    var id = this._nextTodoId();
+    var todo = {
+      id: id,
+      text: payload.text,
+      complete: false
+    };
+    this.todos[id] = todo;
     this.emit("change");
   },
 
   onToggleTodo: function(payload) {
-    payload.todo.complete = !payload.todo.complete;
+    var id = payload.id;
+    this.todos[id].complete = !this.todos[id].complete;
     this.emit("change");
   },
 
   onClearTodos: function() {
-    this.todos = this.todos.filter(function(todo) {
-      return !todo.complete;
+    var todos = this.todos;
+
+    Object.keys(todos).forEach(function(key) {
+      if(todos[key].complete) {
+        delete todos[key];
+      }
     });
+
     this.emit("change");
   },
 
@@ -58,6 +71,10 @@ var TodoStore = Fluxxor.createStore({
     return {
       todos: this.todos
     };
+  },
+
+  _nextTodoId: function() {
+    return ++this.todoId;
   }
 });
 ```
@@ -70,8 +87,8 @@ var actions = {
     this.dispatch(constants.ADD_TODO, {text: text});
   },
 
-  toggleTodo: function(todo) {
-    this.dispatch(constants.TOGGLE_TODO, {todo: todo});
+  toggleTodo: function(id) {
+    this.dispatch(constants.TOGGLE_TODO, {id: id});
   },
 
   clearTodos: function() {
@@ -134,11 +151,12 @@ var Application = React.createClass({
   },
 
   render: function() {
+    var todos = this.state.todos;
     return (
       <div>
         <ul>
-          {this.state.todos.map(function(todo, i) {
-            return <li key={i}><TodoItem todo={todo} /></li>;
+          {Object.keys(todos).map(function(id) {
+            return <li key={id}><TodoItem todo={todos[id]} /></li>;
           })}
         </ul>
         <form onSubmit={this.onSubmitForm}>
@@ -189,7 +207,7 @@ var TodoItem = React.createClass({
   },
 
   onClick: function() {
-    this.getFlux().actions.toggleTodo(this.props.todo);
+    this.getFlux().actions.toggleTodo(this.props.todo.id);
   }
 });
 ```

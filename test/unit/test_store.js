@@ -3,7 +3,8 @@ var Fluxxor = require("../../");
 var chai = require("chai"),
     expect = chai.expect,
     sinon = require("sinon"),
-    sinonChai = require("sinon-chai");
+    sinonChai = require("sinon-chai"),
+    FunctionChainingError = require('../../lib/function_chaining_error');
 
 chai.use(sinonChai);
 
@@ -233,7 +234,7 @@ describe("Store", function() {
     }
 
     expect(createStore).to.throw(
-      require('../../lib/function_chaining_error'), 
+      FunctionChainingError,
       /You are attempting to define `handleAction`.*/
     );
   });

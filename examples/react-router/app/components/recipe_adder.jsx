@@ -1,23 +1,27 @@
-var React = require("react"),
+var t = require("tcomb-form"),
+    React = require("react"),
     Router = require("react-router"),
     RouteHandler = Router.RouteHandler,
     Link = Router.Link,
-    State = Router.State,
     Fluxxor = require("../../../../");
 
-var RecipeForm = require("../forms/recipe_form.jsx");
+var Recipe = require("../schemas/recipe.jsx"),
+    RecipeForm = require("../forms/recipe_form.jsx");
 
 var RecipeAdder = React.createClass({
   mixins: [
-    Fluxxor.FluxMixin(React),
-    State
+    Fluxxor.FluxMixin(React)
   ],
+
+  contextTypes: {
+    router: React.PropTypes.func
+  },
 
   render: function() {
     return this.renderWithLayout(
       <div>
         <form onSubmit={this.onSubmit}>
-          <RecipeForm ref="form" />
+          <t.form.Form ref="form" type={Recipe} options={RecipeForm} />
           <input type="submit" value="Save" />
         </form>
       </div>

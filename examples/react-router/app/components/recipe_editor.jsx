@@ -1,24 +1,26 @@
-var React = require("react"),
+var t = require("tcomb-form"),
+    React = require("react"),
     Router = require("react-router"),
     RouteHandler = Router.RouteHandler,
     Link = Router.Link,
-    Navigation = Router.Navigation,
-    State = Router.State,
     Fluxxor = require("../../../../");
 
-var RecipeForm = require("../forms/recipe_form.jsx"),
+var Recipe = require("../schemas/recipe.jsx"),
+    RecipeForm = require("../forms/recipe_form.jsx"),
     RecipeStore = require("../stores/recipe_store.jsx");
 
 var RecipeEditor = React.createClass({
   mixins: [
     Fluxxor.FluxMixin(React),
-    Fluxxor.StoreWatchMixin("recipe"),
-    State,
-    Navigation
+    Fluxxor.StoreWatchMixin("recipe")
   ],
 
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+
   getStateFromFlux: function() {
-    var params = this.getParams();
+    var params = this.context.router.getCurrentParams();
 
     return {
       recipe: this.getFlux().store("recipe").getRecipe(params.id)
@@ -39,7 +41,7 @@ var RecipeEditor = React.createClass({
     return this.renderWithLayout(
       <div>
         <form onSubmit={this.onSubmit}>
-          <RecipeForm ref="form" value={recipe} />
+          <t.form.Form ref="form" type={Recipe} value={recipe} options={RecipeForm} />
           <input type="submit" value="Save" />
         </form>
 
@@ -80,7 +82,7 @@ var RecipeEditor = React.createClass({
         newRecipe.directions
       );
 
-      this.transitionTo("recipe", {id: this.state.recipe.id});
+      this.context.router.transitionTo("recipe", {id: this.state.recipe.id});
     }
   },
 

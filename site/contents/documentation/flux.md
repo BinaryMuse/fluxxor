@@ -50,6 +50,12 @@ var flux = new Fluxxor.Flux(stores, actions);
 var myStore = flux.store("MyStore");
 ```
 
+## `Fluxxor.Flux#getAllStores()`
+
+Retrieves all stores. The return value is an object where the keys are the names of the stores and the values are the stores themselves.
+
+**Note:** This is a reference to the underlying stores implementation, and should not be modified.
+
 ## `Fluxxor.Flux#actions`
 
 Retrieves the map of actions.
@@ -138,6 +144,41 @@ flux.addActions(newActions);
 ```
 
 Fluxxor will intelligently merge the new actions with the existing actions, but does not allow overwriting any existing functions.
+
+## `Fluxxor.Flux#setDispatchInterceptor(interceptor)`
+
+Sets `interceptor` as the `Flux` instance's dispatch interceptor. The dispatch interceptor allows you to surround or replace the action dispatch with custom functionality.
+
+* `interceptor` - A function with the signature `function(action, dispatch)` where `action` is the action being dispatched and `dispatch` is the original (non-intercepted) dispatch function. If a falsy value, resets the dispatch interceptor to the default (no-op) interceptor.
+
+Sometimes it's useful to inject custom logic into the normal dispatch flow. `setDispatchInterceptor` allows you to wrap or replace the original dispatch function with your own logic. The default dispatch interceptor is essentially a no-op:
+
+```javascript
+flux.setDispatchInterceptor(function(action, dispatch) {
+  dispatch(action);
+});
+```
+
+In particular, it can be very useful to wrap action dispatches in React's batched updates (if you're using React). To do so, wrap the dispatch in `React.addons.batchedUpdates`:
+
+```javascript
+flux.setDispatchInterceptor(function(action, dispatch) {
+  React.addons.batchedUpdates(function() {
+    dispatch(action);
+  });
+});
+```
+
+(See the [Using with React page](/guides/react.html) for more information on how `batchedUpdates` can help.)
+
+You can even bypass the original dispatch function entirely for testing or more exotic implementations:
+
+```javascript
+flux.setDispatchInterceptor(function(action, dispatch) {
+  // Ignore the `dispatch` argument and do our own thing with the action, for example:
+  window.postMessage({ type: "myCustomThing", action: action });
+});
+```
 
 ## `EventEmitter` methods
 
