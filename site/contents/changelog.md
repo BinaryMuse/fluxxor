@@ -6,6 +6,11 @@ template: page.ejs
 Changelog
 =========
 
+Version 1.7.2
+-------------
+
+* Update `StoreWatchMixin` to support ES6 classes (#135)
+
 Version 1.7.1
 -------------
 
