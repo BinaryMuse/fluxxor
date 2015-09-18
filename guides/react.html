@@ -92,8 +92,8 @@
     Fluxxor = <span class="built_in">require</span>(<span class="string">"fluxxor"</span>);
 
 <span class="keyword">var</span> flux = <span class="keyword">new</span> Fluxxor.Flux(stores, actions);
-flux.setDispatchInterceptor(<span class="function"><span class="keyword">function</span><span class="params">(action, dispatch)</span> </span>{
-  React.addons.batchedUpdates(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
+flux.setDispatchInterceptor(<span class="function"><span class="keyword">function</span>(<span class="params">action, dispatch</span>) </span>{
+  React.addons.batchedUpdates(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
     dispatch(action);
   });
 });

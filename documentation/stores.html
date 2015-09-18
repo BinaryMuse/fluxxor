@@ -107,7 +107,7 @@
     <span class="string">"ACTION_TYPE"</span>: <span class="string">"handleActionType"</span>
   },
 
-  initialize: <span class="function"><span class="keyword">function</span><span class="params">(options)</span> </span>{
+  initialize: <span class="function"><span class="keyword">function</span>(<span class="params">options</span>) </span>{
     <span class="keyword">this</span>.value = options.value;
 
     <span class="comment">// We could also use this in place of the `actions` hash, above:</span>
@@ -116,7 +116,7 @@
     );
   },
 
-  handleActionType: <span class="function"><span class="keyword">function</span><span class="params">(payload, type)</span> </span>{
+  handleActionType: <span class="function"><span class="keyword">function</span>(<span class="params">payload, type</span>) </span>{
     <span class="comment">// ...</span>
   }
 });
@@ -140,7 +140,7 @@
     OTHER_ACTION_TYPE = <span class="string">"ACTION_TYPE_2"</span>;
 
 <span class="keyword">var</span> MyStore = Fluxxor.createStore({
-  initialize: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
+  initialize: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
     <span class="keyword">this</span>.bindActions(
       ACTION_TYPE, <span class="keyword">this</span>.handleActionType,
       OTHER_ACTION_TYPE, <span class="string">"handleOtherActionType"</span>
@@ -154,11 +154,11 @@
     });
   },
 
-  handleActionType: <span class="function"><span class="keyword">function</span><span class="params">(payload, type)</span> </span>{
+  handleActionType: <span class="function"><span class="keyword">function</span>(<span class="params">payload, type</span>) </span>{
     <span class="comment">// ...</span>
   },
 
-  handleOtherActionType: <span class="function"><span class="keyword">function</span><span class="params">(payload, type)</span> </span>{
+  handleOtherActionType: <span class="function"><span class="keyword">function</span>(<span class="params">payload, type</span>) </span>{
     <span class="comment">// ...</span>
   }
 });
@@ -176,8 +176,8 @@
     <span class="string">"ACTION_TYPE"</span>: <span class="string">"actionHandler"</span>
   },
 
-  actionHandler: <span class="function"><span class="keyword">function</span><span class="params">(payload, type)</span> </span>{
-    <span class="keyword">this</span>.waitFor([<span class="string">"otherStore"</span>, <span class="string">"anotherStore"</span>], <span class="function"><span class="keyword">function</span><span class="params">(other, another)</span> </span>{
+  actionHandler: <span class="function"><span class="keyword">function</span>(<span class="params">payload, type</span>) </span>{
+    <span class="keyword">this</span>.waitFor([<span class="string">"otherStore"</span>, <span class="string">"anotherStore"</span>], <span class="function"><span class="keyword">function</span>(<span class="params">other, another</span>) </span>{
       <span class="comment">// ...</span>
     });
   }
@@ -191,7 +191,7 @@
 <pre><code class="lang-javascript"><span class="keyword">var</span> MyStore = Fluxxor.createStore({
   <span class="comment">// ...</span>
 
-  actionHandler: <span class="function"><span class="keyword">function</span><span class="params">(payload, type)</span> </span>{
+  actionHandler: <span class="function"><span class="keyword">function</span>(<span class="params">payload, type</span>) </span>{
     <span class="comment">// some update to the store's data here</span>
     <span class="keyword">this</span>.emit(<span class="string">"change"</span>);
   }
@@ -199,7 +199,7 @@
 
 <span class="keyword">var</span> myStore = <span class="keyword">new</span> MyStore();
 
-myStore.on(<span class="string">"change"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
+myStore.on(<span class="string">"change"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
   <span class="comment">// the store has updated its data</span>
 });
 </code></pre>

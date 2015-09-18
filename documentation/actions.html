@@ -90,7 +90,7 @@
 </code></pre>
 <p>By using the <code>actions</code> hash, it would look more like this:</p>
 <pre><code class="lang-javascript"><span class="keyword">var</span> actions = {
-  addUrl: <span class="function"><span class="keyword">function</span><span class="params">(url, index)</span> </span>{
+  addUrl: <span class="function"><span class="keyword">function</span>(<span class="params">url, index</span>) </span>{
     <span class="keyword">this</span>.dispatch(<span class="string">"ADD_URL"</span>, {url: url, index: index});
   }
 };
@@ -104,7 +104,7 @@ flux.actions.addUrl(<span class="string">"http://google.com"</span>, <span class
 <h2 id="accessing-the-flux-instance">Accessing the Flux Instance</h2>
 <p>The <a href="/documentation/flux.html">Flux</a> instance the action generators are bound to is available via <code>this.flux</code> from inside the functions.</p>
 <pre><code class="lang-javascript"><span class="keyword">var</span> actions = {
-  addUrl: <span class="function"><span class="keyword">function</span><span class="params">(url)</span> </span>{
+  addUrl: <span class="function"><span class="keyword">function</span>(<span class="params">url</span>) </span>{
     <span class="keyword">var</span> someData = <span class="keyword">this</span>.flux.store(<span class="string">"someStore"</span>).getData();
     <span class="keyword">this</span>.dispatch(<span class="string">"ADD_URL"</span>, {url: url, additionalData: someData});
   }
@@ -120,12 +120,12 @@ flux.actions.addUrl(<span class="string">"http://google.com"</span>, <span class
 <p>Fluxxor will iterate over objects in your actions definition, allowing for namespaced actions:</p>
 <pre><code class="lang-javascript"><span class="keyword">var</span> actions = {
   user: {
-    login: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{ <span class="keyword">this</span>.dispatch(...); },
-    logout: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{ <span class="keyword">this</span>.dispatch(...); }
+    login: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{ <span class="keyword">this</span>.dispatch(...); },
+    logout: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{ <span class="keyword">this</span>.dispatch(...); }
   },
   post: {
-    add: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{ <span class="keyword">this</span>.dispatch(...); },
-    remove: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{ <span class="keyword">this</span>.dispatch(...); }
+    add: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{ <span class="keyword">this</span>.dispatch(...); },
+    remove: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{ <span class="keyword">this</span>.dispatch(...); }
   }
 };
 
@@ -143,7 +143,7 @@ flux.actions.user.login(...);
 
   <span class="comment">// ...</span>
 
-  handleAddUrl: <span class="function"><span class="keyword">function</span><span class="params">(payload, type)</span> </span>{
+  handleAddUrl: <span class="function"><span class="keyword">function</span>(<span class="params">payload, type</span>) </span>{
     <span class="keyword">this</span>.urls.splice(payload.index, <span class="number">0</span>, payload.url);
     <span class="keyword">this</span>.emit(<span class="string">"change"</span>);
   }

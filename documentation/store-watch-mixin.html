@@ -118,7 +118,7 @@
 <span class="keyword">var</span> MyComponent = React.createClass({
   mixins: [FluxMixin, StoreWatchMixin(<span class="string">"MyStore"</span>, <span class="string">"OtherStore"</span>)],
 
-  getStateFromFlux: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
+  getStateFromFlux: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
     <span class="keyword">var</span> flux = <span class="keyword">this</span>.getFlux();
     <span class="keyword">return</span> {
       stateFromMyStore: flux.store(<span class="string">"MyStore"</span>).getSomeData(),
@@ -126,7 +126,7 @@
     };
   },
 
-  render: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
+  render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
     <span class="comment">// ...</span>
   }
 });
