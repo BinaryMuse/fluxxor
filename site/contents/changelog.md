@@ -6,6 +6,11 @@ template: page.ejs
 Changelog
 =========
 
+Version 1.7.3
+-------------
+
+* Fix `bind` warning when using StoreWatchMixin with createClass (#140)
+
 Version 1.7.2
 -------------
 
