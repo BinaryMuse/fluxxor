@@ -7,7 +7,7 @@ var Recipe = require("./components/recipe.jsx"),
     RecipeEditor = require("./components/recipe_editor.jsx"),
     RecipeAdder = require("./components/recipe_adder.jsx"),
     RecipeList = require("./components/recipe_list.jsx"),
-    EmptyView = require("./components/empty_view.jsx");`
+    EmptyView = require("./components/empty_view.jsx");
 
 var routes = (
   <Route component={EmptyView} path="/">
