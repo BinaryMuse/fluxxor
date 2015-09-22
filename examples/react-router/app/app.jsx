@@ -1,5 +1,5 @@
 var React = require("react"),
-    Router = require("react-router"),
+    ReactRouter = require("react-router"),
     Fluxxor = require("../../../");
 
 var actions = require("./actions.jsx"),
@@ -9,11 +9,11 @@ var actions = require("./actions.jsx"),
 
 require("./style.less");
 
-var router = Router.create({routes: routes});
+var Router = ReactRouter.Router;
 
 var stores = {
   recipe: new RecipeStore(),
-  route: new RouteStore({router: router})
+  route: new RouteStore()
 };
 
 var flux = new Fluxxor.Flux(stores, actions.methods);
@@ -36,9 +36,14 @@ flux.actions.recipes.add(
   true
 );
 
-router.run(function(Handler) {
-  React.render(
-    <Handler flux={flux} />,
+var createElement = function(Component, props) {
+    return <Component {...props} flux={flux} />
+};
+
+var createBrowserHistory = require('history/lib/createBrowserHistory');
+var history = createBrowserHistory();
+
+React.render(
+    <Router createElement={createElement} history={history} routes={routes} />,
     document.getElementById("app")
-  );
-});
+);

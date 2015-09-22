@@ -1,8 +1,13 @@
 var Fluxxor = require("../../../../");
+var ReactRouter = require("react-router");
 
 var actions = require("../actions.jsx");
 
+var History = ReactRouter.History;
+
 var RouteStore = Fluxxor.createStore({
+  mixins: [History],
+
   initialize: function(options) {
     this.router = options.router;
 
@@ -15,7 +20,7 @@ var RouteStore = Fluxxor.createStore({
     var path = payload.path,
         params = payload.params;
 
-    this.router.transitionTo(path, params);
+    this.history.pushState(null, path, params);
   }
 });
 

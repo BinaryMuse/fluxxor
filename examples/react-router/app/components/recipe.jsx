@@ -1,6 +1,6 @@
 var React = require("react"),
-    Router = require("react-router"),
-    Link = Router.Link,
+    ReactRouter = require("react-router"),
+    Link = ReactRouter.Link,
     Fluxxor = require("../../../../");
 
 var RecipeStore = require("../stores/recipe_store.jsx");
@@ -8,7 +8,8 @@ var RecipeStore = require("../stores/recipe_store.jsx");
 var Recipe = React.createClass({
   mixins: [
     Fluxxor.FluxMixin(React),
-    Fluxxor.StoreWatchMixin("recipe")
+    Fluxxor.StoreWatchMixin("recipe"),
+    ReactRouter.State
   ],
 
   contextTypes: {
@@ -16,7 +17,7 @@ var Recipe = React.createClass({
   },
 
   getStateFromFlux: function() {
-    var params = this.context.router.getCurrentParams();
+    var params = this.props.params;
 
     return {
       recipe: this.getFlux().store("recipe").getRecipe(params.id)
@@ -47,8 +48,8 @@ var Recipe = React.createClass({
         <p dangerouslySetInnerHTML={{__html: directions}} />
 
         <p>
-          <Link to="edit-recipe" params={{id: recipe.id}}>Edit Recipe</Link>
-          {" | "}<Link to="home" onClick={this.deleteRecipe}>Delete Recipe</Link>
+          <Link to={"/recipe/" + recipe.id + "/edit"}>Edit Recipe</Link>
+          {" | "}<Link to="/" onClick={this.deleteRecipe}>Delete Recipe</Link>
         </p>
       </div>
     );
@@ -73,8 +74,8 @@ var Recipe = React.createClass({
       <div>
         {content}
         <hr />
-        <Link to="home">Home</Link>
-        {" | "}<Link to="add-recipe">Add New Recipe</Link>
+        <Link to="/">Home</Link>
+        {" | "}<Link to="/recipe/add">Add New Recipe</Link>
       </div>
     );
   },

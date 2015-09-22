@@ -4,6 +4,7 @@ module.exports = {
   cache: true,
   entry: "./app/app.jsx",
   output: {
+    publicPath: "/",
     path: __dirname + "/app",
     filename: "bundle.js"
   },

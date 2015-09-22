@@ -1,9 +1,8 @@
 var React = require("react"),
-    Router = require("react-router"),
-    RouteHandler = Router.RouteHandler;
+    ReactRouter = require("react-router");
 
 module.exports = React.createClass({
-  render: function() {
-    return <RouteHandler {...this.props} />;
-  }
+    render: function() {
+        return <div>{this.props.children}</div>;
+    }
 });

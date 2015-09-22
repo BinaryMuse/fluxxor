@@ -1,8 +1,7 @@
 var t = require("tcomb-form"),
     React = require("react"),
-    Router = require("react-router"),
-    RouteHandler = Router.RouteHandler,
-    Link = Router.Link,
+    ReactRouter = require("react-router"),
+    Link = ReactRouter.Link,
     Fluxxor = require("../../../../");
 
 var Recipe = require("../schemas/recipe.jsx"),
@@ -12,7 +11,8 @@ var Recipe = require("../schemas/recipe.jsx"),
 var RecipeEditor = React.createClass({
   mixins: [
     Fluxxor.FluxMixin(React),
-    Fluxxor.StoreWatchMixin("recipe")
+    Fluxxor.StoreWatchMixin("recipe"),
+    ReactRouter.State
   ],
 
   contextTypes: {
@@ -20,7 +20,7 @@ var RecipeEditor = React.createClass({
   },
 
   getStateFromFlux: function() {
-    var params = this.context.router.getCurrentParams();
+    var params = this.props.params;
 
     return {
       recipe: this.getFlux().store("recipe").getRecipe(params.id)
@@ -46,7 +46,7 @@ var RecipeEditor = React.createClass({
         </form>
 
         <p>
-          <Link to="home" onClick={this.deleteRecipe}>Delete Recipe</Link>
+          <Link to="/" onClick={this.deleteRecipe}>Delete Recipe</Link>
         </p>
       </div>
     );
@@ -63,8 +63,8 @@ var RecipeEditor = React.createClass({
       <div>
         {content}
         <hr />
-        <Link to="home">Home</Link>
-        {" | "}<Link to="add-recipe">Add New Recipe</Link>
+        <Link to="/">Home</Link>
+        {" | "}<Link to="/recipe/add">Add New Recipe</Link>
       </div>
     );
   },
