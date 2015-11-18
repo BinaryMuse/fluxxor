@@ -248,7 +248,7 @@ describe("Flux", function() {
     var ctx = flux.exportFluxxorContextAsScript();
 
     expect(spy).to.have.been.calledWith({ prop: 'test' });
-    expect(ctx).to.equal('window.FluxxorContext=\'{"Store1":{"prop":"test"}}\'');
+    expect(ctx).to.equal('window.FluxxorContext=\'{\\"Store1\\":{\\"prop\\":\\"test\\"}}\'');
   });
 
   it("rehidrate stores", function() {
