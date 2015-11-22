@@ -18,7 +18,7 @@
     "react",
     "flux"
   ],
-  "author": "Brandon Tilley <brandon@brandontilley.com>",
+  "author": "Michelle Tilley <michelle@michelletilley.net>",
   "license": "MIT",
   "devDependencies": {
     "chai": "^1.9.1",
