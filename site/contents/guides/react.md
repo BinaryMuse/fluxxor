@@ -16,12 +16,13 @@ Starting in React v0.12, React exposes an addon called `batchedUpdates` that all
 As of Fluxxor v1.6.0, there is a new method available you can use to tie Fluxxor action dispatches to the React batched update addon. To use `batchedUpdates` with Fluxxor, use `Flux#setDispatchInterceptor` with `React.addons.batchedUpdates`; for example:
 
 ```javascript
-var React = require("react/addons"),
+var React = require("react-dom"),
+    ReactDOM = require("")
     Fluxxor = require("fluxxor");
 
 var flux = new Fluxxor.Flux(stores, actions);
 flux.setDispatchInterceptor(function(action, dispatch) {
-  React.addons.batchedUpdates(function() {
+  ReactDOM.unstable_batchedUpdates(function() {
     dispatch(action);
   });
 });
