@@ -201,14 +201,14 @@ flux.addActions(newActions);
   dispatch(action);
 });
 </code></pre>
-<p>In particular, it can be very useful to wrap action dispatches in React&#39;s batched updates (if you&#39;re using React). To do so, wrap the dispatch in <code>React.addons.batchedUpdates</code>:</p>
+<p>In particular, it can be very useful to wrap action dispatches in React&#39;s batched updates (if you&#39;re using React). To do so, wrap the dispatch in <code>ReactDOM.unstable_batchedUpdates</code> (which was <code>React.addons.batchedUpdates</code> before React v0.14):</p>
 <pre><code class="lang-javascript">flux.setDispatchInterceptor(<span class="function"><span class="keyword">function</span>(<span class="params">action, dispatch</span>) </span>{
-  React.addons.batchedUpdates(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  ReactDOM.unstable_batchedUpdates(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
     dispatch(action);
   });
 });
 </code></pre>
-<p>(See the <a href="/guides/react.html">Using with React page</a> for more information on how <code>batchedUpdates</code> can help.)</p>
+<p>(See the <a href="/guides/react.html">Using with React page</a> for more information on how <code>unstable_batchedUpdates</code> can help.)</p>
 <p>You can even bypass the original dispatch function entirely for testing or more exotic implementations:</p>
 <pre><code class="lang-javascript">flux.setDispatchInterceptor(<span class="function"><span class="keyword">function</span>(<span class="params">action, dispatch</span>) </span>{
   <span class="comment">// Ignore the `dispatch` argument and do our own thing with the action, for example:</span>
