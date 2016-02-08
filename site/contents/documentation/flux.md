@@ -159,17 +159,17 @@ flux.setDispatchInterceptor(function(action, dispatch) {
 });
 ```
 
-In particular, it can be very useful to wrap action dispatches in React's batched updates (if you're using React). To do so, wrap the dispatch in `React.addons.batchedUpdates`:
+In particular, it can be very useful to wrap action dispatches in React's batched updates (if you're using React). To do so, wrap the dispatch in `ReactDOM.unstable_batchedUpdates` (which was `React.addons.batchedUpdates` before React v0.14):
 
 ```javascript
 flux.setDispatchInterceptor(function(action, dispatch) {
-  React.addons.batchedUpdates(function() {
+  ReactDOM.unstable_batchedUpdates(function() {
     dispatch(action);
   });
 });
 ```
 
-(See the [Using with React page](/guides/react.html) for more information on how `batchedUpdates` can help.)
+(See the [Using with React page](/guides/react.html) for more information on how `unstable_batchedUpdates` can help.)
 
 You can even bypass the original dispatch function entirely for testing or more exotic implementations:
 
