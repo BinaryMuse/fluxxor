@@ -229,6 +229,54 @@ describe("Flux", function() {
     }).to.throw(/last argument.*function/);
   });
 
+  it("exports the correct hidratated data", function() {
+    var spy = sinon.spy();
+
+    var Store1 = Fluxxor.createStore({
+      initialize: function() {
+        this.prop = 'test';
+      },
+      dehydrate: function() {
+        var data = { prop: this.prop };
+        spy(data);
+        return data;
+      }
+    });
+
+    var stores = {Store1: new Store1(), Store2: {}};
+    var flux = new Fluxxor.Flux(stores, {});
+    var ctx = flux.exportFluxxorContextAsScript();
+
+    expect(spy).to.have.been.calledWith({ prop: 'test' });
+    expect(ctx).to.equal('window.FluxxorContext=\'{\\"Store1\\":{\\"prop\\":\\"test\\"}}\'');
+  });
+
+  it("rehidrate stores", function() {
+    var spy = sinon.spy();
+
+    var Store1 = Fluxxor.createStore({
+      initialize: function() {
+        this.prop = undefined;
+      },
+      rehydrate: function(store) {
+        spy(store);
+        this.prop = store.prop;
+      }
+    });
+
+    function stubbedImportFluxxorContextAsScript() {
+      return {Store1: {prop: "test"}};
+    }
+
+    sinon.stub(Fluxxor.Flux.prototype, "importFluxxorContextAsScript", stubbedImportFluxxorContextAsScript);
+
+    var stores = { Store1: new Store1() };
+    var flux = new Fluxxor.Flux(stores, {});
+
+    expect(spy).to.have.been.calledWith({ prop: 'test' });
+    expect(flux.stores.Store1.prop).to.equal('test');
+  });
+
   describe("emitting dispatching", function() {
     beforeEach(function() {
       sinon.stub(console, "warn");
