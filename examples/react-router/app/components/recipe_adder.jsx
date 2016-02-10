@@ -1,8 +1,7 @@
 var t = require("tcomb-form"),
     React = require("react"),
-    Router = require("react-router"),
-    RouteHandler = Router.RouteHandler,
-    Link = Router.Link,
+    ReactRouter = require("react-router"),
+    Link = ReactRouter.Link,
     Fluxxor = require("../../../../");
 
 var Recipe = require("../schemas/recipe.jsx"),
@@ -33,8 +32,8 @@ var RecipeAdder = React.createClass({
       <div>
         {content}
         <hr />
-        <Link to="home">Home</Link>
-        {" | "}<Link to="add-recipe">Add New Recipe</Link>
+        <Link to="/">Home</Link>
+        {" | "}<Link to="/recipe/add">Add New Recipe</Link>
       </div>
     );
   },

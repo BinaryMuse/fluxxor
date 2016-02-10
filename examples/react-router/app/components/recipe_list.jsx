@@ -1,7 +1,6 @@
 var React = require("react"),
-    Router = require("react-router"),
-    RouteHandler = Router.RouteHandler,
-    Link = Router.Link,
+    ReactRouter = require("react-router"),
+    Link = ReactRouter.Link,
     Fluxxor = require("../../../../");
 
 var RecipeList = React.createClass({
@@ -19,7 +18,7 @@ var RecipeList = React.createClass({
         <h1>Recipes</h1>
         <ul>{this.state.recipes.map(this.renderRecipeLink)}</ul>
         <div>
-          <Link to="add-recipe">Add New Recipe</Link>
+          <Link to="/recipe/add">Add New Recipe</Link>
         </div>
       </div>
     );
@@ -28,7 +27,7 @@ var RecipeList = React.createClass({
   renderRecipeLink: function(recipe) {
     return (
       <li key={recipe.id}>
-        <Link to="recipe" params={{id: recipe.id}}>{recipe.name}</Link>
+        <Link to={"/recipe/" + recipe.id}>{recipe.name}</Link>
       </li>
     );
   }
