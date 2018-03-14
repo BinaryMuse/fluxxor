@@ -5,6 +5,7 @@ var Dispatcher = require("./lib/dispatcher"),
     StoreWatchMixin = require("./lib/store_watch_mixin"),
     createStore = require("./lib/create_store");
 
+
 var Fluxxor = {
   Dispatcher: Dispatcher,
   Flux: Flux,
