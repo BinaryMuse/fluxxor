@@ -46,7 +46,7 @@
   "dependencies": {
     "eventemitter3": "^0.1.5",
     "lodash": "^3.8.0",
-    "object-path": "^0.6.0"
+    "object-path": "^0.11.5"
   },
   "jshintConfig": {
     "camelcase": true,
